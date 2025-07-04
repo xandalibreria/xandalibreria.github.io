@@ -1,0 +1,22 @@
+{
+    "interfaces": [
+        {
+            "nombre": "Básico",
+            "descripcion": "Interfaz que define las propiedades de un usuario en el sistema.",
+            "imagen": "/assets/images/portadas/basico.png",
+            "archivo": "../../proyectos/basico.zip"
+        },
+        {
+            "nombre": "Formularios",
+            "descripcion": "Interfaz que define las propiedades de un usuario en el sistema.",
+            "imagen": "/assets/images/portadas/formulario.png",
+            "archivo": "../../proyectos/formulario.zip"
+        },
+        {
+            "nombre": "Encabezados",
+            "descripcion": "Interfaz que define las propiedades de un usuario en el sistema.",
+            "imagen": "/assets/images/portadas/formulario.png",
+            "archivo": "../../proyectos/formulario.zip"
+        }
+    ]
+}
