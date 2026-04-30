@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Proyecto Web</title>
+</head>
+<body>
+  <h1>Generador de Archivos Web</h1>
+  <button id="generarZip">Generar ZIP</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+  <script>
+    document.getElementById('generarZip').addEventListener('click', async () => {
+      const zip = new JSZip();
+
+      // Carpetas principales
+      const carpetas = ["assets", "pages", "docs", "config"];
+      carpetas.forEach(carpeta => zip.folder(carpeta));
+
+      // Subcarpetas de assets
+      const assets = zip.folder("assets");
+      const subcarpetasAssets = ["images", "json", "styles", "scripts", "fonts"];
+      subcarpetasAssets.forEach(sub => assets.folder(sub));
+
+      // Archivos raíz
+      zip.file("index.html", `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index</title>
+  ... (contenido HTML como el que compartiste)
+</head>
+<body>
+  <header></header>
+  <main></main>
+  <footer></footer>
+  <script src="assets/scripts/main.js"></script>
+</body>
+</html>`);
+
+      zip.file("styles.css", `p, h2, h2, h3, a, img{
+  margin: 0px;
+  padding: 0px;
+}`);
+
+      zip.file("manifest.json", `{
+  "name": "Proyecto Web",
+  "short_name": "Proyecto",
+  "description": "Descripción del proyecto",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}`);
+
+      zip.file("licence.txt", `Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License\n\n...`);
+
+      zip.file("robots.txt", `User-agent: *\nDisallow: /admin/\nAllow: /`);
+
+      zip.file("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>index.html</loc>\n    <lastmod>2025-01-17</lastmod>\n    <priority>1.0</priority>\n  </url>\n</urlset>`);
+
+      // Archivos en assets/styles y scripts
+      assets.folder("styles").file("main.css", `body {\n  font-family: Arial, sans-serif;\n}`);
+
+      assets.folder("scripts").file("main.js", `// JS contenido principal como el que compartiste\nconsole.log('Script generado');`);
+
+      // Generar y descargar ZIP
+      const contenido = await zip.generateAsync({ type: "blob" });
+      const enlace = document.createElement("a");
+      enlace.href = URL.createObjectURL(contenido);
+      enlace.download = "proyecto_web.zip";
+      enlace.click();
+    });
+  </script>
+</body>
+</html>

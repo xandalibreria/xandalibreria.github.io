@@ -1,0 +1,30 @@
+/*@view-transition{
+  navigation: auto;
+}
+::view-transition-group(*){
+  animation-duration: 0.25s;
+}
+::view-transition-old(root){
+  animation: hola 0.5s forwards;
+}
+::view-transition-new(root){
+  animation: hola-2 0.5s forwards;
+}*/
+@keyframes hola{
+  from{
+    transform: translateX(0px);
+  }
+
+  to{
+    transform: translateX(-100%);
+  }
+}
+@keyframes hola-2{
+  from{
+    transform: translateX(100%);
+  }
+
+  to{
+    transform: translateX(0px);
+  }
+}

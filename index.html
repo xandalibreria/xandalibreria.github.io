@@ -29,34 +29,34 @@
     <meta property="og:description" content="Descripcion">
     <meta property="og:locale" content="es_MX">
     <meta property="og:site_name" content="Mundo Ejecutivo Suscripciones">
-    <meta property="og:image" content="assets/images/">
+    <meta property="og:image" content="/src/assets/images/">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Titulo">
     <meta name="twitter:description" content="Descripcion">
     <meta name="twitter:site" content="@Mundo Ejecutivo Suscripciones">
-    <meta name="twitter:image" content="assets/images/">
+    <meta name="twitter:image" content="/src/assets/images/">
     <meta property="og:image:alt" content="Titulo">
 
     <!-- Favicon -->
-    <link rel="icon" href="assets/images/icons/favicon.ico">
-    <link rel="icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/src/assets/images/icons/favicon.ico">
+    <link rel="icon" href="/src/assets/images/icons/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/src/assets/images/icons/favicon.ico" type="image/x-icon">
 
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/src/assets/images/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/src/assets/images/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/src/assets/images/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/src/assets/images/apple-touch-icon-76x76.png">
 
     <!-- Iconos para Android -->
-    <link rel="icon" sizes="192x192" href="assets/images/android-chrome-192x192.png">
-    <link rel="icon" sizes="512x512" href="assets/images/android-chrome-512x512.png">
+    <link rel="icon" sizes="192x192" href="/src/assets/images/android-chrome-192x192.png">
+    <link rel="icon" sizes="512x512" href="/src/assets/images/android-chrome-512x512.png">
 
     <!-- Otros formatos -->
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/src/assets/images/favicon-16x16.png">
 
     <!-- AWESOME  -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -65,7 +65,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="stylesheet" href="/src/assets/styles/index.css">
 
     <!-- Datos Estructurados JSON-LD -->
     <script type="application/ld+json">
@@ -74,7 +74,7 @@
         "@type": "NewsMediaOrganization",
         "name": "Nombre",
         "url": "URL",
-        "logo": "assets/images/logo.png",
+        "logo": "/src/assets/images/logo.png",
         "sameAs": [
             "URL Redes Sociales",
             "URL Redes Sociales"
@@ -101,13 +101,15 @@
     <!-- Header -->
     <header class="header">
         <a href="index.html">
-            <img src="assets/images/icons/logo.png" alt="XandA" title="XandA" class="imagen-logo">
+            <img src="/src/assets/images/icons/logo.png" alt="XandA" title="XandA" class="imagen-logo">
         </a>
         <nav class="navbar">
             <ul class="nav-links">
-                <li><a href="pages/docs/cdn.html">CDN</a></li>
-                <li><a href="pages/docs/instalacion.html">Instalación</a></li>
-                <li><a href="pages/docs/introduccion.html" class="boton-1">Documentación</a></li>
+                <li><a href="/src/pages/docs/cdn.html">IDE</a></li>
+                <li><a href="/src/pages/docs/cdn.html">Panel</a></li>
+                <li><a href="/src/pages/docs/cdn.html">CDN</a></li>
+                <li><a href="/src/pages/docs/instalacion.html">Instalación</a></li>
+                <li><a href="/src/pages/docs/introduccion.html" class="boton-1">Documentación</a></li>
             </ul>
         </nav>
     </header>
@@ -118,10 +120,14 @@
             <div class="section-principal-parte-1">
                 <h1 class="h1-section-principal">Crea tu sitio <br> web con <span>{XandA}</span></h1>
                 <p class="p-section-principal">Impulsa tu proyecto con XandA, genera estructuras, obten animaciones, carruseles, alerts, ventanas emergentes, formularios, componentes y más</p>
-                <a href="pages/docs/introduccion.html" class="boton-2">Documentación</a>
+
+                <div class="contenedor-botones">
+                    <a href="/src/pages/docs/instalacion.html" class="boton-3"><i class="fa-brands fa-uncharted"></i> Librería</a>
+                    <a href="/src/pages/docs/cdn.html" class="boton-2"><i class="fa-solid fa-globe"></i> IDE</a>
+                </div>
             </div>
             <div class="section-principal-parte-2">
-                <img src="assets/images/bienvenida2.png" alt="" title="" class="imagen-section-principal">
+                <img src="/src/assets/images/bienvenida2.png" alt="" title="" class="imagen-section-principal">
             </div>
         </section>
         <section class="section-curvas">
@@ -175,15 +181,97 @@
                 <h2>Una herramienta que <span>genera</span> sitios web</h2>
                 <p>Ten estructas hermosas, fáciles de editar, compatibles, con gran experiencia para el usuario y potenciadas en S.E.O.</p>
 
-                <div class="contenedor-universal" style="justify-content: end;">
+                <div class="contenedor-universal justify-content-end-center">
                     <div class="contenedor-botones">
-                        <a href="pages/docs/instalacion.html" class="boton-3"><i class="fa-brands fa-uncharted"></i> LOCAL</a>
-                        <a href="pages/docs/cdn.html" class="boton-2"><i class="fa-solid fa-globe"></i> CDN</a>
+                        <a href="/src/pages/docs/instalacion.html" class="boton-3"><i class="fa-brands fa-uncharted"></i> LOCAL</a>
+                        <a href="/src/pages/docs/cdn.html" class="boton-2"><i class="fa-solid fa-globe"></i> CDN</a>
                     </div>
                 </div>
             </div>
         </section>
 
+
+        <section class="section-universal section-premium">
+
+            <!-- TEXTO -->
+            <div class="section-universal-parte-3">
+
+                <h2>
+                    Productividad que impulsa <span>tus ideas</span>
+                </h2>
+
+                <p>
+                    Un entorno completo para desarrollar más rápido, con herramientas modernas
+                    y recursos listos para usar desde el primer momento.
+                </p>
+
+                <div class="contenedor-universal justify-content-start-center">
+                    <a href="/src/pages/docs/cdn.html" class="boton-2"><i class="fa-solid fa-download" style="margin-right: 5px;"></i> Descargar IDE</a>
+                </div>
+            </div>
+
+            
+            <div class="section-universal-parte-1">
+                <div class="contenedor-programacion">
+    
+                    <div class="fake-ide">
+
+                        <div class="ide-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="ide-title">index.js</span>
+                        </div>
+
+                        <div class="ide-body">
+                            <pre><code id="code"></code><span class="cursor">|</span></pre>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--<div class="visual-container">
+
+                    <div class="orbita"></div>
+
+                    <div class="logo-central">
+                        <img src="src/assets/images/icons/favicon.ico" alt="XandA" title="XandA">
+                    </div>
+
+                    <div class="mini-card card1"><i class="fas fa-code"></i></div>
+                    <div class="mini-card card2"><i class="fas fa-palette"></i></div>
+                    <div class="mini-card card3"><i class="fas fa-rocket"></i></div>
+                    <div class="mini-card card4"><i class="fas fa-cube"></i></div>
+
+                </div>-->
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Desarrollo ágil</h4>
+                    <p>Crea proyectos en minutos, no en horas.</p>
+                </div>
+
+                <div class="feature-item">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h4>Componentes listos</h4>
+                    <p>Interfaz moderna y reutilizable.</p>
+                </div>
+
+                <div class="feature-item">
+                    <i class="fas fa-code"></i>
+                    <h4>100% compatible</h4>
+                    <p>Funciona con cualquier stack.</p>
+                </div>
+
+                <div class="feature-item">
+                    <i class="fas fa-cloud"></i>
+                    <h4>Optimizado</h4>
+                    <p>Ligero, rápido y pensado para SEO.</p>
+                </div>
+            </div>
+        </section>
 
 
         <section class="section-universal">
@@ -191,10 +279,10 @@
                 <h2>Una librería que te <span>facilita</span> el trabajo</h2>
                 <p>Accede a cientos de recursos para embellecer, modernizar y darle vida a tu sitio web</p>
 
-                <div class="contenedor-universal" style="justify-content: start;">
+                <div class="contenedor-universal justify-content-start-center">
                     <div class="contenedor-botones">
-                        <a href="pages/docs/instalacion.html" class="boton-3"><i class="fa-brands fa-uncharted"></i> LOCAL</a>
-                        <a href="pages/docs/cdn.html" class="boton-2"><i class="fa-solid fa-globe"></i> CDN</a>
+                        <a href="/src/pages/docs/instalacion.html" class="boton-3"><i class="fa-brands fa-uncharted"></i> Recursos</a>
+                        <a href="/src/pages/docs/cdn.html" class="boton-2"><i class="fa-solid fa-globe"></i> Plantillas</a>
                     </div>
                 </div>
             </div>
@@ -208,8 +296,8 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="contenedor-opciones-footer" style="align-content: center; justify-content: start;">
-            <img src="assets/images/icons/logo.png" alt="XandA" title="XandA" loading="lazy" class="footer-imagen">
+        <div class="contenedor-opciones-footer footer-25-100" style="align-content: center; justify-content: start;">
+            <img src="/src/assets/images/icons/logo.png" alt="XandA" title="XandA" loading="lazy" class="footer-imagen">
             <p style="width: 100%;">La librería que impulsa tu proyecto</p>
         </div>
         <div class="contenedor-opciones-footer">
@@ -233,10 +321,10 @@
             <p>© 2025 XandA</p>
         </div>
     </footer>
-     
+
     <!-- Scripts -->
-    <script src="assets/scripts/index.js"></script>
-    <script src="assets/scripts/main.js"></script>
-    <script src="assets/scripts/tarjetas-ejemplos.js"></script>
+    <script src="/src/assets/scripts/index.js"></script>
+    <script src="/src/assets/scripts/main.js"></script>
+    <script src="/src/assets/scripts/tarjetas-ejemplos.js"></script>
 </body>
 </html>
