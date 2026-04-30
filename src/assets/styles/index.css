@@ -955,11 +955,16 @@ body{
     margin-top: 25px;
   }
   .contenedor-opciones-footer{
-    width: calc(50% - 15px);
+    width: calc(100% - 15px);
     justify-content: center;
+  }
+  .contenedor-opciones-footer p{
+    text-align: center;
+    width: 100%;
   }
   .contenedor-opciones-footer a{
     text-align: center;
+    width: auto;
   }
   .footer-25-100{
     width: calc(100% - 15px);
@@ -1060,5 +1065,9 @@ body{
     padding: 8px 8px;
     min-width: 50px;
     min-height: 50px;
+  }
+  .footer{
+    width: calc(100% - 0px);
+    padding: 50px 0px 0px 0px;
   }
 }
