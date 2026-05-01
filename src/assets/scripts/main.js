@@ -87,3 +87,8 @@ window.addEventListener("scroll", function() {
         }
     });
 });
+
+
+function abrir_menu_celular(){
+    const menucelular = document.getElementById("id-menu-celular");
+}
