@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightbox — Simulador de diseño responsivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/assets/styles/visor.css">
+</head>
+<body>
+
+<div class="app" id="appRoot">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand-icon" src="/src/assets/images/icons/favicon.ico" alt="XandA" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+      <span class="dot" style="display:none;"></span>
+      <div>
+        <h1>XandA - Visor</h1>
+        <p>SIMULADOR RESPONSIVO</p>
+      </div>
+    </div>
+
+    <div class="url-block">
+      <label class="field-label">Sitio a probar</label>
+      <div class="url-row">
+        <input id="urlInput" type="text" placeholder="tusitio.com" value="">
+        <button id="loadBtn">Cargar</button>
+      </div>
+      <p class="url-hint">Algunos sitios impiden mostrarse dentro de otra página (X-Frame-Options). Si la pantalla queda en blanco, prueba con otro dominio.</p>
+    </div>
+
+    <div class="custom-block">
+      <label class="field-label">Tamaño personalizado</label>
+      <div class="custom-row">
+        <input type="number" id="customW" placeholder="Ancho" min="120" max="3840" value="1024">
+        <span class="x">×</span>
+        <input type="number" id="customH" placeholder="Alto" min="120" max="2400" value="768">
+      </div>
+      <button class="custom-apply" id="customApply">Usar este tamaño</button>
+    </div>
+
+    <div class="device-block">
+      <label class="field-label">Dispositivos</label>
+
+      <div class="search-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar dispositivo o marca…">
+      </div>
+
+      <div class="cat-tabs-wrap">
+        <button class="cat-nav left" id="catNavLeft">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="cat-tabs" id="catTabs"></div>
+        <button class="cat-nav right" id="catNavRight">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="pinned-custom" id="pinnedCustom"></div>
+      <div class="device-list" id="deviceList"></div>
+    </div>
+
+    <div class="sidebar-footer">
+      El marco se ajusta automáticamente al tamaño de tu ventana.<br>
+      Tus favoritos, tu último sitio y el tamaño personalizado se guardan automáticamente.
+    </div>
+  </aside>
+
+  <!-- ============ STAGE ============ -->
+  <main class="stage">
+    <div class="topbar">
+      <div class="info">
+        <h2 id="deviceName">—</h2>
+        <span id="deviceDims">—</span>
+      </div>
+      <div class="actions">
+        <button class="chip-btn" id="openTabBtn" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Abrir
+        </button>
+        <button class="chip-btn" id="rotateBtn" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg>
+          Rotar
+        </button>
+        <button class="chip-btn" id="fullscreenBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+          <span id="fullscreenLabel">Enfocar</span>
+        </button>
+        <div class="zoom-group">
+          <button id="zoomOut">−</button>
+          <span class="val" id="zoomVal">100%</span>
+          <button id="zoomIn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame-wrap">
+      <div id="stageInner">
+        <div class="glow" id="glowEl"></div>
+        <div id="frameSlot"></div>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script src="/src/assets/scripts/visor.js"></script>
+
+</body>
+</html>

@@ -1,142 +1,144 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XandA | Inicio</title>
-    <meta name="date" content="2024-09-05">
-    <link rel="canonical" href="URL">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="alternate" hreflang="es" href="URL">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--<meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="Referrer-Policy" content="no-referrer-when-downgrade">-->
-    
-    <!-- SEO -->
-    <meta name="description" content="Descripcion">
-    <meta name="keywords" content="Palabras clave">
-    <meta name="author" content="Autor">
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    <meta name="subject" content="Subject">
-    <meta name="rating" content="General">
-    
-    <!-- Open Graph para Redes Sociales -->
-    <meta property="og:title" content="Titulo">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="URL">
-    <meta property="og:description" content="Descripcion">
-    <meta property="og:locale" content="es_MX">
-    <meta property="og:site_name" content="Mundo Ejecutivo Suscripciones">
-    <meta property="og:image" content="assets/images/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Librería — XandA</title>
+<meta name="description" content="Estructuras de proyecto, plantillas, componentes y animaciones listas para descargar y usar en tu sitio web.">
 
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Titulo">
-    <meta name="twitter:description" content="Descripcion">
-    <meta name="twitter:site" content="@Mundo Ejecutivo Suscripciones">
-    <meta name="twitter:image" content="assets/images/">
-    <meta property="og:image:alt" content="Titulo">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Favicon -->
-    <link rel="icon" href="../assets/images/icons/favicon.ico">
-    <link rel="icon" href="../assets/images/icons/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="../assets/images/icons/favicon.ico" type="image/x-icon">
-
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-76x76.png">
-
-    <!-- Iconos para Android -->
-    <link rel="icon" sizes="192x192" href="assets/images/android-chrome-192x192.png">
-    <link rel="icon" sizes="512x512" href="assets/images/android-chrome-512x512.png">
-
-    <!-- Otros formatos -->
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
-
-    <!-- AWESOME  -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-    <!-- AOS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="../assets/styles/inicio.css">
-
-    <!-- Datos Estructurados JSON-LD -->
-    <script type="application/ld+json">
-        {
-        "@context": "https://schema.org",
-        "@type": "NewsMediaOrganization",
-        "name": "Nombre",
-        "url": "URL",
-        "logo": "assets/images/logo.png",
-        "sameAs": [
-            "URL Redes Sociales",
-            "URL Redes Sociales"
-        ],
-        "description": "Descripcion",
-        "founder": "Nombre del fundador",
-        "foundingDate": "Año",
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "contactType": "Customer Support",
-            "email": "correo electrónico",
-            "url": "URL contacto"
-        }
-        }
-    </script>
-
-    <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles/inicio.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <a href="../index.html">
-            <img src="../assets/images/icons/logo.png" alt="XandA" title="XandA" class="imagen-logo">
+
+<header class="site-header">
+    <div class="container">
+        <a href="index.html" class="logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="url(#g)" stroke-width="2.6" stroke-linecap="round"><defs><linearGradient id="g" x1="0" y1="0" x2="24" y2="24"><stop offset="0" stop-color="#7C3AED"/><stop offset="1" stop-color="#C026D3"/></linearGradient></defs><path d="M4 4l16 16M20 4L4 20"/></svg>
+        XandA
         </a>
-        <nav class="navbar">
-            <ul class="nav-links">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="about.html">Aplicación local</a></li>
-                <li><a href="inicio.html" class="boton-1">Comenzar</a></li>
-            </ul>
+        <nav class="main-nav">
+        <a class="nav-pill" href="#" title="Volver al inicio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11.8V5l-8-3-8 3v5.2C4 17.5 12 22 12 22Z"/></svg>
+            <span>IDE</span>
+        </a>
+        <a class="nav-pill is-active" href="#estructuras">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>Librería</span>
+        </a>
         </nav>
-    </header>
+    </div>
+</header>
 
-    <!-- Main -->
-    <main class="main">
-        <section class="section-universal">
-            <div class="contenedor-menu">
-                <p><i class="fa-solid fa-grip-vertical"></i> PANEL</p>
-                <button class="boton-2" id="boton-interfaz"><i class="fa-solid fa-code"></i> Interfaz</button>
-                <button class="boton-2" id="boton-inspector"><i class="fa-solid fa-folder"></i> Inspector</button>
-                <button class="boton-2" id="boton-visualizar"><i class="fa-solid fa-eye"></i> Visualizar</button>
+<section class="hero">
+    <div class="container">
+        <h1>Todo lo que necesitas para <span class="accent">construir</span> tu sitio, en un solo lugar</h1>
+        <p class="lead">Estructuras de proyecto, plantillas con diseño incluido, componentes de interfaz y animaciones — listos para descargar y usar directamente en tu carpeta de trabajo.</p>
+
+        <div class="search-wrap">
+        <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="searchInput" type="text" placeholder="Busca “WordPress”, “modal”, “portafolio”, “fade in”…" autocomplete="off">
+            <span class="search-kbd">/</span>
+        </div>
+        </div>
+
+        <div class="stat-row">
+        <div class="stat"><b>24</b><span>Recursos disponibles</span></div>
+        <div class="stat"><b>4</b><span>Categorías</span></div>
+        <div class="stat"><b>$0</b><span>Costo, siempre</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="tab-bar-outer">
+    <div class="container">
+        <div class="tab-bar" id="tabBar"></div>
+    </div>
+</div>
+
+<div id="sections"></div>
+
+
+
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="contenedor-opciones-footer footer-25-100" style="align-content: center; justify-content: start;">
+        <img src="/src/assets/images/icons/logo.png" alt="XandA" title="XandA" loading="lazy" class="footer-imagen">
+        <p style="width: 100%;">La librería que impulsa tu proyecto</p>
+    </div>
+    <div class="contenedor-opciones-footer">
+        <p style="font-size: 17px;">Implementación</p>
+        <a>Introducción</a>
+        <a>CDN</a>
+        <a>Instalación - npm</a>
+        <a>Instalación - manual</a>
+        <a>Cómo usarlo</a>
+    </div>
+    <div class="contenedor-opciones-footer">
+        <p style="font-size: 17px;">Ejemplos</p>
+        <a>Estructuras</a>
+        <a>Animaciones</a>
+        <a>Carruseles</a>
+        <a>Formularios</a>
+        <a>Ventanas emergentes</a>
+        <a>Alerts</a>
+    </div>
+    <div class="footer-barra">
+        <p>© 2026 XandA</p>
+    </div>
+</footer>
+
+
+
+
+
+<!-- ---------------- Modal ---------------- -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <button class="modal-close" id="modalCloseBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="modal-visual">
+            <div class="contenedor-encabezado-ventana-emergente">
+                <div class="m-icon" id="modalIcon"></div>
+                <div>
+                    <p style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.75; margin: 0%; padding: 0%;" id="modalCatLabel"></p>
+                    <h3 style="color:#fff;margin-top:6px;" id="modalName"></h3>
+                </div>
             </div>
-
-            <div class="contenedor-trabajo" id="contenedor-trabajo">
-                <img src="../assets/images/icons/logo.png" alt="" title="" class="imagen-contenedor-trabajo">
-
-                <!--<div class="contenedor-rutas">
-                    <p class="p-contenedor-rutas">ARCHIVOS</p>
-
-                    <button class="boton-3">DESCARGAR</button>
-                </div>-->
+            <div class="code-window">
+                <div class="cw-bar"><span></span><span></span><span></span><span class="cw-title">vista previa</span></div>
+                <pre id="modalCode"></pre>
             </div>
-        </section>
-    </main>
+        </div>
+        <div class="modal-body">
+            <h3 id="modalNameBody" style="display:none;"></h3>
+            <p class="mdesc" id="modalDesc"></p>
+        <div class="file-list" id="modalFileList"></div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="modalDownload">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Descargar
+                </button>
+                <span class="card-meta" id="modalMeta" style="margin-left:auto;align-self:center;"></span>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script src="../assets/scripts/navegar.js"></script>
-    <script src="../assets/scripts/json-intefaces.js"></script>
-    <script src="../assets/scripts/visualizar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <span>Descargado</span>
+</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="../assets/scripts/data.js"></script>
+<script src="../assets/scripts/inicio.js"></script>
 </body>
 </html>
