@@ -1,4 +1,4 @@
-  :root{
+:root{
     --void:#F3F1FB;
     --panel:#FFFFFF;
     --panel-2:#F4F2FB;
@@ -486,12 +486,15 @@
     justify-content:center;
     padding:40px;
   }
+  .frame-wrap.space-pan{ cursor:grab; }
+  .frame-wrap.space-pan.panning{ cursor:grabbing; }
 
   #stageInner{
     position:relative;
     transform-origin:center center;
     transition:transform .28s cubic-bezier(.2,.7,.3,1);
   }
+  #stageInner.no-transition{ transition:none; }
 
   .glow{
     position:absolute;
@@ -536,24 +539,42 @@
   .screen .placeholder p{ font-size:12px; font-family:'JetBrains Mono', monospace; max-width:220px; line-height:1.6; }
 
   /* ---- PHONE ---- */
+  /* El grosor del marco (--bezel) ahora lo define cada dispositivo:
+     equipos con bisel delgado (gama alta reciente) usan un valor bajo,
+     equipos con bisel grueso (gama de entrada o generaciones previas)
+     usan un valor más alto. --bezel se define en el elemento raíz de
+     cada marco (inline, desde JS) y sus hijos lo heredan. */
   .device-frame.phone{
-    width:calc(var(--w) * 1px + 28px);
-    height:calc(var(--h) * 1px + 28px);
+    width:calc(var(--w) * 1px + var(--bezel, 14px) * 2);
+    height:calc(var(--h) * 1px + var(--bezel, 14px) * 2);
     background:linear-gradient(160deg, var(--metal-1), var(--metal-3));
     border-radius:56px;
-    padding:14px;
+    padding:var(--bezel, 14px);
     box-shadow:0 30px 70px -20px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.06);
   }
   .device-frame.phone .screen{
     width:100%; height:100%;
     border-radius:42px;
   }
+  /* La isla dinámica (pill) es exclusiva de Apple, iPhone 15 en adelante.
+     Android/Google usan una cámara punch-hole (círculo pequeño). El
+     iPhone SE no tiene ninguna: marco grueso con botón Touch ID.
+     d.notch decide cuál (o ninguna) se dibuja — ver notchMarkup() en el JS. */
   .device-frame.phone .island{
     position:absolute;
     top:20px; left:50%; transform:translateX(-50%);
     width:90px; height:26px;
     background:#000;
     border-radius:20px;
+    z-index:3;
+  }
+  .device-frame.phone .punch{
+    position:absolute;
+    top:18px; left:50%; transform:translateX(-50%);
+    width:11px; height:11px;
+    background:#000;
+    border-radius:50%;
+    box-shadow:0 0 0 2px rgba(255,255,255,0.02);
     z-index:3;
   }
   .device-frame.phone .btn{
@@ -565,13 +586,41 @@
   .device-frame.phone .btn.vol1{ left:-3px; top:100px; width:3px; height:32px; }
   .device-frame.phone .btn.vol2{ left:-3px; top:140px; width:3px; height:32px; }
 
+  /* ---- FOLDABLE ----
+     Dos formas reales, no una sola plantilla genérica:
+     - "book" (Fold, Pixel Fold): bisagra VERTICAL — se abre como un libro,
+       la pantalla interior queda ancha/casi cuadrada, tipo mini-tablet.
+       Por eso .book hereda de .tablet, no de .phone.
+     - "clamshell" (Flip): bisagra HORIZONTAL — se abre hacia arriba y la
+       pantalla interior queda con proporción de celular normal.
+       Por eso .clamshell hereda de .phone. */
+  .device-frame.foldable.book .screen{ position:relative; }
+  .device-frame.foldable.clamshell .screen{ position:relative; }
+
+  .foldable .crease-v{
+    position:absolute;
+    top:3%; bottom:3%; left:50%; width:2px; margin-left:-1px;
+    background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.45) 12%, rgba(0,0,0,0.45) 88%, transparent 100%);
+    box-shadow:0 0 8px 1px rgba(0,0,0,0.18);
+    z-index:2;
+    pointer-events:none;
+  }
+  .foldable .crease-h{
+    position:absolute;
+    left:3%; right:3%; top:50%; height:2px; margin-top:-1px;
+    background:linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.45) 12%, rgba(0,0,0,0.45) 88%, transparent 100%);
+    box-shadow:0 0 8px 1px rgba(0,0,0,0.18);
+    z-index:2;
+    pointer-events:none;
+  }
+
   /* ---- TABLET ---- */
   .device-frame.tablet{
-    width:calc(var(--w) * 1px + 34px);
-    height:calc(var(--h) * 1px + 34px);
+    width:calc(var(--w) * 1px + var(--bezel, 17px) * 2);
+    height:calc(var(--h) * 1px + var(--bezel, 17px) * 2);
     background:linear-gradient(160deg, var(--metal-1), var(--metal-3));
     border-radius:32px;
-    padding:17px;
+    padding:var(--bezel, 17px);
     box-shadow:0 30px 70px -20px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.06);
     position:relative;
   }
@@ -590,11 +639,11 @@
   /* ---- LAPTOP ---- */
   .device-frame.laptop{ display:flex; flex-direction:column; align-items:center; }
   .laptop .lid{
-    width:calc(var(--w) * 1px + 26px);
-    height:calc(var(--h) * 1px + 16px);
+    width:calc(var(--w) * 1px + var(--bezel, 13px) * 2);
+    height:calc(var(--h) * 1px + var(--bezel, 13px) * 1.23);
     background:linear-gradient(170deg, var(--metal-1), var(--metal-3));
     border-radius:16px 16px 4px 4px;
-    padding:9px 13px 7px;
+    padding:calc(var(--bezel, 13px) * 0.69) var(--bezel, 13px) calc(var(--bezel, 13px) * 0.54);
     box-shadow:0 30px 70px -20px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.05);
     position:relative;
   }
@@ -607,7 +656,7 @@
   }
   .laptop .screen{ width:100%; height:100%; border-radius:3px; }
   .laptop .hinge{
-    width:calc(var(--w) * 1px + 26px);
+    width:calc(var(--w) * 1px + var(--bezel, 13px) * 2);
     height:9px;
     background:linear-gradient(180deg, #101218, #05060a);
   }
@@ -630,17 +679,17 @@
   /* ---- DESKTOP ---- */
   .device-frame.desktop{ display:flex; flex-direction:column; align-items:center; }
   .desktop .monitor{
-    width:calc(var(--w) * 1px + 40px);
-    height:calc(var(--h) * 1px + 74px);
+    width:calc(var(--w) * 1px + var(--bezel, 20px) * 2);
+    height:calc(var(--h) * 1px + var(--bezel, 20px) + var(--bezel, 20px) * 2.7);
     background:linear-gradient(165deg, var(--metal-1), var(--metal-3));
     border-radius:16px;
-    padding:20px 20px 54px;
+    padding:var(--bezel, 20px) var(--bezel, 20px) calc(var(--bezel, 20px) * 2.7);
     box-shadow:0 30px 70px -20px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.05);
     position:relative;
   }
   .desktop .monitor::after{
     content:'';
-    position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
+    position:absolute; bottom:calc(var(--bezel, 20px) * 1.1); left:50%; transform:translateX(-50%);
     width:9px; height:9px; border-radius:50%;
     background:radial-gradient(circle at 35% 35%, #7a5138, #3a2214);
   }
@@ -660,11 +709,11 @@
   /* ---- TV ---- */
   .device-frame.tv{ display:flex; flex-direction:column; align-items:center; }
   .tv .panel{
-    width:calc(var(--w) * 1px + 16px);
-    height:calc(var(--h) * 1px + 16px);
+    width:calc(var(--w) * 1px + var(--bezel, 8px) * 2);
+    height:calc(var(--h) * 1px + var(--bezel, 8px) * 2);
     background:linear-gradient(160deg, #202329, #101216);
     border-radius:7px;
-    padding:8px;
+    padding:var(--bezel, 8px);
     box-shadow:0 40px 90px -25px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(255,255,255,0.04);
   }
   .tv .screen{ width:100%; height:100%; border-radius:1px; }
@@ -685,11 +734,11 @@
     border-radius:12px 12px 0 0;
   }
   .watch .case{
-    width:calc(var(--w) * 1px + 22px);
-    height:calc(var(--h) * 1px + 22px);
+    width:calc(var(--w) * 1px + var(--bezel, 11px) * 2);
+    height:calc(var(--h) * 1px + var(--bezel, 11px) * 2);
     background:linear-gradient(160deg, var(--metal-1), var(--metal-3));
     border-radius:46px;
-    padding:11px;
+    padding:var(--bezel, 11px);
     position:relative;
     box-shadow:0 30px 60px -18px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.06);
   }
@@ -718,11 +767,11 @@
   }
   .watch-round .band.bottom{ border-radius:0 0 10px 10px; }
   .watch-round .case{
-    width:calc(var(--w) * 1px + 22px);
-    height:calc(var(--h) * 1px + 22px);
+    width:calc(var(--w) * 1px + var(--bezel, 11px) * 2);
+    height:calc(var(--h) * 1px + var(--bezel, 11px) * 2);
     background:linear-gradient(160deg, var(--metal-1), var(--metal-3));
     border-radius:50%;
-    padding:11px;
+    padding:var(--bezel, 11px);
     position:relative;
     box-shadow:0 30px 60px -18px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.06);
   }

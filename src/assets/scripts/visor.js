@@ -1,6 +1,6 @@
-
-  const typeIcons = {
+const typeIcons = {
     phone:'<rect x="6" y="2" width="12" height="20" rx="3"/><line x1="9" y1="18.5" x2="15" y2="18.5"/>',
+    foldable:'<rect x="6" y="2" width="12" height="20" rx="3"/><line x1="12" y1="4" x2="12" y2="20" stroke-dasharray="2 2"/>',
     tablet:'<rect x="4" y="2" width="16" height="20" rx="2.5"/><line x1="10" y1="19.5" x2="14" y2="19.5"/>',
     laptop:'<rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M2 19h20l-1.5-3h-17z"/>',
     desktop:'<rect x="3" y="3" width="18" height="12" rx="1.5"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="15" x2="12" y2="21"/>',
@@ -22,44 +22,72 @@
     { id:'watch', label:'Relojes' }
   ];
 
+  // NOTA SOBRE "bezel": es el grosor visual del marco (en px de diseño)
+  // de cada dispositivo. No es una medida oficial publicada por los
+  // fabricantes — es una aproximación ilustrativa para que un equipo de
+  // gama alta reciente (bisel delgado) se vea distinto de uno de entrada
+  // o de una generación anterior (bisel grueso). Los tamaños de pantalla
+  // (w/h) sí corresponden a los puntos CSS reales documentados de cada
+  // equipo, salvo donde se indica "aprox." en el nombre/comentario.
   const devices = [
     // ---- GENÉRICOS ----
-    { id:'gen-phone', name:'Celular genérico', category:'generic', type:'phone', w:390, h:844, glow:210 },
-    { id:'gen-tablet', name:'Tablet genérica', category:'generic', type:'tablet', w:820, h:1180, glow:260 },
-    { id:'gen-laptop', name:'Laptop genérica', category:'generic', type:'laptop', w:1280, h:800, glow:260 },
-    { id:'gen-desktop', name:'Computadora genérica', category:'generic', type:'desktop', w:1600, h:900, glow:280 },
-    { id:'gen-watch', name:'Reloj genérico', category:'generic', type:'watch', w:198, h:242, glow:180 },
-    { id:'gen-tv', name:'Televisor', category:'generic', type:'tv', w:1600, h:900, glow:320 },
+    { id:'gen-phone', name:'Celular genérico', category:'generic', type:'phone', w:390, h:844, glow:210, bezel:14, notch:'punch' },
+    { id:'gen-tablet', name:'Tablet genérica', category:'generic', type:'tablet', w:820, h:1180, glow:260, bezel:17 },
+    { id:'gen-laptop', name:'Laptop genérica', category:'generic', type:'laptop', w:1280, h:800, glow:260, bezel:13 },
+    { id:'gen-desktop', name:'Computadora genérica', category:'generic', type:'desktop', w:1600, h:900, glow:280, bezel:20 },
+    { id:'gen-watch', name:'Reloj genérico', category:'generic', type:'watch', w:198, h:242, glow:180, bezel:11 },
+    { id:'gen-tv', name:'Televisor', category:'generic', type:'tv', w:1600, h:900, glow:320, bezel:8 },
 
-    // ---- CELULARES ----
-    { id:'iphone-15-pro-max', name:'iPhone 15 Pro Max', brand:'Apple', category:'phone', type:'phone', w:430, h:932, glow:220 },
-    { id:'iphone-15', name:'iPhone 15', brand:'Apple', category:'phone', type:'phone', w:393, h:852, glow:210 },
-    { id:'iphone-se', name:'iPhone SE', brand:'Apple', category:'phone', type:'phone', w:375, h:667, glow:200 },
-    { id:'galaxy-s24-ultra', name:'Galaxy S24 Ultra', brand:'Samsung', category:'phone', type:'phone', w:384, h:824, glow:210 },
-    { id:'galaxy-s23', name:'Galaxy S23', brand:'Samsung', category:'phone', type:'phone', w:360, h:780, glow:205 },
-    { id:'pixel-8-pro', name:'Pixel 8 Pro', brand:'Google', category:'phone', type:'phone', w:412, h:892, glow:215 },
+    // ---- CELULARES: Apple ----
+    // notch: 'island' = isla dinámica (solo Apple, iPhone 15 en adelante,
+    // todos los modelos no solo Pro). 'none' = el SE no tiene notch NI isla
+    // (diseño con botón Touch ID y marco grueso).
+    { id:'iphone-se', name:'iPhone SE', brand:'Apple', category:'phone', type:'phone', w:375, h:667, glow:200, bezel:20, notch:'none' },
+    { id:'iphone-15', name:'iPhone 15', brand:'Apple', category:'phone', type:'phone', w:393, h:852, glow:210, bezel:12, notch:'island' },
+    { id:'iphone-15-pro-max', name:'iPhone 15 Pro Max', brand:'Apple', category:'phone', type:'phone', w:430, h:932, glow:220, bezel:10, notch:'island' },
+    { id:'iphone-16', name:'iPhone 16', brand:'Apple', category:'phone', type:'phone', w:393, h:852, glow:210, bezel:11, notch:'island' },
+    { id:'iphone-16-plus', name:'iPhone 16 Plus', brand:'Apple', category:'phone', type:'phone', w:430, h:932, glow:220, bezel:11, notch:'island' },
+    { id:'iphone-16-pro', name:'iPhone 16 Pro', brand:'Apple', category:'phone', type:'phone', w:402, h:874, glow:215, bezel:9, notch:'island' },
+    { id:'iphone-16-pro-max', name:'iPhone 16 Pro Max', brand:'Apple', category:'phone', type:'phone', w:440, h:956, glow:225, bezel:9, notch:'island' },
+    // iPhone 17 (2025): fuera de mi corte de conocimiento confiable — medidas aproximadas, verifícalas antes de usarlas en producción.
+    { id:'iphone-17', name:'iPhone 17 / 17 Pro (aprox.)', brand:'Apple', category:'phone', type:'phone', w:402, h:874, glow:215, bezel:8, notch:'island' },
+    { id:'iphone-17-pro-max', name:'iPhone 17 Pro Max (aprox.)', brand:'Apple', category:'phone', type:'phone', w:440, h:956, glow:225, bezel:8, notch:'island' },
+    { id:'iphone-air', name:'iPhone Air (aprox.)', brand:'Apple', category:'phone', type:'phone', w:420, h:912, glow:220, bezel:7, notch:'island' },
+
+    // ---- CELULARES: Samsung / Google ----
+    // notch: 'punch' = cámara punch-hole (círculo pequeño), no isla dinámica — eso es exclusivo de Apple.
+    { id:'galaxy-s24-ultra', name:'Galaxy S24 Ultra', brand:'Samsung', category:'phone', type:'phone', w:384, h:824, glow:210, bezel:9, notch:'punch' },
+    { id:'galaxy-s23', name:'Galaxy S23', brand:'Samsung', category:'phone', type:'phone', w:360, h:780, glow:205, bezel:12, notch:'punch' },
+    { id:'pixel-8-pro', name:'Pixel 8 Pro', brand:'Google', category:'phone', type:'phone', w:412, h:892, glow:215, bezel:10, notch:'punch' },
+
+    // ---- CELULARES: Plegables (medidas aprox. — la pantalla interna varía según fuente/versión de software) ----
+    // fold:'book' = bisagra vertical, se abre como libro, pantalla interior ancha/casi cuadrada (Fold, Pixel Fold).
+    // fold:'clamshell' = bisagra horizontal, se abre hacia arriba, pantalla interior con proporción de celular normal (Flip).
+    { id:'galaxy-z-fold6', name:'Galaxy Z Fold6 (pantalla interna, aprox.)', brand:'Samsung', category:'phone', type:'foldable', fold:'book', w:772, h:832, glow:250, bezel:14 },
+    { id:'galaxy-z-flip6', name:'Galaxy Z Flip6 (aprox.)', brand:'Samsung', category:'phone', type:'foldable', fold:'clamshell', notch:'punch', w:342, h:748, glow:210, bezel:14 },
+    { id:'pixel-fold', name:'Pixel Fold (pantalla interna, aprox.)', brand:'Google', category:'phone', type:'foldable', fold:'book', w:840, h:700, glow:255, bezel:15 },
 
     // ---- TABLETS ----
-    { id:'ipad-mini', name:'iPad Mini', brand:'Apple', category:'tablet', type:'tablet', w:744, h:1133, glow:250 },
-    { id:'ipad-air', name:'iPad Air 11"', brand:'Apple', category:'tablet', type:'tablet', w:820, h:1180, glow:260 },
-    { id:'ipad-pro-11', name:'iPad Pro 11"', brand:'Apple', category:'tablet', type:'tablet', w:834, h:1194, glow:265 },
-    { id:'ipad-pro-13', name:'iPad Pro 13"', brand:'Apple', category:'tablet', type:'tablet', w:1024, h:1366, glow:290 },
-    { id:'galaxy-tab-s9', name:'Galaxy Tab S9', brand:'Samsung', category:'tablet', type:'tablet', w:800, h:1280, glow:260 },
-    { id:'pixel-tablet', name:'Pixel Tablet', brand:'Google', category:'tablet', type:'tablet', w:840, h:1280, glow:265 },
+    { id:'ipad-mini', name:'iPad Mini', brand:'Apple', category:'tablet', type:'tablet', w:744, h:1133, glow:250, bezel:16 },
+    { id:'ipad-air', name:'iPad Air 11"', brand:'Apple', category:'tablet', type:'tablet', w:820, h:1180, glow:260, bezel:14 },
+    { id:'ipad-pro-11', name:'iPad Pro 11"', brand:'Apple', category:'tablet', type:'tablet', w:834, h:1194, glow:265, bezel:11 },
+    { id:'ipad-pro-13', name:'iPad Pro 13"', brand:'Apple', category:'tablet', type:'tablet', w:1024, h:1366, glow:290, bezel:11 },
+    { id:'galaxy-tab-s9', name:'Galaxy Tab S9', brand:'Samsung', category:'tablet', type:'tablet', w:800, h:1280, glow:260, bezel:13 },
+    { id:'pixel-tablet', name:'Pixel Tablet', brand:'Google', category:'tablet', type:'tablet', w:840, h:1280, glow:265, bezel:15 },
 
     // ---- COMPUTADORAS ----
-    { id:'macbook-air-13', name:'MacBook Air 13"', brand:'Apple', category:'computer', type:'laptop', w:1280, h:832, glow:260 },
-    { id:'macbook-pro-14', name:'MacBook Pro 14"', brand:'Apple', category:'computer', type:'laptop', w:1512, h:982, glow:270 },
-    { id:'macbook-pro-16', name:'MacBook Pro 16"', brand:'Apple', category:'computer', type:'laptop', w:1728, h:1117, glow:280 },
-    { id:'imac-24', name:'iMac 24"', brand:'Apple', category:'computer', type:'desktop', w:2240, h:1260, glow:300 },
-    { id:'galaxy-book4', name:'Galaxy Book4', brand:'Samsung', category:'computer', type:'laptop', w:1920, h:1080, glow:275 },
-    { id:'pixelbook', name:'Pixelbook Go', brand:'Google', category:'computer', type:'laptop', w:1366, h:768, glow:255 },
+    { id:'macbook-air-13', name:'MacBook Air 13"', brand:'Apple', category:'computer', type:'laptop', w:1280, h:832, glow:260, bezel:10 },
+    { id:'macbook-pro-14', name:'MacBook Pro 14"', brand:'Apple', category:'computer', type:'laptop', w:1512, h:982, glow:270, bezel:9 },
+    { id:'macbook-pro-16', name:'MacBook Pro 16"', brand:'Apple', category:'computer', type:'laptop', w:1728, h:1117, glow:280, bezel:9 },
+    { id:'imac-24', name:'iMac 24"', brand:'Apple', category:'computer', type:'desktop', w:2240, h:1260, glow:300, bezel:14 },
+    { id:'galaxy-book4', name:'Galaxy Book4', brand:'Samsung', category:'computer', type:'laptop', w:1920, h:1080, glow:275, bezel:13 },
+    { id:'pixelbook', name:'Pixelbook Go', brand:'Google', category:'computer', type:'laptop', w:1366, h:768, glow:255, bezel:16 },
 
     // ---- RELOJES ----
-    { id:'apple-watch-41', name:'Apple Watch 41mm', brand:'Apple', category:'watch', type:'watch', w:176, h:215, glow:170 },
-    { id:'apple-watch-45', name:'Apple Watch 45mm', brand:'Apple', category:'watch', type:'watch', w:198, h:242, glow:180 },
-    { id:'galaxy-watch6', name:'Galaxy Watch6', brand:'Samsung', category:'watch', type:'watch-round', w:212, h:212, glow:175 },
-    { id:'pixel-watch-2', name:'Pixel Watch 2', brand:'Google', category:'watch', type:'watch-round', w:190, h:190, glow:165 }
+    { id:'apple-watch-41', name:'Apple Watch 41mm', brand:'Apple', category:'watch', type:'watch', w:176, h:215, glow:170, bezel:10 },
+    { id:'apple-watch-45', name:'Apple Watch 45mm', brand:'Apple', category:'watch', type:'watch', w:198, h:242, glow:180, bezel:10 },
+    { id:'galaxy-watch6', name:'Galaxy Watch6', brand:'Samsung', category:'watch', type:'watch-round', w:212, h:212, glow:175, bezel:12 },
+    { id:'pixel-watch-2', name:'Pixel Watch 2', brand:'Google', category:'watch', type:'watch-round', w:190, h:190, glow:165, bezel:13 }
   ];
 
   let currentDevice = { ...devices[0] };
@@ -266,60 +294,89 @@
            <p>Escribe una URL y presiona “Cargar” para ver tu sitio aquí</p>
          </div>`;
 
+    // --w / --h / --bezel se definen una sola vez en el contenedor raíz
+    // de cada marco; los hijos (band, hinge, base, stand, etc.) los
+    // heredan por CSS en vez de repetirlos en cada nodo.
+    const rootVars = `--w:${d.w};--h:${d.h};--bezel:${d.bezel || 14}px`;
+
+    // La isla dinámica es exclusiva de Apple (iPhone 15+); Android usa un
+    // punch-hole circular; el iPhone SE no tiene ninguno de los dos.
+    function notchMarkup(dev){
+      if(dev.notch === 'island') return '<div class="island"></div>';
+      if(dev.notch === 'punch') return '<div class="punch"></div>';
+      return '';
+    }
+
     switch(d.type){
       case 'phone':
-        return `<div class="device-frame phone" style="--w:${d.w};--h:${d.h}">
+        return `<div class="device-frame phone" style="${rootVars}">
           <div class="btn power"></div><div class="btn vol1"></div><div class="btn vol2"></div>
-          <div class="island"></div>
+          ${notchMarkup(d)}
           <div class="screen">${screenContent}</div>
         </div>`;
+      case 'foldable':
+        // "book" (Fold, Pixel Fold): bisagra vertical, hereda el marco de
+        // tablet porque abierto es una pantalla ancha tipo mini-tablet.
+        if(d.fold === 'book'){
+          return `<div class="device-frame tablet foldable book" style="${rootVars}">
+            <div class="cam"></div>
+            <div class="screen">${screenContent}<span class="crease-v"></span></div>
+          </div>`;
+        }
+        // "clamshell" (Flip): bisagra horizontal, hereda el marco de celular
+        // porque abierto conserva proporción de celular normal.
+        return `<div class="device-frame phone foldable clamshell" style="${rootVars}">
+          <div class="btn power"></div><div class="btn vol1"></div><div class="btn vol2"></div>
+          ${notchMarkup(d)}
+          <div class="screen">${screenContent}<span class="crease-h"></span></div>
+        </div>`;
       case 'tablet':
-        return `<div class="device-frame tablet" style="--w:${d.w};--h:${d.h}">
+        return `<div class="device-frame tablet" style="${rootVars}">
           <div class="cam"></div>
           <div class="screen">${screenContent}</div>
         </div>`;
       case 'laptop':
-        return `<div class="device-frame laptop">
-          <div class="lid" style="--w:${d.w};--h:${d.h}"><div class="screen">${screenContent}</div></div>
-          <div class="hinge" style="--w:${d.w}"></div>
-          <div class="base" style="--w:${d.w}"></div>
+        return `<div class="device-frame laptop" style="${rootVars}">
+          <div class="lid"><div class="screen">${screenContent}</div></div>
+          <div class="hinge"></div>
+          <div class="base"></div>
         </div>`;
       case 'desktop':
-        return `<div class="device-frame desktop">
-          <div class="monitor" style="--w:${d.w};--h:${d.h}"><div class="screen">${screenContent}</div></div>
+        return `<div class="device-frame desktop" style="${rootVars}">
+          <div class="monitor"><div class="screen">${screenContent}</div></div>
           <div class="neck"></div>
           <div class="base"></div>
         </div>`;
       case 'tv':
-        return `<div class="device-frame tv">
-          <div class="panel" style="--w:${d.w};--h:${d.h}"><div class="screen">${screenContent}</div></div>
-          <div class="stand-row" style="--w:${d.w}"><div class="foot"></div><div class="foot"></div></div>
+        return `<div class="device-frame tv" style="${rootVars}">
+          <div class="panel"><div class="screen">${screenContent}</div></div>
+          <div class="stand-row"><div class="foot"></div><div class="foot"></div></div>
         </div>`;
       case 'watch':
-        return `<div class="device-frame watch">
+        return `<div class="device-frame watch" style="${rootVars}">
           <div class="band top"></div>
-          <div class="case" style="--w:${d.w};--h:${d.h}">
+          <div class="case">
             <div class="crown"></div><div class="side-btn"></div>
             <div class="screen">${screenContent}</div>
           </div>
           <div class="band bottom"></div>
         </div>`;
       case 'watch-round':
-        return `<div class="device-frame watch-round">
+        return `<div class="device-frame watch-round" style="${rootVars}">
           <div class="band top"></div>
-          <div class="case" style="--w:${d.w};--h:${d.h}">
+          <div class="case">
             <div class="crown"></div><div class="side-btn"></div>
             <div class="screen">${screenContent}</div>
           </div>
           <div class="band bottom"></div>
         </div>`;
       case 'custom':
-        return `<div class="device-frame custom" style="--w:${d.w};--h:${d.h}">
+        return `<div class="device-frame custom" style="${rootVars}">
           <div class="chrome-bar">
             <span class="tl r"></span><span class="tl y"></span><span class="tl g"></span>
             <div class="addr"></div>
           </div>
-          <div class="screen" style="--w:${d.w};--h:${d.h}">${screenContent}</div>
+          <div class="screen">${screenContent}</div>
         </div>`;
     }
   }
@@ -332,10 +389,26 @@
 
     deviceNameEl.textContent = currentDevice.name;
     deviceDimsEl.textContent = `${currentDevice.w} × ${currentDevice.h} px`;
-    rotateBtn.style.display = (currentDevice.type === 'phone' || currentDevice.type === 'tablet') ? 'flex' : 'none';
+    rotateBtn.style.display = (currentDevice.type === 'phone' || currentDevice.type === 'tablet' || currentDevice.type === 'foldable') ? 'flex' : 'none';
     openTabBtn.style.display = currentUrl ? 'flex' : 'none';
 
+    panX = 0; panY = 0; // dispositivo nuevo → reencuadra al centro
     requestAnimationFrame(fitStage);
+  }
+
+  // =========================================================
+  // ZOOM + DESPLAZAMIENTO (pan)
+  // panX/panY se acotan a maxPanX/maxPanY, que se recalculan en cada
+  // fitStage según cuánto "sobra" del marco fuera del área visible.
+  // Así el usuario puede recorrer el dispositivo cuando hace zoom,
+  // pero nunca puede alejarlo indefinidamente.
+  // =========================================================
+  let panX = 0, panY = 0, maxPanX = 0, maxPanY = 0;
+  let spaceHeld = false, isPanning = false;
+  let panStartPointer = { x:0, y:0 }, panStartOffset = { x:0, y:0 };
+
+  function applyTransform(scale){
+    stageInner.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
   }
 
   function fitStage(){
@@ -348,11 +421,21 @@
 
     const fitScale = Math.min(availW / naturalW, availH / naturalH, 1);
     const finalScale = Math.max(fitScale * zoomMultiplier, 0.12);
-
-    stageInner.style.transform = `scale(${finalScale})`;
     stageInner.dataset.scale = finalScale;
+
+    const scaledW = naturalW * finalScale;
+    const scaledH = naturalH * finalScale;
+    maxPanX = Math.max(0, (scaledW - availW) / 2);
+    maxPanY = Math.max(0, (scaledH - availH) / 2);
+    panX = Math.min(Math.max(panX, -maxPanX), maxPanX);
+    panY = Math.min(Math.max(panY, -maxPanY), maxPanY);
+
+    applyTransform(finalScale);
     zoomVal.textContent = Math.round(finalScale * 100) + '%';
   }
+
+  function zoomIn(){ zoomMultiplier = Math.min(zoomMultiplier + 0.15, 3); fitStage(); }
+  function zoomOut(){ zoomMultiplier = Math.max(zoomMultiplier - 0.15, 0.2); fitStage(); }
 
   document.getElementById('loadBtn').addEventListener('click', loadUrl);
   urlInput.addEventListener('keydown', e => { if(e.key === 'Enter') loadUrl(); });
@@ -378,14 +461,62 @@
     buildDeviceList();
   });
 
-  document.getElementById('zoomIn').addEventListener('click', () => {
-    zoomMultiplier = Math.min(zoomMultiplier + 0.15, 3);
-    fitStage();
+  document.getElementById('zoomIn').addEventListener('click', zoomIn);
+  document.getElementById('zoomOut').addEventListener('click', zoomOut);
+
+  // ---- Ctrl/Cmd + "+"/"-" para acercar y alejar ----
+  function isFormField(el){
+    return el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
+  }
+  window.addEventListener('keydown', e => {
+    const meta = e.ctrlKey || e.metaKey;
+    if(meta && (e.key === '+' || e.key === '=')){ e.preventDefault(); zoomIn(); }
+    else if(meta && (e.key === '-' || e.key === '_')){ e.preventDefault(); zoomOut(); }
   });
-  document.getElementById('zoomOut').addEventListener('click', () => {
-    zoomMultiplier = Math.max(zoomMultiplier - 0.15, 0.2);
-    fitStage();
+
+  // ---- barra espaciadora: mantener presionada para desplazar el dispositivo con el cursor de "mano" ----
+  window.addEventListener('keydown', e => {
+    if(e.code === 'Space' && !isFormField(e.target) && !spaceHeld){
+      spaceHeld = true;
+      frameWrap.classList.add('space-pan');
+      e.preventDefault(); // evita hacer scroll de la página
+    }
   });
+  window.addEventListener('keyup', e => {
+    if(e.code === 'Space'){
+      spaceHeld = false;
+      isPanning = false;
+      frameWrap.classList.remove('space-pan', 'panning');
+      stageInner.classList.remove('no-transition');
+    }
+  });
+
+  frameWrap.addEventListener('pointerdown', e => {
+    if(!spaceHeld) return;
+    isPanning = true;
+    frameWrap.classList.add('panning');
+    stageInner.classList.add('no-transition');
+    try { frameWrap.setPointerCapture(e.pointerId); } catch(err){ /* no-op */ }
+    panStartPointer = { x:e.clientX, y:e.clientY };
+    panStartOffset = { x:panX, y:panY };
+    e.preventDefault();
+  });
+  frameWrap.addEventListener('pointermove', e => {
+    if(!isPanning) return;
+    const dx = e.clientX - panStartPointer.x;
+    const dy = e.clientY - panStartPointer.y;
+    panX = Math.min(Math.max(panStartOffset.x + dx, -maxPanX), maxPanX);
+    panY = Math.min(Math.max(panStartOffset.y + dy, -maxPanY), maxPanY);
+    applyTransform(parseFloat(stageInner.dataset.scale || '1'));
+  });
+  function endPan(){
+    if(!isPanning) return;
+    isPanning = false;
+    frameWrap.classList.remove('panning');
+    stageInner.classList.remove('no-transition');
+  }
+  frameWrap.addEventListener('pointerup', endPan);
+  frameWrap.addEventListener('pointercancel', endPan);
 
   window.addEventListener('resize', fitStage);
 

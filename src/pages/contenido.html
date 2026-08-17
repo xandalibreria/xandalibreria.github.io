@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Librería — XandA</title>
-<meta name="description" content="Estructuras de proyecto, plantillas, componentes y animaciones listas para descargar y usar en tu sitio web.">
+<title>Contenido — XandA</title>
+<meta name="description" content="Explora todo el contenido disponible de esta categoría en la Librería de XandA.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,38 +49,29 @@
         </nav>
     </header>
 
-<section class="hero">
+<section class="hero" style="padding-bottom:30px;">
     <div class="container">
-        <h1>Todo lo que necesitas para <span class="accent">construir</span> tu sitio, en un solo lugar</h1>
-        <p class="lead">Estructuras de proyecto, plantillas con diseño incluido, componentes de interfaz y animaciones — listos para descargar, inspeccionar y usar directamente en tu carpeta de trabajo.</p>
+        <a href="inicio.html" class="back-link">&larr; Volver a la librería</a>
+        <div class="section-tag" id="contTag"></div>
+        <h1 id="contTitle" style="font-size:clamp(30px, 4.4vw, 48px);"></h1>
+        <p class="lead" id="contSub"></p>
 
         <div class="search-wrap">
         <div class="search-box">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input id="searchInput" type="text" placeholder="Busca “WordPress”, “modal”, “portafolio”, “fade in”…" autocomplete="off">
+            <input id="searchInput" type="text" placeholder="Buscar en esta categoría…" autocomplete="off">
             <span class="search-kbd">/</span>
         </div>
-        </div>
-
-        <div class="stat-row">
-        <div class="stat"><b>24</b><span>Recursos disponibles</span></div>
-        <div class="stat"><b>5</b><span>Categorías</span></div>
-        <div class="stat"><b>$0</b><span>Costo, siempre</span></div>
         </div>
     </div>
 </section>
 
-<div class="tab-bar-outer">
+<section class="section" style="padding-top:10px;">
     <div class="container">
-        <div class="tab-bar" id="tabBar"></div>
+        <div class="grid" id="contGrid"></div>
+        <div class="empty-state" id="contEmpty"></div>
     </div>
-</div>
-
-<div id="sections"></div>
-
-
-
-
+</section>
 
 <!-- Footer -->
 <footer class="footer">
@@ -109,10 +100,6 @@
         <p>© 2026 XandA</p>
     </div>
 </footer>
-
-
-
-
 
 <!-- ---------------- Modal simple (estructuras / constructor) ---------------- -->
 <div class="modal-overlay" id="modalOverlay">
@@ -206,7 +193,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="../assets/scripts/data.js"></script>
 <script src="../assets/scripts/core.js"></script>
-<script src="../assets/scripts/inicio.js"></script>
+<script src="../assets/scripts/contenido.js"></script>
 <script src="../assets/scripts/main.js"></script>
 </body>
 </html>

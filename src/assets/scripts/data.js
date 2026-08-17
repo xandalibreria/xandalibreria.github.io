@@ -42,7 +42,9 @@ const ICONS = {
   <rect x="14" y="3" width="7" height="7" rx="1"></rect>
   <rect x="3" y="14" width="7" height="7" rx="1"></rect>
   <path d="M17.5 14v2.5H15v4h4v-2.5h2.5v-4H17.5z"></path>
-</svg>`
+</svg>`,
+  arrowRight:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`,
+  copy:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`
 };
 
 const README = (title, extra="") => `# ${title}
@@ -1027,7 +1029,7 @@ const CATEGORIES = [
     { id:"plantillas", label:"Plantillas", icon:"template", data:PLANTILLAS, kind:"zip",
         title:"Plantillas listas para usar", sub:"Proyectos completos con diseño ya incluido. Descárgalas, ábrelas y personaliza el contenido a tu gusto." },
     { id:"componentes", label:"Componentes", icon:"puzzle", data:COMPONENTES, kind:"file",
-        title:"Componentes de interfaz", sub:"Alerts, ventanas emergentes, tooltips y más. Copia el código o descarga el archivo y ajústalo a tu proyecto." },
+        title:"Componentes de interfaz", sub:"Alerts, ventanas emergentes, tooltips y más. Inspecciona el código o descárgalo y ajústalo a tu proyecto." },
     { id:"animaciones", label:"Animaciones", icon:"sparkles", data:ANIMACIONES, kind:"file",
         title:"Animaciones y efectos", sub:"Transiciones y micro-interacciones listas para aplicar con solo una clase CSS." },
     { id:"constructor", label:"Constructor", icon:"constructor", data:ANIMACIONES, kind:"file",
