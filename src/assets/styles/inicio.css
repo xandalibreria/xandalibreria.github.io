@@ -1347,7 +1347,7 @@ h4 {
     }
 
     .btn-more {
-        width: 100%;
+        width: calc(100% - 39px);
         justify-content: center;
     }
 
