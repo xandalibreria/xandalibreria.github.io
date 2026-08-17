@@ -116,6 +116,36 @@ const typeIcons = {
   const zoomVal = document.getElementById('zoomVal');
   const urlInput = document.getElementById('urlInput');
   const searchInput = document.getElementById('searchInput');
+  const sidebarEl = document.querySelector('.sidebar');
+  const sidebarHandle = document.getElementById('sidebarHandle');
+  const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+  // =========================================================
+  // PANEL INFERIOR EN MÓVIL: en pantallas angostas el menú lateral se
+  // convierte en una hoja que sube desde abajo (bottom sheet). El asa
+  // (sidebarHandle) alterna entre colapsada/expandida; el fondo oscuro
+  // (sidebarBackdrop) permite cerrarla tocando fuera. En escritorio
+  // estos elementos están ocultos por CSS y esta lógica no hace nada.
+  // =========================================================
+  const isMobileSheet = () => window.matchMedia('(max-width: 860px)').matches;
+
+  function setSheetExpanded(open){
+    if(!sidebarEl) return;
+    sidebarEl.classList.toggle('expanded', open);
+    if(sidebarBackdrop) sidebarBackdrop.classList.toggle('show', open);
+    if(sidebarHandle) sidebarHandle.setAttribute('aria-expanded', String(open));
+  }
+  function collapseSheetOnMobile(){
+    if(isMobileSheet()) setSheetExpanded(false);
+  }
+  if(sidebarHandle){
+    sidebarHandle.addEventListener('click', () => {
+      setSheetExpanded(!sidebarEl.classList.contains('expanded'));
+    });
+  }
+  if(sidebarBackdrop){
+    sidebarBackdrop.addEventListener('click', () => setSheetExpanded(false));
+  }
 
   // =========================================================
   // PERSISTENCIA: intenta el almacenamiento de artifacts de
@@ -208,6 +238,7 @@ const typeIcons = {
         buildDeviceList();
         renderDevice();
         saveState();
+        collapseSheetOnMobile();
       });
     });
     deviceListEl.querySelectorAll('.fav-btn').forEach(fav => {
@@ -279,7 +310,7 @@ const typeIcons = {
       ${deviceItemHTML(customDevice)}
     `;
     pinnedCustomEl.querySelectorAll('.device-item').forEach(btn => {
-      btn.addEventListener('click', () => { currentDevice = { ...customDevice }; buildDeviceList(); buildPinnedCustom(); renderDevice(); saveState(); });
+      btn.addEventListener('click', () => { currentDevice = { ...customDevice }; buildDeviceList(); buildPinnedCustom(); renderDevice(); saveState(); collapseSheetOnMobile(); });
     });
     pinnedCustomEl.querySelectorAll('.fav-btn').forEach(fav => {
       fav.addEventListener('click', (e) => { e.stopPropagation(); });
@@ -447,6 +478,7 @@ const typeIcons = {
     currentUrl = val;
     renderDevice();
     saveState();
+    collapseSheetOnMobile();
   }
 
   openTabBtn.addEventListener('click', () => {
@@ -536,6 +568,7 @@ const typeIcons = {
     buildDeviceList();
     renderDevice();
     saveState();
+    collapseSheetOnMobile();
   });
 
   // ---- pantalla completa (oculta el panel lateral) ----
@@ -551,6 +584,9 @@ const typeIcons = {
       appRoot.classList.remove('fullscreen');
       document.getElementById('fullscreenLabel').textContent = 'Enfocar';
       setTimeout(fitStage, 320);
+    }
+    if(e.key === 'Escape' && sidebarEl && sidebarEl.classList.contains('expanded')){
+      setSheetExpanded(false);
     }
   });
 

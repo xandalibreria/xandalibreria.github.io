@@ -32,8 +32,20 @@
 
 <div class="app" id="appRoot">
 
+  <!-- Fondo oscuro de la hoja inferior (solo visible/activo en móvil) -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
   <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar">
+    <!-- Asa para abrir/cerrar el panel como hoja inferior en móvil (oculta en escritorio) -->
+    <button class="sidebar-handle" id="sidebarHandle" type="button" aria-expanded="false">
+      <span class="handle-bar"></span>
+      <span class="handle-label-row">
+        <span>Dispositivos y ajustes</span>
+        <svg class="handle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </span>
+    </button>
+
     <div class="brand">
       <img class="brand-icon" src="/src/assets/images/icons/favicon.ico" alt="XandA" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
       <span class="dot" style="display:none;"></span>
