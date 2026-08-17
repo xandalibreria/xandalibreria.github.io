@@ -87,7 +87,7 @@ button {
   align-items: center;
   background-color: #ffffff;
   padding: 20px 50px;
-  z-index: 999 !important;
+  z-index: 9 !important;
 }
 
 .header a {
