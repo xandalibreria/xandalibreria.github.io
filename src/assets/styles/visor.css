@@ -913,6 +913,15 @@
       z-index:50;
     }
     .sidebar.expanded{ transform:translateY(0); }
+    /* Respaldo: sin el asa nueva en el HTML, no hay forma de expandir el
+       panel — lo dejamos siempre visible en vez de colapsado e inaccesible. */
+    html.no-sheet-handle .sidebar{
+      transform:none !important;
+      height:auto;
+      max-height:80vh;
+    }
+    html.no-sheet-handle .sidebar-handle,
+    html.no-sheet-handle .sidebar-backdrop{ display:none !important; }
     /* neutraliza el corrimiento de escritorio del modo "Enfocar";
        en móvil la hoja ya se abre/cierra por sí sola */
     .app.fullscreen .sidebar{ margin-left:0; }
@@ -932,6 +941,42 @@
     .topbar .actions::-webkit-scrollbar{ display:none; }
 
     .frame-wrap{ padding:20px 16px 100px; }
+
+    #pinnedCustom{
+      display: none;
+    }
+    .cat-tabs-wrap{
+      margin-bottom: 15px;
+    }
+    .brand{
+      margin-bottom: 15px;
+    }
+    .url-hint span{
+      display: none;
+    }
+    .sidebar{
+      padding-bottom: 15px;
+    }
+    .sidebar-footer{
+      padding-top: 15px;
+    }
+    .custom-row{
+      width: 50%;
+      margin-right: 15px;
+    }
+    .custom-block{
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+    .custom-apply{
+      width: calc(50% - 15px);
+      height: 35px;
+      margin-bottom: 10px;
+    }
+    .field-label{
+      width: 100%;
+    }
   }
 
   ::-webkit-scrollbar{ width:9px; height:9px; }

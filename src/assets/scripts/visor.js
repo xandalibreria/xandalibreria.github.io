@@ -119,6 +119,10 @@ const typeIcons = {
   const sidebarEl = document.querySelector('.sidebar');
   const sidebarHandle = document.getElementById('sidebarHandle');
   const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+  // Respaldo: si el HTML todavía no trae el asa/fondo nuevos (por ejemplo,
+  // se actualizó el CSS/JS pero no el HTML), no dejamos el panel colapsado
+  // e inaccesible en móvil — forzamos que se quede siempre visible.
+  if(!sidebarHandle){ document.documentElement.classList.add('no-sheet-handle'); }
 
   // =========================================================
   // PANEL INFERIOR EN MÓVIL: en pantallas angostas el menú lateral se
