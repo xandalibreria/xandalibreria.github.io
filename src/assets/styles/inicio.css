@@ -194,7 +194,9 @@ h4 {
     letter-spacing: -0.01em;
     color: var(--ink);
 }
-
+.container h1{
+    font-size: clamp(30px, 4.5vw, 65px) !important;
+}
 /* ---------------- Header ---------------- */
 .site-header {
     position: sticky;
@@ -303,8 +305,8 @@ h4 {
 }
 
 .hero p.lead {
-    font-size: 18px;
-    color: var(--ink-soft);
+    font-size: clamp(13px, 1.5vw, 22px);
+    color: #000000;
     max-width: 620px;
     margin-top: 18px;
     line-height: 1.55;
@@ -578,7 +580,7 @@ h4 {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    box-shadow: var(--shadow-card);
+    /*box-shadow: var(--shadow-card);*/
     transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     cursor: pointer;
 }
@@ -1322,7 +1324,12 @@ h4 {
     .container {
         padding: 0 20px;
     }
-
+    .container h1{
+        text-align: center;
+    }
+    .container p{
+        text-align: center;
+    }
     .grid {
         grid-template-columns: 1fr;
     }
@@ -1337,6 +1344,10 @@ h4 {
 
     .stat-row {
         gap: 22px;
+        justify-content: center;
+    }
+    .stat b{
+        text-align: center;
     }
     .tab-bar-outer {
         top: 55px;
@@ -1374,6 +1385,9 @@ h4 {
     .insp-actions .btn {
         flex: 1;
         justify-content: center;
+    }
+    .search-box {
+        box-shadow: none
     }
 }
 
