@@ -113,12 +113,26 @@
   window.addEventListener('drop', e=>e.preventDefault());
 
   /* ---------------- global controls ---------------- */
+  function markStaleAsPending(){
+    files.forEach(f=>{ if(f.status === 'done') f.status = 'pending'; });
+  }
+
+  function updateQualityFill(){
+    const min = Number(qualityRange.min), max = Number(qualityRange.max), val = Number(qualityRange.value);
+    const pct = ((val - min) / (max - min)) * 100;
+    qualityRange.style.background =
+      `linear-gradient(to right, var(--indigo-600) 0%, var(--indigo-600) ${pct}%, var(--lav-200) ${pct}%, var(--lav-200) 100%)`;
+  }
+
   qualityRange.addEventListener('input', ()=>{
     qualityVal.textContent = qualityRange.value + '%';
+    updateQualityFill();
     const q = Number(qualityRange.value);
     files.forEach(f=>{ f.quality = q; });
+    markStaleAsPending();
     render();
   });
+  updateQualityFill();
 
   scaleSeg.addEventListener('click', e=>{
     const btn = e.target.closest('button');
@@ -127,6 +141,7 @@
     btn.classList.add('active');
     currentScale = Number(btn.dataset.scale);
     files.forEach(f=>{ f.scale = currentScale; });
+    markStaleAsPending();
     render();
     toast('Tamaño de salida ajustado a ' + Math.round(currentScale*100) + '%');
   });
@@ -136,6 +151,7 @@
     if(val === '__keep') return;
     if(!files.length){ toast('Añade imágenes primero', 'bad'); return; }
     files.forEach(f=>{ f.target = val; });
+    markStaleAsPending();
     render();
     toast('Formato de salida cambiado a ' + labelFromMime(val) + ' para todos');
   });
@@ -151,7 +167,7 @@
   convertAllBtn.addEventListener('click', async ()=>{
     convertAllBtn.disabled = true;
     for(const f of files){ await convertOne(f); }
-    convertAllBtn.disabled = false;
+    render(); // recompute the locked/unlocked state and label from the real file statuses
     toast('Conversión completa', 'good');
   });
 
@@ -230,7 +246,9 @@
     emptyState.style.display = files.length ? 'none' : 'block';
     clearBtn.disabled = !files.length;
     zipBtn.disabled = !files.some(f=>f.status==='done');
-    convertAllBtn.disabled = !files.length;
+    const allDone = files.length>0 && files.every(f=>f.status==='done');
+    convertAllBtn.disabled = !files.length || allDone;
+    convertAllBtn.textContent = allDone ? 'Has convertido todo' : 'Convertir todo';
 
     fileList.innerHTML = '';
     files.forEach(f=>{
@@ -262,15 +280,17 @@
             <button class="icon-btn" data-role="remove" title="Eliminar">✕</button>
           </div>
           <div class="row-btns">
+            <button class="btn ${f.status==='done' ? 'btn-ghost' : 'btn-primary'} btn-sm" data-role="convert">${f.status==='done' ? 'Reconvertir' : 'Convertir'}</button>
             ${f.status==='done'
               ? `<button class="btn btn-ghost btn-sm" data-role="compare">Comparar</button><button class="btn btn-ghost btn-sm" data-role="download">Descargar</button>`
-              : `<button class="btn btn-primary btn-sm" data-role="convert">Convertir</button>`}
+              : ''}
           </div>
         </div>
       `;
 
       card.querySelector('[data-role=target]').addEventListener('change', e=>{
         f.target = e.target.value;
+        if(f.status === 'done'){ f.status = 'pending'; render(); }
       });
       card.querySelector('[data-role=remove]').addEventListener('click', ()=>{
         URL.revokeObjectURL(f.url); if(f.outUrl) URL.revokeObjectURL(f.outUrl);
@@ -342,16 +362,16 @@
 
   function compareSetPos(pct){
     if(!compareState.active) return;
-    const afterWrap = document.getElementById('afterWrap');
-    const afterImg = document.getElementById('afterImg');
+    const beforeWrap = document.getElementById('beforeWrap');
+    const beforeImg = document.getElementById('beforeImg');
     const handle = document.getElementById('compareHandle');
-    if(!afterWrap || !afterImg || !handle) return;
+    if(!beforeWrap || !beforeImg || !handle) return;
     pct = Math.max(2, Math.min(98, pct));
     compareState.pct = pct;
     const r = compareBox.getBoundingClientRect();
-    afterWrap.style.width = pct + '%';
+    beforeWrap.style.width = pct + '%';
     handle.style.left = pct + '%';
-    afterImg.style.width = r.width + 'px';
+    beforeImg.style.width = r.width + 'px';
   }
 
   function compareMove(clientX){
@@ -378,9 +398,9 @@
   function renderCompare(f){
     if(!f || f.status !== 'done' || !f.outUrl){ renderCompareEmpty(); return; }
     compareBox.innerHTML = `
-      <img class="layer" src="${f.url}" alt="Original">
-      <div class="after-wrap" id="afterWrap">
-        <img src="${f.outUrl}" alt="Convertida" id="afterImg">
+      <img class="layer" src="${f.outUrl}" alt="Convertida">
+      <div class="after-wrap" id="beforeWrap">
+        <img src="${f.url}" alt="Original" id="beforeImg">
       </div>
       <span class="compare-tag left">${labelFromMime(f.format)} · ${fmtBytes(f.size)}</span>
       <span class="compare-tag right">${labelFromMime(f.target)} · ${fmtBytes(f.outSize)}</span>
@@ -401,3 +421,14 @@
 
   render();
 })();
+
+
+
+window.addEventListener("scroll", () => {
+  const header = document.getElementById("id-header");
+  if(scrollY > 0){
+    header.style.position = "fixed";
+  }else{
+    header.style.position = "absolute";
+  }
+})
