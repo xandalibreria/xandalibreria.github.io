@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Conversor de imágenes — XandA</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <link rel="stylesheet" href="../assets/styles/compresor.css">
+    <body>
+
+        <div class="wrap">
+
+            <!-- intro -->
+            <div class="intro reveal in">
+                <span class="eyebrow"><span class="dot"></span>Conversor &amp;
+                    compresor</span>
+                <h1>Cambia el formato de tus imágenes <em>sin perder calidad de
+                        más</em></h1>
+                <p>Arrastra tus archivos, elige el formato de salida y ajusta la
+                    compresión si quieres aligerar el peso. Todo ocurre en tu
+                    navegador — tus imágenes no se suben a ningún servidor.</p>
+                <div class="chip-row">
+                    <span class="fmt-chip">PNG</span>
+                    <span class="fmt-chip">JPG</span>
+                    <span class="fmt-chip">WEBP</span>
+                    <span class="fmt-chip">AVIF*</span>
+                    <span class="fmt-chip">BMP</span>
+                    <span class="fmt-chip">GIF → estático</span>
+                </div>
+            </div>
+
+            <!-- dropzone -->
+            <div class="dropzone-section reveal in">
+                <div class="dropzone" id="dropzone">
+                    <div class="shifter" aria-hidden="true">
+                        <div class="sq png">PNG</div>
+                        <div class="sq jpg">JPG</div>
+                        <div class="sq webp">WEBP</div>
+                        <div class="sq avif">AVIF</div>
+                    </div>
+                    <h2>Suelta tus imágenes aquí</h2>
+                    <p class="hint">o selecciónalas desde tu equipo — puedes
+                        soltar varias a la vez</p>
+                    <button class="browse-btn" id="browseBtn"
+                        type="button">Elegir archivos</button>
+                    <input type="file" id="fileInput" accept="image/*" multiple>
+                    <p class="dz-formats">Detecta automáticamente <b>PNG · JPG ·
+                            WEBP · BMP · GIF · SVG</b> al soltarlas</p>
+                </div>
+            </div>
+
+            <!-- toolbar -->
+            <div class="toolbar reveal">
+                <h3>Tus archivos <span class="count"
+                        id="fileCount">0</span></h3>
+                <div class="toolbar-actions">
+                    <button class="btn btn-ghost" id="clearBtn" disabled>Vaciar
+                        lista</button>
+                    <button class="btn btn-ghost" id="zipBtn" disabled>Descargar
+                        todo (.zip)</button>
+                    <button class="btn btn-primary" id="convertAllBtn"
+                        disabled>Convertir todo</button>
+                </div>
+            </div>
+
+            <div class="global-controls reveal">
+                <div class="field" style="min-width:220px;">
+                    <label>Formato de salida para todos</label>
+                    <select class="target-select" id="globalFormat"
+                        style="padding:9px 12px;">
+                        <option value="__keep">Mantener el de cada
+                            archivo</option>
+                        <option value="image/png">PNG</option>
+                        <option value="image/jpeg">JPG</option>
+                        <option value="image/webp">WEBP</option>
+                    </select>
+                </div>
+                <div class="field" style="flex:1;">
+                    <label>Calidad <span class="val"
+                            id="qualityVal">80%</span></label>
+                    <input type="range" id="qualityRange" min="10" max="100"
+                        value="80">
+                </div>
+                <div class="field">
+                    <label>Tamaño</label>
+                    <div class="seg" id="scaleSeg">
+                        <button data-scale="1" class="active">100%</button>
+                        <button data-scale="0.75">75%</button>
+                        <button data-scale="0.5">50%</button>
+                        <button data-scale="0.25">25%</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="file-list" id="fileList"></div>
+            <p class="empty-state" id="emptyState">Aún no has soltado ninguna
+                imagen — súbela arriba para empezar.</p>
+
+            <!-- stats -->
+            <div class="stats reveal" id="statsRow">
+                <div class="stat-card">
+                    <div class="n" id="statTotal">0</div>
+                    <div class="l">Imágenes cargadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="n" id="statDone">0</div>
+                    <div class="l">Convertidas</div>
+                </div>
+                <div class="stat-card accent">
+                    <div class="n" id="statSaved">0%</div>
+                    <div class="l">Peso ahorrado en promedio</div>
+                </div>
+            </div>
+
+            <!-- compare -->
+            <div class="compare-section reveal">
+                <div class="section-head">
+                    <div>
+                        <h2>Antes / después</h2>
+                        <p>Convierte una imagen y desliza para comparar el
+                            resultado con el original.</p>
+                    </div>
+                </div>
+                <div class="compare-box" id="compareBox">
+                    <div class="compare-empty" id="compareEmpty">Convierte una
+                        imagen para ver la comparación aquí</div>
+                </div>
+            </div>
+
+            <!-- guide -->
+            <div class="guide-section reveal">
+                <div class="section-head">
+                    <div>
+                        <h2>¿Qué formato conviene?</h2>
+                        <p>Una referencia rápida antes de elegir el destino.</p>
+                    </div>
+                </div>
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <span class="tag"
+                            style="background:linear-gradient(140deg,var(--indigo-700),var(--indigo-600));">PNG</span>
+                        <p>Sin pérdida de calidad y con transparencia real.
+                            Ideal para logotipos, íconos y capturas con texto
+                            nítido.</p>
+                        <p class="best">Mejor para <b>gráficos y
+                                transparencias</b></p>
+                    </div>
+                    <div class="guide-card">
+                        <span class="tag"
+                            style="background:linear-gradient(140deg,var(--indigo-600),var(--violet-500));">JPG</span>
+                        <p>Compresión con pérdida muy eficiente para
+                            fotografías. No admite transparencia.</p>
+                        <p class="best">Mejor para <b>fotos y fondos</b></p>
+                    </div>
+                    <div class="guide-card">
+                        <span class="tag"
+                            style="background:linear-gradient(140deg,var(--violet-500),var(--blue-400));">WEBP</span>
+                        <p>Calidad similar al JPG con archivos hasta 30% más
+                            ligeros, y admite transparencia.</p>
+                        <p class="best">Mejor para <b>uso web general</b></p>
+                    </div>
+                    <div class="guide-card">
+                        <span class="tag"
+                            style="background:linear-gradient(140deg,var(--blue-400),#8AA6FF);">AVIF</span>
+                        <p>El más compacto disponible hoy, aunque el soporte del
+                            navegador aún es variable.</p>
+                        <p class="best">Mejor para <b>máximo ahorro</b></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="toast-wrap" id="toastWrap"></div>
+
+    <script src="../assets/scripts/compresor.js"></script>
+
+    </body>
+</html>
