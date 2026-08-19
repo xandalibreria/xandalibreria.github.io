@@ -593,22 +593,53 @@ const typeIcons = {
       setSheetExpanded(false);
     }
   });
+  function obtenerUrlDeLaExtension(){
+      const parametros = new URLSearchParams(window.location.search);
+      return parametros.get('url');
+  }
+  // ---- URL recibida desde la extensión de Chrome ----
+function obtenerUrlDeLaExtension(){
+    const parametros = new URLSearchParams(window.location.search);
+    return parametros.get('url');
+}
 
-  // ---- arranque: recupera favoritos, última URL, último dispositivo y tamaño personalizado ----
-  (async function init(){
+// ---- arranque: recupera favoritos, última URL, último dispositivo y tamaño personalizado ----
+(async function init(){
+
     const saved = await loadState();
+    const urlExtension = obtenerUrlDeLaExtension();
+
     if(saved){
-      favorites = new Set(saved.favorites || []);
-      if(saved.customDevice) customDevice = saved.customDevice;
-      if(saved.lastUrl){ currentUrl = saved.lastUrl; urlInput.value = saved.lastUrl; }
-      if(saved.lastDeviceId){
-        const pool = customDevice ? devices.concat([customDevice]) : devices;
-        const found = pool.find(d => d.id === saved.lastDeviceId);
-        if(found) currentDevice = { ...found };
-      }
+        favorites = new Set(saved.favorites || []);
+
+        if(saved.customDevice){
+            customDevice = saved.customDevice;
+        }
+
+        if(saved.lastDeviceId){
+            const pool = customDevice ? devices.concat([customDevice]) : devices;
+            const found = pool.find(d => d.id === saved.lastDeviceId);
+
+            if(found){
+                currentDevice = { ...found };
+            }
+        }
+
+        if(saved.lastUrl){
+            currentUrl = saved.lastUrl;
+            urlInput.value = saved.lastUrl;
+        }
     }
+
+    // La URL enviada por la extensión tiene prioridad
+    if(urlExtension){
+        urlInput.value = urlExtension;
+        loadUrl();
+    }
+
     buildCatTabs();
     buildDeviceList();
     buildPinnedCustom();
     renderDevice();
-  })();
+
+})();
