@@ -37,7 +37,7 @@ const ICONS = {
   loader:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>`,
   eye:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle></svg>`,
   bounce:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"></circle><path d="M12 8v13"></path><path d="M8 21h8"></path></svg>`,
-  constructor:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  aplicaciones:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <rect x="3" y="3" width="7" height="7" rx="1"></rect>
   <rect x="14" y="3" width="7" height="7" rx="1"></rect>
   <rect x="3" y="14" width="7" height="7" rx="1"></rect>
@@ -67,7 +67,7 @@ ESTRUCTURAS — esqueletos base de proyecto (multi-archivo → zip)
 const ESTRUCTURAS = [
     {
     id:"est-html",
-    name:"Estructura HTML",
+    name:"Estructura Básica",
     desc:"Esqueleto base para un sitio estático: HTML semántico, hoja de estilos organizada y script de entrada listo para escalar.",
     tags:["HTML","CSS","JS"],
     icon:"code",
@@ -1022,7 +1022,140 @@ body{font-family:system-ui,sans-serif;padding:60px;background:#F6F3FF;text-align
 </body></html>`
   }
 ];
-
+const APLICACIONES = [
+  {
+    id:"xanda-estructurador-basico",
+    name:"Estructurador Básico",
+    desc:"Aparición suave por opacidad al cargar la página, ideal para encabezados y secciones destacadas.",
+    tags:["PYTHON"],
+    icon:"wind",
+    meta:"1 archivo · 1 KB",
+    file:"fade-in.html",
+    demoClass:"demo-fade",
+    content:`<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Fade In — XandA</title>
+<style>
+body{font-family:system-ui,sans-serif;padding:60px;background:#F6F3FF;text-align:center;}
+.fade-in{animation:xandaFadeIn 0.8s ease forwards;}
+@keyframes xandaFadeIn{from{opacity:0;} to{opacity:1;}}
+.box{width:120px;height:120px;margin:0 auto;border-radius:16px;background:linear-gradient(135deg,#7C3AED,#C026D3);}
+</style></head>
+<body>
+  <div class="box fade-in"></div>
+</body></html>`
+  },
+  {
+    id:"anim-slide",
+    name:"Slide In",
+    desc:"Entrada deslizante desde la izquierda con desvanecimiento, útil para tarjetas y elementos de lista.",
+    tags:["CSS"],
+    icon:"move",
+    meta:"1 archivo · 1 KB",
+    file:"slide-in.html",
+    demoClass:"demo-slide",
+    content:`<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Slide In — XandA</title>
+<style>
+body{font-family:system-ui,sans-serif;padding:60px;background:#F6F3FF;text-align:center;}
+.slide-in{animation:xandaSlideIn 0.6s cubic-bezier(.22,1,.36,1) forwards;}
+@keyframes xandaSlideIn{from{opacity:0;transform:translateX(-40px);} to{opacity:1;transform:translateX(0);}}
+.box{width:120px;height:120px;margin:0 auto;border-radius:16px;background:linear-gradient(135deg,#7C3AED,#C026D3);}
+</style></head>
+<body>
+  <div class="box slide-in"></div>
+</body></html>`
+  },
+  {
+    id:"anim-hover",
+    name:"Hover Zoom",
+    desc:"Efecto de acercamiento suave al pasar el cursor sobre tarjetas o imágenes, con sombra dinámica.",
+    tags:["CSS"],
+    icon:"zoom",
+    meta:"1 archivo · 1 KB",
+    file:"hover-zoom.html",
+    demoClass:"demo-hover",
+    content:`<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Hover Zoom — XandA</title>
+<style>
+body{font-family:system-ui,sans-serif;padding:60px;background:#F6F3FF;text-align:center;}
+.hover-zoom{width:120px;height:120px;margin:0 auto;border-radius:16px;background:linear-gradient(135deg,#7C3AED,#C026D3);transition:transform .25s ease, box-shadow .25s ease;}
+.hover-zoom:hover{transform:scale(1.08);box-shadow:0 20px 40px -14px rgba(124,58,237,.45);}
+</style></head>
+<body>
+  <div class="hover-zoom"></div>
+</body></html>`
+  },
+  {
+    id:"anim-loader",
+    name:"Loader Spinner",
+    desc:"Indicador de carga circular con rotación continua, útil mientras se espera contenido asíncrono.",
+    tags:["CSS"],
+    icon:"loader",
+    meta:"1 archivo · 1 KB",
+    file:"loader-spinner.html",
+    demoClass:"demo-loader",
+    content:`<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Loader — XandA</title>
+<style>
+body{font-family:system-ui,sans-serif;padding:60px;background:#F6F3FF;text-align:center;}
+.spinner{width:48px;height:48px;margin:0 auto;border:5px solid #E9E3FB;border-top-color:#7C3AED;border-radius:50%;animation:xandaSpin 0.8s linear infinite;}
+@keyframes xandaSpin{to{transform:rotate(360deg);}}
+</style></head>
+<body>
+  <div class="spinner"></div>
+</body></html>`
+  },
+  {
+    id:"anim-scroll",
+    name:"Scroll Reveal",
+    desc:"Revela elementos con desvanecimiento y desplazamiento cuando entran en la ventana visible, usando IntersectionObserver.",
+    tags:["CSS","JS"],
+    icon:"eye",
+    meta:"1 archivo · 2 KB",
+    file:"scroll-reveal.html",
+    demoClass:"demo-scroll",
+    content:`<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Scroll Reveal — XandA</title>
+<style>
+body{font-family:system-ui,sans-serif;padding:0;background:#F6F3FF;}
+.spacer{height:70vh;display:flex;align-items:center;justify-content:center;color:#9C93B8;}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease, transform .6s ease;width:200px;height:120px;margin:40px auto;border-radius:16px;background:linear-gradient(135deg,#7C3AED,#C026D3);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style></head>
+<body>
+  <div class="spacer">Desplázate hacia abajo ↓</div>
+  <div class="reveal"></div>
+  <div class="spacer"></div>
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.3 });
+    els.forEach(el => io.observe(el));
+  </script>
+</body></html>`
+  },
+  {
+    id:"anim-bounce",
+    name:"Bounce",
+    desc:"Rebote vertical llamativo para botones o íconos, pensado para atraer la atención sin ser invasivo.",
+    tags:["CSS"],
+    icon:"bounce",
+    meta:"1 archivo · 1 KB",
+    file:"bounce.html",
+    demoClass:"demo-bounce",
+    content:`<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Bounce — XandA</title>
+<style>
+body{font-family:system-ui,sans-serif;padding:60px;background:#F6F3FF;text-align:center;}
+.bounce{width:80px;height:80px;margin:0 auto;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#C026D3);animation:xandaBounce 1s ease infinite;}
+@keyframes xandaBounce{0%,100%{transform:translateY(0);} 50%{transform:translateY(-22px);}}
+</style></head>
+<body>
+  <div class="bounce"></div>
+</body></html>`
+  }
+];
 const CATEGORIES = [
     { id:"estructuras", label:"Estructuras", icon:"layers", data:ESTRUCTURAS, kind:"zip",
         title:"Estructuras de proyecto", sub:"El esqueleto base para arrancar tu proyecto en el stack que necesites. Descarga y coloca los archivos dentro de tu carpeta de trabajo." },
@@ -1032,6 +1165,6 @@ const CATEGORIES = [
         title:"Componentes de interfaz", sub:"Alerts, ventanas emergentes, tooltips y más. Inspecciona el código o descárgalo y ajústalo a tu proyecto." },
     { id:"animaciones", label:"Animaciones", icon:"sparkles", data:ANIMACIONES, kind:"file",
         title:"Animaciones y efectos", sub:"Transiciones y micro-interacciones listas para aplicar con solo una clase CSS." },
-    { id:"constructor", label:"Constructor", icon:"constructor", data:ANIMACIONES, kind:"file",
-        title:"Construye tu propio componente", sub:"Componentes personalizados, listos para ejecutarse en tu proyecto web." }
+    { id:"aplicaciones", label:"Aplicaciones", icon:"aplicaciones", data:APLICACIONES, kind:"file",
+        title:"Mejora tu productividad", sub:"Aplicaciones diseñadas para ayudarte a trabajar mejor y ahorrar tiempo." }
 ];
