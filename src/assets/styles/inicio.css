@@ -1567,3 +1567,23 @@ h4 {
 }
 
 /*FOOTER | FINAL */
+/* BARRA DE SCROLL */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* FONDO */
+::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+/* BARRA */
+::-webkit-scrollbar-thumb {
+    background: #6C3BFF;
+    border-radius: 10px;
+}
+
+/* HOVER */
+::-webkit-scrollbar-thumb:hover {
+    background: #5728D9;
+}
