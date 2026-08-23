@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XandA — Constructor Visual</title>
+<title>XandA — Web</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -61,6 +61,9 @@
                 <button class="btn-primary" onclick="showExport()"><i class="fa-solid fa-file-export"></i>Exportar ZIP</button>
             </div>
         </div>
+
+        <!-- PAGE BAR -->
+        <div class="page-bar" id="pageBar"></div>
 
         <!-- BODY -->
         <div class="builder-body">
@@ -142,24 +145,6 @@
                         </div>
                         <div class="element-item" draggable="true" data-type="iframe" ondragstart="elDragStart(event,'iframe')">
                             <i class="fa-solid fa-window-restore"></i><span>iFrame</span>
-                        </div>
-                    </div>
-                    <!-- RIGHT PANEL -->
-                    <div class="panel-right">
-                        <div class="right-header">
-                            <h3 id="rightTitle">Propiedades</h3>
-                            <p id="rightSubtitle">Selecciona un elemento para editar</p>
-                        </div>
-                        <div class="rtabs" id="rtabs" style="display:none">
-                            <button class="rtab active" onclick="switchRTab(0)">Estilo</button>
-                            <button class="rtab" onclick="switchRTab(1)">Tipografía</button>
-                            <button class="rtab" onclick="switchRTab(2)">Espaciado</button>
-                        </div>
-                        <div class="right-scroll" id="rightScroll">
-                            <div class="no-selection">
-                                <i class="fa-solid fa-arrow-pointer"></i>
-                                <p>Haz clic en cualquier elemento del canvas para editar sus propiedades de estilo.</p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -275,6 +260,25 @@
                     </div>
                 </div>
             </div>
+
+            <!-- RIGHT PANEL -->
+            <div class="panel-right">
+                <div class="right-header">
+                    <h3 id="rightTitle">Propiedades</h3>
+                    <p id="rightSubtitle">Selecciona un elemento para editar</p>
+                </div>
+                <div class="rtabs" id="rtabs" style="display:none">
+                    <button class="rtab active" onclick="switchRTab(0)">Estilo</button>
+                    <button class="rtab" onclick="switchRTab(1)">Tipografía</button>
+                    <button class="rtab" onclick="switchRTab(2)">Espaciado</button>
+                </div>
+                <div class="right-scroll" id="rightScroll">
+                    <div class="no-selection">
+                        <i class="fa-solid fa-arrow-pointer"></i>
+                        <p>Haz clic en cualquier elemento del canvas para editar sus propiedades de estilo.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -287,6 +291,21 @@
             <div class="modal-actions">
                 <button class="btn-ghost" onclick="closeExport()">Cancelar</button>
                 <button class="btn-primary" onclick="downloadZip()"><i class="fa-solid fa-download"></i>Descargar ZIP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RENAME MODAL -->
+    <div class="modal-overlay" id="renameModal">
+        <div class="modal-box" style="width:400px">
+            <h2 style="font-size:17px;margin-bottom:16px"><i class="fa-solid fa-pen" style="color:var(--xanda-purple);margin-right:8px"></i>Renombrar página</h2>
+            <p style="margin-bottom:14px">El nombre se usará como nombre de archivo <code>.html</code> y <code>.css</code>. Solo letras, números y guiones.</p>
+            <input class="prop-input" type="text" id="renameInput" placeholder="nombre-de-pagina"
+                style="width:100%;height:38px;font-size:14px;margin-bottom:20px"
+                onkeydown="if(event.key==='Enter')document.getElementById('renameConfirmBtn').click();if(event.key==='Escape')closeRenameModal()">
+            <div class="modal-actions">
+                <button class="btn-ghost" onclick="closeRenameModal()">Cancelar</button>
+                <button class="btn-primary" id="renameConfirmBtn"><i class="fa-solid fa-check"></i>Confirmar</button>
             </div>
         </div>
     </div>
