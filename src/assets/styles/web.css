@@ -24,7 +24,7 @@
     --xanda-shadow: 0 2px 16px rgba(107, 92, 231, 0.10);
     --xanda-shadow-lg: 0 8px 40px rgba(107, 92, 231, 0.18);
     --panel-left: 260px;
-    --panel-right: 280px;
+    --panel-right: 100%;
     --topbar: 56px;
 }
 
@@ -228,7 +228,6 @@ body {
 .builder-body {
     display: flex;
     flex: 1;
-    min-height: 0;
     overflow: hidden;
 }
 
@@ -553,7 +552,6 @@ body {
 /* RIGHT PANEL */
 .panel-right {
     width: var(--panel-right);
-    height: 100%;
     background: #fff;
     border-left: 1px solid var(--xanda-border);
     display: flex;
@@ -1401,168 +1399,4 @@ body {
     color: var(--xanda-text2);
     min-width: 36px;
     text-align: center;
-}
-/* ═══════════════════════════════════════════════
-   PAGE BAR
-   ═══════════════════════════════════════════════ */
-.page-bar {
-    height: 40px;
-    background: #fff;
-    border-bottom: 1px solid var(--xanda-border);
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    gap: 4px;
-    flex-shrink: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: thin;
-    position: relative;
-    z-index: 90;
-}
-
-.page-bar::-webkit-scrollbar {
-    height: 3px;
-}
-.page-bar::-webkit-scrollbar-thumb {
-    background: var(--xanda-border2);
-    border-radius: 4px;
-}
-
-/* Cada pestaña de página */
-.page-tab {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 0 10px 0 12px;
-    height: 30px;
-    border: 1px solid var(--xanda-border);
-    border-radius: 8px;
-    background: var(--xanda-bg);
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--xanda-text2);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-    position: relative;
-    flex-shrink: 0;
-    user-select: none;
-}
-
-.page-tab i {
-    font-size: 12px;
-    color: var(--xanda-text3);
-    transition: color 0.15s;
-}
-
-.page-tab:hover {
-    background: var(--xanda-purple-50);
-    border-color: var(--xanda-purple-200);
-    color: var(--xanda-purple);
-}
-
-.page-tab:hover i {
-    color: var(--xanda-purple);
-}
-
-.page-tab.active {
-    background: var(--xanda-purple);
-    border-color: var(--xanda-purple);
-    color: #fff;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(107, 92, 231, 0.3);
-}
-
-.page-tab.active i {
-    color: rgba(255,255,255,0.85);
-}
-
-.page-tab-name {
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Acciones de pestaña (editar / borrar) */
-.page-tab-actions {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    margin-left: 2px;
-    opacity: 0;
-    transition: opacity 0.15s;
-}
-
-.page-tab:hover .page-tab-actions,
-.page-tab.active .page-tab-actions {
-    opacity: 1;
-}
-
-.page-tab-btn {
-    width: 20px;
-    height: 20px;
-    border: none;
-    background: transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    color: inherit;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.12s;
-    padding: 0;
-    opacity: 0.7;
-}
-
-.page-tab-btn:hover {
-    background: rgba(255,255,255,0.2);
-    opacity: 1;
-}
-
-.page-tab.active .page-tab-btn:hover {
-    background: rgba(255,255,255,0.25);
-}
-
-.page-tab-btn.danger:hover {
-    background: rgba(239,68,68,0.25);
-    color: #EF4444;
-}
-
-.page-tab.active .page-tab-btn.danger:hover {
-    background: rgba(239,68,68,0.4);
-    color: #fff;
-}
-
-/* Botón "Nueva página" */
-.page-add-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0 12px;
-    height: 30px;
-    border: 1.5px dashed var(--xanda-border2);
-    border-radius: 8px;
-    background: transparent;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--xanda-text3);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-    flex-shrink: 0;
-    margin-left: 4px;
-}
-
-.page-add-btn i {
-    font-size: 11px;
-}
-
-.page-add-btn:hover {
-    border-color: var(--xanda-purple);
-    color: var(--xanda-purple);
-    background: var(--xanda-purple-50);
 }

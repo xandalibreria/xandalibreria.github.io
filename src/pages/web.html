@@ -3,31 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XandA — Web</title>
+<title>XandA — Constructor Visual</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="../assets/styles/web.css">
-
-    <!-- Favicon -->
-    <link rel="icon" href="/src/assets/images/icons/favicon.ico">
-    <link rel="icon" href="/src/assets/images/icons/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="/src/assets/images/icons/favicon.ico" type="image/x-icon">
-
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/src/assets/images/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/src/assets/images/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/src/assets/images/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/src/assets/images/apple-touch-icon-76x76.png">
-
-    <!-- Iconos para Android -->
-    <link rel="icon" sizes="192x192" href="/src/assets/images/android-chrome-192x192.png">
-    <link rel="icon" sizes="512x512" href="/src/assets/images/android-chrome-512x512.png">
-
-    <!-- Otros formatos -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/src/assets/images/favicon-16x16.png">
 </head>
 <body>
     <div id="builder">
@@ -80,9 +61,6 @@
                 <button class="btn-primary" onclick="showExport()"><i class="fa-solid fa-file-export"></i>Exportar ZIP</button>
             </div>
         </div>
-
-        <!-- PAGE BAR -->
-        <div class="page-bar" id="pageBar"></div>
 
         <!-- BODY -->
         <div class="builder-body">
@@ -166,6 +144,24 @@
                             <i class="fa-solid fa-window-restore"></i><span>iFrame</span>
                         </div>
                     </div>
+                    <!-- RIGHT PANEL -->
+                    <div class="panel-right">
+                        <div class="right-header">
+                            <h3 id="rightTitle">Propiedades</h3>
+                            <p id="rightSubtitle">Selecciona un elemento para editar</p>
+                        </div>
+                        <div class="rtabs" id="rtabs" style="display:none">
+                            <button class="rtab active" onclick="switchRTab(0)">Estilo</button>
+                            <button class="rtab" onclick="switchRTab(1)">Tipografía</button>
+                            <button class="rtab" onclick="switchRTab(2)">Espaciado</button>
+                        </div>
+                        <div class="right-scroll" id="rightScroll">
+                            <div class="no-selection">
+                                <i class="fa-solid fa-arrow-pointer"></i>
+                                <p>Haz clic en cualquier elemento del canvas para editar sus propiedades de estilo.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-content" id="panel-layers" style="display:none">
                     <div class="panel-label">Árbol de elementos</div>
@@ -228,28 +224,28 @@
                                 <button class="el-tool-btn danger" onclick="deleteEl(event,'el-hero')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
                             </div>
                             <h1 class="xanda-el" data-id="el-h1" onclick="selectEl(event,'el-h1')" ondblclick="startInlineEdit(event,'el-h1')" style="font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.1;margin-bottom:20px;color:#1A1633">
-                                <span class="el-toolbar">
+                                <div class="el-toolbar">
                                 <span class="el-tool-label">h1</span>
                                 <button class="el-tool-btn" onclick="startInlineEdit(event,'el-h1')" title="Editar texto"><i class="fa-solid fa-pen-to-square"></i></button>
                                 <button class="el-tool-btn" onclick="duplicateEl(event,'el-h1')" title="Duplicar"><i class="fa-solid fa-copy"></i></button>
                                 <button class="el-tool-btn danger" onclick="deleteEl(event,'el-h1')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
-                                </span>
+                                </div>
                                 Crea tu sitio web con <span style="color:#6B5CE7">{XandA}</span>
                             </h1>
                             <p class="xanda-el" data-id="el-p1" onclick="selectEl(event,'el-p1')" ondblclick="startInlineEdit(event,'el-p1')" style="font-size:clamp(15px,2vw,18px);color:#5B5379;max-width:580px;line-height:1.7;margin-bottom:32px">
-                                <span class="el-toolbar">
+                                <div class="el-toolbar">
                                 <span class="el-tool-label">p</span>
                                 <button class="el-tool-btn" onclick="startInlineEdit(event,'el-p1')" title="Editar texto"><i class="fa-solid fa-pen-to-square"></i></button>
                                 <button class="el-tool-btn danger" onclick="deleteEl(event,'el-p1')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
-                                </span>
+                                </div>
                                 Impulsa tu proyecto con XandA, genera estructuras, obten animaciones, carruseles, alerts, ventanas emergentes, formularios, componentes y más.
                             </p>
                             <button class="xanda-el" data-id="el-cta" onclick="selectEl(event,'el-cta')" style="background:#6B5CE7;color:#fff;border:none;padding:14px 32px;border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(107,92,231,0.35)">
-                                <span class="el-toolbar">
+                                <div class="el-toolbar">
                                 <span class="el-tool-label">button</span>
                                 <button class="el-tool-btn" onclick="dblEditEl(event,'el-cta')" title="Editar texto"><i class="fa-solid fa-pen"></i></button>
                                 <button class="el-tool-btn danger" onclick="deleteEl(event,'el-cta')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
-                                </span>
+                                </div>
                                 Comenzar ahora
                             </button>
                             </div>
@@ -279,25 +275,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- RIGHT PANEL -->
-            <div class="panel-right">
-                <div class="right-header">
-                    <h3 id="rightTitle">Propiedades</h3>
-                    <p id="rightSubtitle">Selecciona un elemento para editar</p>
-                </div>
-                <div class="rtabs" id="rtabs" style="display:none">
-                    <button class="rtab active" onclick="switchRTab(0)">Estilo</button>
-                    <button class="rtab" onclick="switchRTab(1)">Tipografía</button>
-                    <button class="rtab" onclick="switchRTab(2)">Espaciado</button>
-                </div>
-                <div class="right-scroll" id="rightScroll">
-                    <div class="no-selection">
-                        <i class="fa-solid fa-arrow-pointer"></i>
-                        <p>Haz clic en cualquier elemento del canvas para editar sus propiedades de estilo.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -310,21 +287,6 @@
             <div class="modal-actions">
                 <button class="btn-ghost" onclick="closeExport()">Cancelar</button>
                 <button class="btn-primary" onclick="downloadZip()"><i class="fa-solid fa-download"></i>Descargar ZIP</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- RENAME MODAL -->
-    <div class="modal-overlay" id="renameModal">
-        <div class="modal-box" style="width:400px">
-            <h2 style="font-size:17px;margin-bottom:16px"><i class="fa-solid fa-pen" style="color:var(--xanda-purple);margin-right:8px"></i>Renombrar página</h2>
-            <p style="margin-bottom:14px">El nombre se usará como nombre de archivo <code>.html</code> y <code>.css</code>. Solo letras, números y guiones.</p>
-            <input class="prop-input" type="text" id="renameInput" placeholder="nombre-de-pagina"
-                style="width:100%;height:38px;font-size:14px;margin-bottom:20px"
-                onkeydown="if(event.key==='Enter')document.getElementById('renameConfirmBtn').click();if(event.key==='Escape')closeRenameModal()">
-            <div class="modal-actions">
-                <button class="btn-ghost" onclick="closeRenameModal()">Cancelar</button>
-                <button class="btn-primary" id="renameConfirmBtn"><i class="fa-solid fa-check"></i>Confirmar</button>
             </div>
         </div>
     </div>

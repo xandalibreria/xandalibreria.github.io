@@ -15,190 +15,6 @@ let activePTab = 0;
 let addPopoverTargetSection = null;
 
 // ═══════════════════════════════════════
-// PAGES SYSTEM
-// ═══════════════════════════════════════
-let pages = [
-  { id: 'page-1', name: 'index', content: null }   // null = use current canvas HTML
-];
-let currentPageId = 'page-1';
-let pageCounter = 1;
-
-function initPages() {
-  // Guardar el contenido inicial en la primera página
-  pages[0].content = document.getElementById('canvasFrame').innerHTML;
-  renderPageBar();
-}
-
-function renderPageBar() {
-  const bar = document.getElementById('pageBar');
-  if (!bar) return;
-  bar.innerHTML = '';
-  pages.forEach(page => {
-    const btn = document.createElement('button');
-    btn.className = 'page-tab' + (page.id === currentPageId ? ' active' : '');
-    btn.dataset.pageId = page.id;
-    btn.innerHTML = `
-      <i class="fa-solid fa-file-code"></i>
-      <span class="page-tab-name" ondblclick="startRenamePageInline(event,'${page.id}')">${page.name}.html</span>
-      <span class="page-tab-actions">
-        <button class="page-tab-btn" onclick="renamePage(event,'${page.id}')" title="Renombrar"><i class="fa-solid fa-pen"></i></button>
-        ${pages.length > 1 ? `<button class="page-tab-btn danger" onclick="deletePage(event,'${page.id}')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>` : ''}
-      </span>
-    `;
-    btn.addEventListener('click', function(e) {
-      if (e.target.closest('.page-tab-btn') || e.target.closest('.page-tab-name')) return;
-      switchPage(page.id);
-    });
-    bar.appendChild(btn);
-  });
-
-  // Botón añadir página
-  const addBtn = document.createElement('button');
-  addBtn.className = 'page-add-btn';
-  addBtn.innerHTML = '<i class="fa-solid fa-plus"></i><span>Nueva página</span>';
-  addBtn.onclick = addPage;
-  bar.appendChild(addBtn);
-}
-
-function switchPage(pageId) {
-  if (pageId === currentPageId) return;
-  // Guardar contenido actual
-  const cur = pages.find(p => p.id === currentPageId);
-  if (cur) cur.content = document.getElementById('canvasFrame').innerHTML;
-  // Cargar nueva página
-  currentPageId = pageId;
-  const target = pages.find(p => p.id === pageId);
-  if (target && target.content) {
-    document.getElementById('canvasFrame').innerHTML = target.content;
-    reattachCanvasEvents();
-  }
-  selectedElId = null;
-  renderRightPanel(null, null);
-  renderTree();
-  saveHistory();
-  renderPageBar();
-  showToast('Página: ' + target.name + '.html');
-}
-
-function addPage() {
-  pageCounter++;
-  // Guardar página actual
-  const cur = pages.find(p => p.id === currentPageId);
-  if (cur) cur.content = document.getElementById('canvasFrame').innerHTML;
-  // Crear nueva con canvas vacío
-  const newId = 'page-' + pageCounter;
-  const newName = 'pagina-' + pageCounter;
-  pages.push({ id: newId, name: newName, content: getEmptyCanvas() });
-  currentPageId = newId;
-  document.getElementById('canvasFrame').innerHTML = pages[pages.length-1].content;
-  reattachCanvasEvents();
-  selectedElId = null;
-  renderRightPanel(null, null);
-  renderTree();
-  saveHistory();
-  renderPageBar();
-  showToast('Nueva página: ' + newName + '.html', 'success');
-}
-
-function getEmptyCanvas() {
-  return `
-  <div class="xanda-section-wrap" id="sec-header" data-section="header">
-    <span class="section-label">header</span>
-    <header id="xanda-header" style="background:#6B5CE7;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;min-height:64px">
-      <div class="empty-drop"><i class="fa-solid fa-arrow-down"></i> Arrastra elementos aquí</div>
-    </header>
-  </div>
-  <div class="xanda-section-wrap" id="sec-main" data-section="main">
-    <span class="section-label">main</span>
-    <main id="xanda-main" style="min-height:400px;padding:60px 48px">
-      <div class="empty-drop"><i class="fa-solid fa-arrow-down"></i> Arrastra elementos aquí</div>
-    </main>
-  </div>
-  <div class="xanda-section-wrap" id="sec-footer" data-section="footer">
-    <span class="section-label">footer</span>
-    <footer id="xanda-footer" style="background:#1A1633;padding:32px 48px;color:rgba(255,255,255,0.6);min-height:80px;display:flex;align-items:center;justify-content:space-between">
-      <div class="empty-drop"><i class="fa-solid fa-arrow-down"></i> Arrastra elementos aquí</div>
-    </footer>
-  </div>`;
-}
-
-function deletePage(e, pageId) {
-  e.stopPropagation();
-  if (pages.length <= 1) { showToast('No puedes eliminar la única página', 'error'); return; }
-  if (!confirm('¿Eliminar esta página? Esta acción no se puede deshacer.')) return;
-  const idx = pages.findIndex(p => p.id === pageId);
-  pages.splice(idx, 1);
-  if (currentPageId === pageId) {
-    const newCur = pages[Math.max(0, idx - 1)];
-    currentPageId = newCur.id;
-    document.getElementById('canvasFrame').innerHTML = newCur.content;
-    reattachCanvasEvents();
-    selectedElId = null;
-    renderRightPanel(null, null);
-    renderTree();
-    saveHistory();
-  }
-  renderPageBar();
-  showToast('Página eliminada');
-}
-
-function renamePage(e, pageId) {
-  e.stopPropagation();
-  const page = pages.find(p => p.id === pageId);
-  if (!page) return;
-  showRenameModal(page);
-}
-
-function startRenamePageInline(e, pageId) {
-  e.stopPropagation();
-  const page = pages.find(p => p.id === pageId);
-  if (!page) return;
-  showRenameModal(page);
-}
-
-function showRenameModal(page) {
-  // Mostrar modal de renombrar
-  const overlay = document.getElementById('renameModal');
-  const input = document.getElementById('renameInput');
-  input.value = page.name;
-  overlay.classList.add('show');
-  input.focus();
-  input.select();
-  document.getElementById('renameConfirmBtn').onclick = function() {
-    const newName = input.value.trim().replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase();
-    if (!newName) return;
-    page.name = newName;
-    overlay.classList.remove('show');
-    renderPageBar();
-    showToast('Página renombrada: ' + newName + '.html', 'success');
-  };
-}
-
-function closeRenameModal() {
-  document.getElementById('renameModal').classList.remove('show');
-}
-
-function reattachCanvasEvents() {
-  const frame = document.getElementById('canvasFrame');
-  frame.querySelectorAll('.xanda-el').forEach(el => {
-    const id = el.dataset.id;
-    if (!id) return;
-    el.onclick = function(ev) { selectEl(ev, id); };
-    if (['H1','H2','H3','P','SPAN','STRONG','A'].includes(el.tagName)) {
-      el.ondblclick = function(ev) { startInlineEdit(ev, id); };
-    }
-  });
-  ['header','main','footer'].forEach(sec => {
-    const wrap = document.getElementById('sec-' + sec);
-    if (wrap) {
-      wrap.ondragover = function(e) { sectionDragOver(e, sec); };
-      wrap.ondrop = function(e) { sectionDrop(e, sec); };
-      wrap.ondragleave = function(e) { sectionDragLeave(e); };
-    }
-  });
-}
-
-// ═══════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════
 function goToBuilder() {
@@ -369,11 +185,8 @@ function getElementDefaults(type, id) {
   return map[type] || { content: '', style: {} };
 }
 
-// Tags que no permiten block-level children: el toolbar debe ser span
-const INLINE_TAGS = new Set(['p','h1','h2','h3','h4','h5','h6','button','a','span','strong','em','label','li','td','th','dt','dd']);
-
 function createToolbar(id, type, actions) {
-  const tb = document.createElement(INLINE_TAGS.has(type) ? 'span' : 'div');
+  const tb = document.createElement('div');
   tb.className = 'el-toolbar';
   const lbl = document.createElement('span');
   lbl.className = 'el-tool-label';
@@ -582,67 +395,9 @@ function renderRightPanel(id, el) {
 }
 
 function renderStyleTab(el, s, scroll) {
-  const tag = el.tagName.toLowerCase();
-  const isImg = tag === 'img';
-  const isVideo = tag === 'video';
-  const isAnchor = tag === 'a';
-  const isMedia = isImg || isVideo;
-
-  const mediaSection = isImg ? `
-    <div class="prop-section">
-      <div class="prop-title"><i class="fa-solid fa-image"></i>Imagen</div>
-      <div class="prop-row">
-        <span class="prop-label">URL / src</span>
-        <input class="prop-input" type="text" placeholder="https://…/imagen.jpg" value="${el.getAttribute('src')||''}" onchange="applyAttr('src',this.value)">
-      </div>
-      <div class="prop-row">
-        <span class="prop-label">Alt text</span>
-        <input class="prop-input" type="text" placeholder="Descripción…" value="${el.getAttribute('alt')||''}" onchange="applyAttr('alt',this.value)">
-      </div>
-      <div class="prop-row">
-        <span class="prop-label">Object fit</span>
-        <select class="prop-select" onchange="applyStyle('objectFit',this.value)">
-          <option value="" ${!s.objectFit?'selected':''}>—</option>
-          <option value="cover" ${s.objectFit==='cover'?'selected':''}>Cover</option>
-          <option value="contain" ${s.objectFit==='contain'?'selected':''}>Contain</option>
-          <option value="fill" ${s.objectFit==='fill'?'selected':''}>Fill</option>
-        </select>
-      </div>
-    </div>` : isVideo ? `
-    <div class="prop-section">
-      <div class="prop-title"><i class="fa-solid fa-film"></i>Video</div>
-      <div class="prop-row">
-        <span class="prop-label">URL / src</span>
-        <input class="prop-input" type="text" placeholder="https://…/video.mp4" value="${el.getAttribute('src')||''}" onchange="applyAttr('src',this.value)">
-      </div>
-      <div class="prop-row" style="flex-wrap:wrap;gap:8px">
-        <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--xanda-text2);cursor:pointer"><input type="checkbox" ${el.hasAttribute('controls')?'checked':''} onchange="applyToggleAttr('controls',this.checked)"> Controles</label>
-        <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--xanda-text2);cursor:pointer"><input type="checkbox" ${el.hasAttribute('autoplay')?'checked':''} onchange="applyToggleAttr('autoplay',this.checked)"> Autoplay</label>
-        <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--xanda-text2);cursor:pointer"><input type="checkbox" ${el.hasAttribute('loop')?'checked':''} onchange="applyToggleAttr('loop',this.checked)"> Loop</label>
-        <label style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--xanda-text2);cursor:pointer"><input type="checkbox" ${el.hasAttribute('muted')?'checked':''} onchange="applyToggleAttr('muted',this.checked)"> Muted</label>
-      </div>
-    </div>` : '';
-
-  const anchorSection = isAnchor ? `
-    <div class="prop-section">
-      <div class="prop-title"><i class="fa-solid fa-link"></i>Enlace</div>
-      <div class="prop-row">
-        <span class="prop-label">URL (href)</span>
-        <input class="prop-input" type="text" placeholder="https://…" value="${el.getAttribute('href')||''}" onchange="applyAttr('href',this.value)">
-      </div>
-      <div class="prop-row">
-        <span class="prop-label">Target</span>
-        <select class="prop-select" onchange="applyAttr('target',this.value)">
-          <option value="" ${!el.getAttribute('target')?'selected':''}>Misma pestaña</option>
-          <option value="_blank" ${el.getAttribute('target')==='_blank'?'selected':''}>Nueva pestaña</option>
-        </select>
-      </div>
-    </div>` : '';
-
   scroll.innerHTML = `
     <div class="rtab-panel active">
-      ${mediaSection}
-      ${anchorSection}
+      <!-- DIMENSIONS -->
       <div class="prop-section">
         <div class="prop-title"><i class="fa-solid fa-ruler-combined"></i>Dimensiones (clamp)</div>
         <div style="margin-bottom:8px">
@@ -664,7 +419,8 @@ function renderStyleTab(el, s, scroll) {
           </div>
         </div>
       </div>
-      ${!isMedia ? `
+
+      <!-- BACKGROUND -->
       <div class="prop-section">
         <div class="prop-title"><i class="fa-solid fa-fill-drip"></i>Fondo</div>
         <div class="color-preview-row">
@@ -688,11 +444,26 @@ function renderStyleTab(el, s, scroll) {
           </label>
         </div>
         <div id="gradientControls" style="display:none;margin-top:8px;gap:6px;flex-direction:column">
-          <div class="prop-row"><span class="prop-label">Color 1</span><div class="color-swatch" style="background:#6B5CE7;width:24px;height:24px"><input type="color" value="#6B5CE7" oninput="applyGradient()"></div></div>
-          <div class="prop-row"><span class="prop-label">Color 2</span><div class="color-swatch" style="background:#4F8EF7;width:24px;height:24px"><input type="color" value="#4F8EF7" oninput="applyGradient()"></div></div>
-          <div class="prop-row"><span class="prop-label">Ángulo</span><input class="prop-input" type="number" value="135" id="gradAngle" onchange="applyGradient()"></div>
+          <div class="prop-row">
+            <span class="prop-label">Color 1</span>
+            <div class="color-swatch" style="background:#6B5CE7;width:24px;height:24px">
+              <input type="color" value="#6B5CE7" oninput="applyGradient()">
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Color 2</span>
+            <div class="color-swatch" style="background:#4F8EF7;width:24px;height:24px">
+              <input type="color" value="#4F8EF7" oninput="applyGradient()">
+            </div>
+          </div>
+          <div class="prop-row">
+            <span class="prop-label">Ángulo</span>
+            <input class="prop-input" type="number" value="135" id="gradAngle" onchange="applyGradient()">
+          </div>
         </div>
       </div>
+
+      <!-- COLOR (text color) -->
       <div class="prop-section">
         <div class="prop-title"><i class="fa-solid fa-palette"></i>Color de texto</div>
         <div class="color-preview-row">
@@ -709,29 +480,46 @@ function renderStyleTab(el, s, scroll) {
         <div class="color-info" id="tc-rgb"></div>
         <div class="color-info" id="tc-cmyk"></div>
       </div>
+
+      <!-- BORDER -->
       <div class="prop-section">
         <div class="prop-title"><i class="fa-solid fa-border-all"></i>Borde</div>
-        <div class="prop-row"><span class="prop-label">Grosor</span><input class="prop-input" type="text" placeholder="1px" value="${parseBorderWidth(s.border)}" onchange="applyBorder('width',this.value)"></div>
-        <div class="prop-row"><span class="prop-label">Estilo</span>
+        <div class="prop-row">
+          <span class="prop-label">Grosor</span>
+          <input class="prop-input" type="text" placeholder="1px" value="${parseBorderWidth(s.border)}" onchange="applyBorder('width',this.value)">
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Estilo</span>
           <select class="prop-select" onchange="applyBorder('style',this.value)">
             <option value="none" ${parseBorderStyle(s.border)==='none'?'selected':''}>Ninguno</option>
             <option value="solid" ${parseBorderStyle(s.border)==='solid'?'selected':''}>Sólido</option>
-            <option value="dashed" ${parseBorderStyle(s.border)==='dashed'?'selected':''}>Discontinuo</option>
-            <option value="dotted" ${parseBorderStyle(s.border)==='dotted'?'selected':''}>Punteado</option>
+            <option value="dashed" ${parseBorderStyle(s.border)==='dashed'?'selected':''}>Punteado</option>
+            <option value="dotted" ${parseBorderStyle(s.border)==='dotted'?'selected':''}>Puntos</option>
+            <option value="double">Doble</option>
           </select>
         </div>
-        <div class="prop-row"><span class="prop-label">Color</span><div class="color-swatch" style="width:30px;height:30px;background:${parseBorderColor(s.border)}"><input type="color" value="${parseBorderColor(s.border)}" oninput="applyBorder('color',this.value)"></div></div>
-        <div style="font-size:10px;font-weight:700;color:var(--xanda-text3);text-transform:uppercase;letter-spacing:0.5px;margin:8px 0 6px">Border Radius</div>
-        <div class="border-corners">
-          <div class="border-corner"><label>↖ TL</label><input type="text" placeholder="0px" value="${parseRadiusCorner(s.borderRadius,'tl')}" onchange="applyRadius('tl',this.value)"></div>
-          <div class="border-corner"><label>↗ TR</label><input type="text" placeholder="0px" value="${parseRadiusCorner(s.borderRadius,'tr')}" onchange="applyRadius('tr',this.value)"></div>
-          <div class="border-corner"><label>↙ BL</label><input type="text" placeholder="0px" value="${parseRadiusCorner(s.borderRadius,'bl')}" onchange="applyRadius('bl',this.value)"></div>
-          <div class="border-corner"><label>↘ BR</label><input type="text" placeholder="0px" value="${parseRadiusCorner(s.borderRadius,'br')}" onchange="applyRadius('br',this.value)"></div>
+        <div class="prop-row">
+          <span class="prop-label">Color</span>
+          <div class="color-swatch" style="width:30px;height:30px;background:${parseBorderColor(s.border)}">
+            <input type="color" value="${parseBorderColor(s.border)}" oninput="applyBorder('color',this.value)">
+          </div>
+        </div>
+        <div class="prop-section" style="margin-bottom:0">
+          <div style="font-size:10px;font-weight:700;color:var(--xanda-text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Border Radius</div>
+          <div class="border-corners">
+            <div class="border-corner"><label>↖ Top L</label><input type="text" placeholder="0px" value="${parseRadiusCorner(s.borderRadius,'tl')}" onchange="applyRadius('tl',this.value)"></div>
+            <div class="border-corner"><label>↗ Top R</label><input type="text" placeholder="0px" value="${parseRadiusCorner(s.borderRadius,'tr')}" onchange="applyRadius('tr',this.value)"></div>
+            <div class="border-corner"><label>↙ Bot L</label><input type="text" placeholder="0px" value="${parseRadiusCorner(s.borderRadius,'bl')}" onchange="applyRadius('bl',this.value)"></div>
+            <div class="border-corner"><label>↘ Bot R</label><input type="text" placeholder="0px" value="${parseRadiusCorner(s.borderRadius,'br')}" onchange="applyRadius('br',this.value)"></div>
+          </div>
         </div>
       </div>
+
+      <!-- DISPLAY -->
       <div class="prop-section">
-        <div class="prop-title"><i class="fa-solid fa-table-columns"></i>Layout / Flexbox</div>
-        <div class="prop-row"><span class="prop-label">Display</span>
+        <div class="prop-title"><i class="fa-solid fa-border-none"></i>Layout</div>
+        <div class="prop-row">
+          <span class="prop-label">Display</span>
           <select class="prop-select" onchange="applyStyle('display',this.value)">
             <option value="block" ${s.display==='block'?'selected':''}>Block</option>
             <option value="flex" ${s.display==='flex'?'selected':''}>Flex</option>
@@ -741,13 +529,15 @@ function renderStyleTab(el, s, scroll) {
             <option value="none" ${s.display==='none'?'selected':''}>None</option>
           </select>
         </div>
-        <div class="prop-row"><span class="prop-label">Dirección</span>
+        <div class="prop-row" id="flexDirRow">
+          <span class="prop-label">Dirección</span>
           <div class="flex-row">
             <button onclick="applyStyle('flexDirection','row')" class="${s.flexDirection==='row'?'active':''}">→ Row</button>
             <button onclick="applyStyle('flexDirection','column')" class="${s.flexDirection==='column'?'active':''}">↓ Col</button>
           </div>
         </div>
-        <div class="prop-row"><span class="prop-label">Alineación X</span>
+        <div class="prop-row">
+          <span class="prop-label">Alineación X</span>
           <select class="prop-select" onchange="applyStyle('justifyContent',this.value)">
             <option value="">—</option>
             <option value="flex-start" ${s.justifyContent==='flex-start'?'selected':''}>Inicio</option>
@@ -757,7 +547,8 @@ function renderStyleTab(el, s, scroll) {
             <option value="space-around" ${s.justifyContent==='space-around'?'selected':''}>Space around</option>
           </select>
         </div>
-        <div class="prop-row"><span class="prop-label">Alineación Y</span>
+        <div class="prop-row">
+          <span class="prop-label">Alineación Y</span>
           <select class="prop-select" onchange="applyStyle('alignItems',this.value)">
             <option value="">—</option>
             <option value="flex-start" ${s.alignItems==='flex-start'?'selected':''}>Inicio</option>
@@ -766,14 +557,25 @@ function renderStyleTab(el, s, scroll) {
             <option value="stretch" ${s.alignItems==='stretch'?'selected':''}>Stretch</option>
           </select>
         </div>
-        <div class="prop-row"><span class="prop-label">Gap</span><input class="prop-input" type="text" placeholder="0px" value="${s.gap||''}" onchange="applyStyle('gap',this.value)"></div>
+        <div class="prop-row">
+          <span class="prop-label">Gap</span>
+          <input class="prop-input" type="text" placeholder="0px" value="${s.gap||''}" onchange="applyStyle('gap',this.value)">
+        </div>
       </div>
-      ` : ''}
+
+      <!-- OPACITY & SHADOW -->
       <div class="prop-section">
         <div class="prop-title"><i class="fa-solid fa-circle-half-stroke"></i>Efectos</div>
-        <div class="prop-row"><span class="prop-label">Opacidad</span><input class="prop-input" type="range" min="0" max="1" step="0.01" value="${s.opacity||1}" oninput="applyStyle('opacity',this.value);this.title=Math.round(this.value*100)+'%'"></div>
-        <div class="prop-row"><span class="prop-label">Box shadow</span><input class="prop-input" type="text" placeholder="0 4px 20px rgba(0,0,0,0.1)" value="${s.boxShadow||''}" onchange="applyStyle('boxShadow',this.value)"></div>
-        <div class="prop-row"><span class="prop-label">Overflow</span>
+        <div class="prop-row">
+          <span class="prop-label">Opacidad</span>
+          <input class="prop-input" type="range" min="0" max="1" step="0.01" value="${s.opacity||1}" oninput="applyStyle('opacity',this.value);this.title=Math.round(this.value*100)+'%'">
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Box shadow</span>
+          <input class="prop-input" type="text" placeholder="0 4px 20px rgba(0,0,0,0.1)" value="${s.boxShadow||''}" onchange="applyStyle('boxShadow',this.value)">
+        </div>
+        <div class="prop-row">
+          <span class="prop-label">Overflow</span>
           <select class="prop-select" onchange="applyStyle('overflow',this.value)">
             <option value="" ${!s.overflow?'selected':''}>Auto</option>
             <option value="hidden" ${s.overflow==='hidden'?'selected':''}>Hidden</option>
@@ -781,7 +583,8 @@ function renderStyleTab(el, s, scroll) {
             <option value="visible" ${s.overflow==='visible'?'selected':''}>Visible</option>
           </select>
         </div>
-        <div class="prop-row"><span class="prop-label">Cursor</span>
+        <div class="prop-row">
+          <span class="prop-label">Cursor</span>
           <select class="prop-select" onchange="applyStyle('cursor',this.value)">
             <option value="" ${!s.cursor?'selected':''}>Default</option>
             <option value="pointer" ${s.cursor==='pointer'?'selected':''}>Pointer</option>
@@ -792,10 +595,11 @@ function renderStyleTab(el, s, scroll) {
       </div>
     </div>
   `;
-  if (!isMedia) {
-    updateColorInfos('bg', toHex(s.background || s.backgroundColor || '#ffffff'));
-    updateColorInfos('tc', toHex(s.color || '#1A1633'));
-  }
+  // Update color infos
+  const bgHex = toHex(s.background || s.backgroundColor || '#ffffff');
+  updateColorInfos('bg', bgHex);
+  const tcHex = toHex(s.color || '#1A1633');
+  updateColorInfos('tc', tcHex);
 }
 
 function renderTypoTab(el, s, scroll) {
@@ -942,22 +746,6 @@ function applyStyle(prop, val) {
   const el = document.querySelector('[data-id="'+selectedElId+'"]');
   if (!el) return;
   el.style[prop] = val;
-  saveHistory();
-}
-
-function applyAttr(attr, val) {
-  if (!selectedElId) return;
-  const el = document.querySelector('[data-id="'+selectedElId+'"]');
-  if (!el) return;
-  el.setAttribute(attr, val);
-  saveHistory();
-}
-
-function applyToggleAttr(attr, on) {
-  if (!selectedElId) return;
-  const el = document.querySelector('[data-id="'+selectedElId+'"]');
-  if (!el) return;
-  if (on) el.setAttribute(attr, ''); else el.removeAttribute(attr);
   saveHistory();
 }
 
@@ -1312,14 +1100,8 @@ function restoreHistory() {
 // EXPORT
 // ═══════════════════════════════════════
 function showExport() {
-  // Guardar página actual antes de exportar
-  const cur = pages.find(p => p.id === currentPageId);
-  if (cur) cur.content = document.getElementById('canvasFrame').innerHTML;
-
-  const mainCSS = generateMainCSS();
-  // Mostrar preview del main.css en el modal
-  document.getElementById('exportPreview').textContent =
-    `/* main.css */\n${mainCSS}\n\n/* ${getCurrentPageName()}.css — estilos inline extraídos del canvas */\n/* (generado al descargar ZIP) */`;
+  const html = generateHTML();
+  document.getElementById('exportPreview').textContent = html;
   document.getElementById('exportModal').classList.add('show');
 }
 
@@ -1327,179 +1109,80 @@ function closeExport() {
   document.getElementById('exportModal').classList.remove('show');
 }
 
-function getCurrentPageName() {
-  const cur = pages.find(p => p.id === currentPageId);
-  return cur ? cur.name : 'index';
-}
-
-/** Limpia un clon del canvas de todo el markup del builder */
-function cleanCanvas(rawHTML) {
-  const wrap = document.createElement('div');
-  wrap.innerHTML = rawHTML;
-  wrap.querySelectorAll('.el-toolbar, .section-label, .empty-drop').forEach(e => e.remove());
-  wrap.querySelectorAll('.xanda-el').forEach(e => {
-    e.classList.remove('xanda-el', 'selected');
-    if (e.classList.length === 0) e.removeAttribute('class');
-    e.removeAttribute('data-id');
-    e.removeAttribute('contenteditable');
-    e.removeAttribute('onclick');
-    e.removeAttribute('ondblclick');
+function generateHTML() {
+  const frame = document.getElementById('canvasFrame').cloneNode(true);
+  // Remove toolbars and editor classes
+  frame.querySelectorAll('.el-toolbar, .section-label, .empty-drop').forEach(e => e.remove());
+  frame.querySelectorAll('.xanda-el').forEach(e => {
+    e.classList.remove('xanda-el','selected');
+    delete e.dataset.id;
+    if (e.contentEditable) e.removeAttribute('contenteditable');
   });
-  wrap.querySelectorAll('.xanda-section-wrap').forEach(e => {
-    ['class','data-section','ondragover','ondrop','ondragleave','id'].forEach(a => {
-      // Mantener id solo si es xanda-header/main/footer (lo necesitan los links internos)
-      if (a === 'id' && /^sec-/.test(e.id)) e.removeAttribute(a);
-      else if (a !== 'id') e.removeAttribute(a);
-    });
+  frame.querySelectorAll('.xanda-section-wrap').forEach(e => {
+    e.classList.remove('xanda-section-wrap','drag-over');
+    e.removeAttribute('ondragover');e.removeAttribute('ondrop');e.removeAttribute('ondragleave');
+    e.removeAttribute('data-section');
   });
-  return wrap.innerHTML.trim();
-}
-
-/** Genera el HTML de una página apuntando a main.css y [name].css */
-function buildPageHTML(pageName, bodyHTML) {
+  const css = generateCSS();
   return `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${pageName}</title>
+  <title>Mi Sitio — XandA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="${pageName}.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>${generateCSS()}</style>
 </head>
 <body>
-${bodyHTML}
+${frame.innerHTML.trim()}
 </body>
 </html>`;
 }
 
-/** CSS base compartido por todas las páginas */
-function generateMainCSS() {
-  return `/* ═══════════════════════════════════════════
-   main.css — Base compartida · Generado por XandA
-   ═══════════════════════════════════════════ */
+function generateCSS() {
+  return `/* XandA — Estilos generados automáticamente */
+/* Prefijo de clases: xanda- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --xanda-purple: #6B5CE7;
-  --xanda-purple-dark: #4A3DB5;
   --xanda-blue: #4F8EF7;
   --xanda-text: #1A1633;
   --xanda-text2: #5B5379;
 }
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   font-family: 'Inter', sans-serif;
   color: var(--xanda-text);
   line-height: 1.6;
-}
-
-img, video {
-  max-width: 100%;
-  display: block;
-}
-
-a {
-  text-decoration: none;
 }`;
 }
 
-/** CSS específico de una página: extrae los estilos inline y los convierte a clases */
-function generatePageCSS(pageName, bodyHTML) {
-  const wrap = document.createElement('div');
-  wrap.innerHTML = bodyHTML;
-  const rules = [];
-  rules.push(`/* ${pageName}.css — Estilos de página · Generado por XandA */\n`);
-  let classCounter = 1;
-  wrap.querySelectorAll('[style]').forEach(el => {
-    const cls = `x-${pageName}-${classCounter++}`;
-    rules.push(`.${cls} {\n  ${el.getAttribute('style').replace(/;\s*/g, ';\n  ').trim()}\n}`);
-    el.removeAttribute('style');
-    el.classList.add(cls);
-  });
-  return rules.join('\n');
-}
-
-async function downloadZip() {
-  // Guardar página actual
-  const cur = pages.find(p => p.id === currentPageId);
-  if (cur) cur.content = document.getElementById('canvasFrame').innerHTML;
-
+function downloadZip() {
+  // Simulate ZIP download
+  showToast('Descargando xanda-proyecto.zip...', 'success');
   closeExport();
-  showToast('Generando ZIP…', 'success');
-
-  // Cargar JSZip dinámicamente
-  if (!window.JSZip) {
-    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js');
-  }
-
-  const zip = new JSZip();
-  const mainCSS = generateMainCSS();
-  zip.file('main.css', mainCSS);
-
-  pages.forEach(page => {
-    const rawHTML = page.id === currentPageId
-      ? document.getElementById('canvasFrame').innerHTML
-      : (page.content || '');
-    const cleanedBody = cleanCanvas(rawHTML);
-    const pageCSS = generatePageCSS(page.name, cleanedBody);
-    const pageHTML = buildPageHTML(page.name, cleanedBody);
-    zip.file(page.name + '.html', pageHTML);
-    zip.file(page.name + '.css', pageCSS);
-  });
-
-  const blob = await zip.generateAsync({ type: 'blob' });
+  // In a real implementation, we would use JSZip
+  const htmlContent = generateHTML();
+  const cssContent = generateCSS();
+  const jsContent = '// XandA — Script generado\nconsole.log("Sitio creado con XandA");';
+  // Download HTML file as demonstration
+  const blob = new Blob([htmlContent], { type: 'text/html' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'xanda-proyecto.zip';
+  a.download = 'index.html';
   a.click();
   URL.revokeObjectURL(a.href);
-  showToast('ZIP descargado ✓', 'success');
-}
-
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    const s = document.createElement('script');
-    s.src = src; s.onload = resolve; s.onerror = reject;
-    document.head.appendChild(s);
-  });
 }
 
 // ═══════════════════════════════════════
 // PREVIEW
 // ═══════════════════════════════════════
 function previewPage() {
-  const cur = pages.find(p => p.id === currentPageId);
-  if (cur) cur.content = document.getElementById('canvasFrame').innerHTML;
-  const pageName = getCurrentPageName();
-  const rawHTML = document.getElementById('canvasFrame').innerHTML;
-  const cleanedBody = cleanCanvas(rawHTML);
-  const mainCSS = generateMainCSS();
-  const pageCSS = generatePageCSS(pageName, cleanedBody);
-  // Para preview inline los CSS, ya que no podemos servir archivos locales
-  const html = `<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${pageName} — Preview</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>${mainCSS}\n${pageCSS}</style>
-</head>
-<body>
-${cleanedBody}
-</body>
-</html>`;
+  const html = generateHTML();
   const blob = new Blob([html], { type: 'text/html' });
   const url = URL.createObjectURL(blob);
   window.open(url, '_blank');
-  showToast('Abriendo preview de ' + pageName + '…', 'success');
+  showToast('Abriendo preview...', 'success');
 }
 
 // ═══════════════════════════════════════
@@ -1548,7 +1231,6 @@ document.querySelectorAll('.land-card:not(.disabled)').forEach(card => {
 });
 
 window.onload = function() {
-  initPages();
   saveHistory();
   renderTree();
   showToast('¡Bienvenido al constructor XandA!', 'success');
