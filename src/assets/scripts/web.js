@@ -7,26 +7,26 @@
 //   → Expón al window las funciones que el HTML necesite
 // ═══════════════════════════════════════════════════════════════
 
-import * as State        from 'web/state.js';
-import { showToast }     from 'web/ui.js';
-import { initHistory, saveHistory, undo, redo } from 'web/history.js';
-import { renderTree, initLayers }               from 'web/layers.js';
-import { renderRightPanel, switchRTab, switchPanelTab } from 'web/panel.js';
+import * as State        from './web/state.js';
+import { showToast }     from './web/ui.js';
+import { initHistory, saveHistory, undo, redo } from './web/history.js';
+import { renderTree, initLayers }               from './web/layers.js';
+import { renderRightPanel, switchRTab, switchPanelTab } from './web/panel.js';
 import {
   setViewport, changeZoom, toggleSection,
   elDragStart, sectionDragOver, sectionDragLeave, sectionDrop,
   canvasDragOver, canvasDrop, canvasDragLeave,
   selectEl, startInlineEdit, dblEditEl,
-  duplicateEl, deleteEl, addChildEl,
+  duplicateEl, deleteEl, addChildEl, addElement,
   reattachCanvasEvents, goToLanding,
-} from 'web/canvas.js';
+} from './web/canvas.js';
 import {
   initPages, switchPage, addPage,
   deletePage, renamePage, startRenamePageInline, closeRenameModal,
-} from 'web/pages.js';
+} from './web/pages.js';
 import {
   showExport, closeExport, previewPage, downloadZip,
-} from 'web/export.js';
+} from './web/export.js';
 import {
   applyStyle, applyAttr, applyToggleAttr, applyClamp,
   applyBgColor, applyBgColorHex,
@@ -34,7 +34,7 @@ import {
   toggleGradient, applyGradient,
   applyBorder, applyRadius,
   showColorMode, updateFontPreview,
-} from 'web/style-applicators.js';
+} from './web/style-applicators.js';
 
 // ── Resolver dependencias circulares ─────────────────────────
 initHistory(renderRightPanel, renderTree, reattachCanvasEvents);
@@ -49,7 +49,7 @@ Object.assign(window, {
   sectionDragOver, sectionDragLeave, sectionDrop,
   canvasDragOver, canvasDrop, canvasDragLeave,
   selectEl, startInlineEdit, dblEditEl,
-  duplicateEl, deleteEl, addChildEl,
+  duplicateEl, deleteEl, addChildEl, addElement,
   switchRTab, switchPanelTab,
   applyStyle, applyAttr, applyToggleAttr, applyClamp,
   applyBgColor, applyBgColorHex,
