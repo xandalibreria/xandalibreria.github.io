@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XandA — Constructor Visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../assets/styles/web.css">
+</head>
+<body>
+    <div id="builder">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <button class="topbar-back" onclick="goToLanding()" title="Volver">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Inicio</span>
+            </button>
+            <div class="topbar-sep"></div>
+            <div class="topbar-logo">
+                <div class="x-icon">✕</div>
+                <span>Xand<em>A</em></span>
+            </div>
+            <div class="topbar-sep"></div>
+            <div class="history-btns">
+                <button class="history-btn" id="undoBtn" onclick="undo()" title="Deshacer" disabled><i class="fa-solid fa-rotate-left"></i></button>
+                <button class="history-btn" id="redoBtn" onclick="redo()" title="Rehacer" disabled><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+            <div class="topbar-sep"></div>
+            <div class="viewport-btns">
+                <button class="viewport-btn active" id="vp-desktop" onclick="setViewport('desktop')" title="Escritorio"><i class="fa-solid fa-desktop"></i></button>
+                <button class="viewport-btn" id="vp-tablet" onclick="setViewport('tablet')" title="Tablet"><i class="fa-solid fa-tablet-screen-button"></i></button>
+                <button class="viewport-btn" id="vp-mobile" onclick="setViewport('mobile')" title="Móvil"><i class="fa-solid fa-mobile-screen-button"></i></button>
+            </div>
+            <div class="topbar-sep"></div>
+            <div class="zoom-control">
+                <button class="zoom-btn" onclick="changeZoom(-10)"><i class="fa-solid fa-minus"></i></button>
+                <span class="zoom-val" id="zoomVal">100%</span>
+                <button class="zoom-btn" onclick="changeZoom(10)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <div class="topbar-spacer"></div>
+                <div class="topbar-section-btns">
+                <button class="section-toggle active" id="toggle-header" onclick="toggleSection('header')">
+                    <div class="dot"></div>
+                    <span>Header</span>
+                </button>
+                <button class="section-toggle active" id="toggle-main" onclick="toggleSection('main')">
+                    <div class="dot"></div>
+                    <span>Main</span>
+                </button>
+                <button class="section-toggle active" id="toggle-footer" onclick="toggleSection('footer')">
+                    <div class="dot"></div>
+                    <span>Footer</span>
+                </button>
+            </div>
+            <div class="topbar-sep"></div>
+            <div class="topbar-actions">
+                <button class="btn-ghost" onclick="previewPage()"><i class="fa-solid fa-eye" style="margin-right:6px"></i>Preview</button>
+                <button class="btn-primary" onclick="showExport()"><i class="fa-solid fa-file-export"></i>Exportar ZIP</button>
+            </div>
+        </div>
+
+        <!-- BODY -->
+        <div class="builder-body">
+            <!-- LEFT PANEL -->
+            <div class="panel-left">
+                <div class="panel-tabs">
+                    <button class="panel-tab active" onclick="switchPanelTab(0)" id="ptab-0"><i class="fa-solid fa-shapes"></i><span>Elementos</span></button>
+                    <button class="panel-tab" onclick="switchPanelTab(1)" id="ptab-1"><i class="fa-solid fa-layer-group"></i><span>Capas</span></button>
+                    <button class="panel-tab" onclick="switchPanelTab(2)" id="ptab-2"><i class="fa-solid fa-swatchbook"></i><span>Estilos</span></button>
+                </div>
+                <div class="panel-content" id="panel-elements">
+                    <div class="panel-label">Estructura</div>
+                    <div class="element-grid">
+                        <div class="element-item" draggable="true" data-type="div" ondragstart="elDragStart(event,'div')">
+                            <i class="fa-regular fa-square"></i><span>Div</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="section" ondragstart="elDragStart(event,'section')">
+                            <i class="fa-solid fa-table-cells-large"></i><span>Section</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="article" ondragstart="elDragStart(event,'article')">
+                            <i class="fa-solid fa-file-lines"></i><span>Article</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="nav" ondragstart="elDragStart(event,'nav')">
+                            <i class="fa-solid fa-bars"></i><span>Nav</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="aside" ondragstart="elDragStart(event,'aside')">
+                            <i class="fa-solid fa-sidebar"></i><span>Aside</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="ul" ondragstart="elDragStart(event,'ul')">
+                            <i class="fa-solid fa-list"></i><span>Lista</span>
+                        </div>
+                    </div>
+                    <div class="panel-label">Tipografía</div>
+                    <div class="element-grid">
+                        <div class="element-item" draggable="true" data-type="h1" ondragstart="elDragStart(event,'h1')">
+                            <i class="fa-solid fa-heading"></i><span>Título H1</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="h2" ondragstart="elDragStart(event,'h2')">
+                            <i class="fa-solid fa-h"></i><span>Título H2</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="h3" ondragstart="elDragStart(event,'h3')">
+                            <i class="fa-solid fa-text-height"></i><span>Título H3</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="p" ondragstart="elDragStart(event,'p')">
+                            <i class="fa-solid fa-paragraph"></i><span>Párrafo</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="span" ondragstart="elDragStart(event,'span')">
+                            <i class="fa-solid fa-font"></i><span>Span</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="strong" ondragstart="elDragStart(event,'strong')">
+                            <i class="fa-solid fa-bold"></i><span>Negrita</span>
+                        </div>
+                    </div>
+                    <div class="panel-label">Interactivos</div>
+                    <div class="element-grid">
+                        <div class="element-item" draggable="true" data-type="button" ondragstart="elDragStart(event,'button')">
+                            <i class="fa-solid fa-computer-mouse"></i><span>Botón</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="a" ondragstart="elDragStart(event,'a')">
+                            <i class="fa-solid fa-link"></i><span>Enlace</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="input" ondragstart="elDragStart(event,'input')">
+                            <i class="fa-solid fa-input-text"></i><span>Input</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="textarea" ondragstart="elDragStart(event,'textarea')">
+                            <i class="fa-solid fa-text-slash"></i><span>Textarea</span>
+                        </div>
+                    </div>
+                    <div class="panel-label">Media</div>
+                    <div class="element-grid">
+                        <div class="element-item" draggable="true" data-type="img" ondragstart="elDragStart(event,'img')">
+                            <i class="fa-solid fa-image"></i><span>Imagen</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="video" ondragstart="elDragStart(event,'video')">
+                            <i class="fa-solid fa-film"></i><span>Video</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="hr" ondragstart="elDragStart(event,'hr')">
+                            <i class="fa-solid fa-grip-lines"></i><span>Separador</span>
+                        </div>
+                        <div class="element-item" draggable="true" data-type="iframe" ondragstart="elDragStart(event,'iframe')">
+                            <i class="fa-solid fa-window-restore"></i><span>iFrame</span>
+                        </div>
+                    </div>
+                    <!-- RIGHT PANEL -->
+                    <div class="panel-right">
+                        <div class="right-header">
+                            <h3 id="rightTitle">Propiedades</h3>
+                            <p id="rightSubtitle">Selecciona un elemento para editar</p>
+                        </div>
+                        <div class="rtabs" id="rtabs" style="display:none">
+                            <button class="rtab active" onclick="switchRTab(0)">Estilo</button>
+                            <button class="rtab" onclick="switchRTab(1)">Tipografía</button>
+                            <button class="rtab" onclick="switchRTab(2)">Espaciado</button>
+                        </div>
+                        <div class="right-scroll" id="rightScroll">
+                            <div class="no-selection">
+                                <i class="fa-solid fa-arrow-pointer"></i>
+                                <p>Haz clic en cualquier elemento del canvas para editar sus propiedades de estilo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-content" id="panel-layers" style="display:none">
+                    <div class="panel-label">Árbol de elementos</div>
+                    <div class="tree-list" id="treeList"></div>
+                </div>
+                <div class="panel-content" id="panel-styles" style="display:none">
+                    <div class="panel-section">
+                    <div class="panel-label">Paleta de colores</div>
+                    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:0 12px 12px">
+                        <!-- Xanda color swatches -->
+                    </div>
+                    <div class="panel-label">Variables CSS</div>
+                    <div style="padding:8px 12px;font-size:11px;color:var(--xanda-text2);line-height:1.8">
+                        <code>--xanda-purple: #6B5CE7</code><br>
+                        <code>--xanda-blue: #4F8EF7</code><br>
+                        <code>Usa el prefijo xanda- para tus clases</code>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CANVAS -->
+            <div class="canvas-wrap" id="canvasWrap" ondragover="canvasDragOver(event)" ondrop="canvasDrop(event)" ondragleave="canvasDragLeave(event)">
+                <div class="canvas-frame desktop" id="canvasFrame">
+                    <!-- HEADER SECTION -->
+                    <div class="xanda-section-wrap" id="sec-header" data-section="header" ondragover="sectionDragOver(event,'header')" ondrop="sectionDrop(event,'header')" ondragleave="sectionDragLeave(event)">
+                        <span class="section-label">header</span>
+                        <header id="xanda-header" style="background:#6B5CE7;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;min-height:64px">
+                            <div class="xanda-el" data-id="el-logo" onclick="selectEl(event,'el-logo')">
+                                <div class="el-toolbar">
+                                    <span class="el-tool-label">div</span>
+                                    <button class="el-tool-btn" onclick="dblEditEl(event,'el-logo')" title="Editar texto"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="el-tool-btn" onclick="duplicateEl(event,'el-logo')" title="Duplicar"><i class="fa-solid fa-copy"></i></button>
+                                    <button class="el-tool-btn danger" onclick="deleteEl(event,'el-logo')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                                <span style="color:#fff;font-weight:800;font-size:20px;letter-spacing:-0.5px">{XandA}</span>
+                            </div>
+                            <nav class="xanda-el" data-id="el-nav" onclick="selectEl(event,'el-nav')">
+                                <div class="el-toolbar">
+                                    <span class="el-tool-label">nav</span>
+                                    <button class="el-tool-btn" onclick="duplicateEl(event,'el-nav')" title="Duplicar"><i class="fa-solid fa-copy"></i></button>
+                                    <button class="el-tool-btn danger" onclick="deleteEl(event,'el-nav')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                                <a href="#" style="color:rgba(255,255,255,0.85);margin-left:24px;font-size:14px;font-weight:500;text-decoration:none">Inicio</a>
+                                <a href="#" style="color:rgba(255,255,255,0.85);margin-left:24px;font-size:14px;font-weight:500;text-decoration:none">Nosotros</a>
+                                <a href="#" style="color:rgba(255,255,255,0.85);margin-left:24px;font-size:14px;font-weight:500;text-decoration:none">Contacto</a>
+                            </nav>
+                        </header>
+                    </div>
+
+                    <!-- MAIN SECTION -->
+                    <div class="xanda-section-wrap" id="sec-main" data-section="main" ondragover="sectionDragOver(event,'main')" ondrop="sectionDrop(event,'main')" ondragleave="sectionDragLeave(event)">
+                        <span class="section-label">main</span>
+                        <main id="xanda-main" style="min-height:400px;padding:60px 48px">
+                            <div class="xanda-el" data-id="el-hero" onclick="selectEl(event,'el-hero')">
+                            <div class="el-toolbar">
+                                <span class="el-tool-label">div</span>
+                                <button class="el-tool-btn" onclick="addChildEl(event,'el-hero')" title="Agregar hijo"><i class="fa-solid fa-plus"></i></button>
+                                <button class="el-tool-btn" onclick="duplicateEl(event,'el-hero')" title="Duplicar"><i class="fa-solid fa-copy"></i></button>
+                                <button class="el-tool-btn danger" onclick="deleteEl(event,'el-hero')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                            <h1 class="xanda-el" data-id="el-h1" onclick="selectEl(event,'el-h1')" ondblclick="startInlineEdit(event,'el-h1')" style="font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.1;margin-bottom:20px;color:#1A1633">
+                                <span class="el-toolbar">
+                                <span class="el-tool-label">h1</span>
+                                <button class="el-tool-btn" onclick="startInlineEdit(event,'el-h1')" title="Editar texto"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="el-tool-btn" onclick="duplicateEl(event,'el-h1')" title="Duplicar"><i class="fa-solid fa-copy"></i></button>
+                                <button class="el-tool-btn danger" onclick="deleteEl(event,'el-h1')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                                </span>
+                                Crea tu sitio web con <span style="color:#6B5CE7">{XandA}</span>
+                            </h1>
+                            <p class="xanda-el" data-id="el-p1" onclick="selectEl(event,'el-p1')" ondblclick="startInlineEdit(event,'el-p1')" style="font-size:clamp(15px,2vw,18px);color:#5B5379;max-width:580px;line-height:1.7;margin-bottom:32px">
+                                <span class="el-toolbar">
+                                <span class="el-tool-label">p</span>
+                                <button class="el-tool-btn" onclick="startInlineEdit(event,'el-p1')" title="Editar texto"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="el-tool-btn danger" onclick="deleteEl(event,'el-p1')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                                </span>
+                                Impulsa tu proyecto con XandA, genera estructuras, obten animaciones, carruseles, alerts, ventanas emergentes, formularios, componentes y más.
+                            </p>
+                            <button class="xanda-el" data-id="el-cta" onclick="selectEl(event,'el-cta')" style="background:#6B5CE7;color:#fff;border:none;padding:14px 32px;border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(107,92,231,0.35)">
+                                <span class="el-toolbar">
+                                <span class="el-tool-label">button</span>
+                                <button class="el-tool-btn" onclick="dblEditEl(event,'el-cta')" title="Editar texto"><i class="fa-solid fa-pen"></i></button>
+                                <button class="el-tool-btn danger" onclick="deleteEl(event,'el-cta')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                                </span>
+                                Comenzar ahora
+                            </button>
+                            </div>
+                        </main>
+                    </div>
+                    <!-- FOOTER SECTION -->
+                    <div class="xanda-section-wrap" id="sec-footer" data-section="footer" ondragover="sectionDragOver(event,'footer')" ondrop="sectionDrop(event,'footer')" ondragleave="sectionDragLeave(event)">
+                        <span class="section-label">footer</span>
+                        <footer id="xanda-footer" style="background:#1A1633;padding:32px 48px;color:rgba(255,255,255,0.6);min-height:80px;display:flex;align-items:center;justify-content:space-between">
+                            <div class="xanda-el" data-id="el-foot1" onclick="selectEl(event,'el-foot1')" ondblclick="startInlineEdit(event,'el-foot1')" style="font-size:14px">
+                            <div class="el-toolbar">
+                                <span class="el-tool-label">div</span>
+                                <button class="el-tool-btn" onclick="startInlineEdit(event,'el-foot1')" title="Editar"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="el-tool-btn danger" onclick="deleteEl(event,'el-foot1')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                            © 2025 XandA. Todos los derechos reservados.
+                            </div>
+                            <div class="xanda-el" data-id="el-foot2" onclick="selectEl(event,'el-foot2')" style="display:flex;gap:20px">
+                            <div class="el-toolbar">
+                                <span class="el-tool-label">div</span>
+                                <button class="el-tool-btn danger" onclick="deleteEl(event,'el-foot2')" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                            <a href="#" style="color:rgba(255,255,255,0.6);font-size:13px;text-decoration:none">Privacidad</a>
+                            <a href="#" style="color:rgba(255,255,255,0.6);font-size:13px;text-decoration:none">Términos</a>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPORT MODAL -->
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal-box">
+            <h2>📦 Exportar Proyecto</h2>
+            <p>Tu sitio web se exportará como un ZIP con archivos HTML, CSS y JS separados, con las clases prefijadas <code>xanda-</code>.</p>
+            <div class="export-code" id="exportPreview"></div>
+            <div class="modal-actions">
+                <button class="btn-ghost" onclick="closeExport()">Cancelar</button>
+                <button class="btn-primary" onclick="downloadZip()"><i class="fa-solid fa-download"></i>Descargar ZIP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ADD ELEMENT POPOVER -->
+    <div class="add-popover" id="addPopover">
+        <div class="add-popover-header">Agregar elemento</div>
+        <div class="add-popover-list" id="addPopoverList"></div>
+    </div>
+
+    <script src="../assets/scripts/web.js"></script>
+</body>
+</html>

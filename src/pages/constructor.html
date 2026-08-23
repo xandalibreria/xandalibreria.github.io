@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/styles/constructor.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header" id="id-header">
+        <a href="/index.html">
+            <img src="/src/assets/images/icons/logo.png" alt="XandA" title="XandA" class="imagen-logo">
+        </a>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li>
+                    <a href="/src/pages/constructor.html">
+                        <i class="fa-regular fa-pen-to-square"></i>Constructor
+                    </a>
+                </li>
+                <li>
+                    <a href="/src/pages/compresor.html">
+                        <i class="fa-regular fa-image"></i>Convertidor
+                    </a>
+                </li>
+                <li>
+                    <a href="/src/pages/visor.html">
+                        <i class="fa-solid fa-mobile-screen-button"></i>Visor
+                    </a>
+                </li>
+                <li>
+                    <a href="#id-ide">
+                        <i class="fa-brands fa-uncharted"></i> IDE
+                    </a>
+                </li>
+                <li>
+                    <a href="/src/pages/libreria.html" class="boton-1">
+                        <i class="fa-solid fa-globe"></i> LIBRERÍA
+                    </a>
+                </li>
+            </ul>
+            <i class="fa-solid fa-bars-staggered" onclick="abrir_menu_celular()"></i>
+        </nav>
+    </header>
+
+    <!-- LANDING REDISEÑADO -->
+    <main id="landing">
+        <div class="land-blob land-blob-1"></div>
+        <div class="land-blob land-blob-2"></div>
+        <div class="land-blob land-blob-3"></div>
+
+        <div class="land-eyebrow">
+            <span class="dot"></span>
+            Constructor Visual · XandA
+        </div>
+
+        <h1 class="land-title">
+            ¿Qué deseas<br><span class="code-word">{construir}</span> hoy?
+        </h1>
+        <p class="land-sub">
+            Elige el tipo de proyecto que quieres crear. Genera estructuras web, componentes y datos de forma visual.
+        </p>
+
+        <div class="land-grid">
+
+            <!-- Card grande: Sitios Web -->
+            <div class="land-card featured" onclick="goToBuilder()">
+                <div class="badge badge-new"><i class="fa-solid fa-sparkles" style="font-size:8px"></i> NUEVO</div>
+                <div class="card-icon icon-purple"><i class="fa-solid fa-display"></i></div>
+                <div class="card-title">Sitios Web</div>
+                <p class="card-desc">Construye páginas completas con header, main y footer. Editor visual de arrastrar y soltar con componentes listos para usar.</p>
+                <div class="code-preview">
+                    <span class="cm">/* estructura generada */</span><br>
+                    <span class="tag">&lt;header</span> <span class="kw">class</span>=<span class="str">"xanda-nav"</span><span class="tag">&gt;</span><br>
+                    &nbsp;&nbsp;<span class="tag">&lt;main</span> <span class="kw">id</span>=<span class="str">"hero"</span><span class="tag">&gt;</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;section</span> <span class="kw">class</span>=<span class="str">"grid-2"</span><span class="tag">/&gt;</span><br>
+                    &nbsp;&nbsp;<span class="tag">&lt;/main&gt;</span><br>
+                    <span class="tag">&lt;footer</span> <span class="kw">class</span>=<span class="str">"xanda-footer"</span><span class="tag">/&gt;</span>
+                </div>
+            </div>
+
+            <!-- Card: JSON -->
+            <a href="json.html" class="land-card">
+                <div class="card-icon icon-teal"><i class="fa-solid fa-code"></i></div>
+                <div class="card-title">JSON</div>
+                <p class="card-desc">Diseña estructuras de datos con asistencia visual, en un editor pensado para construir jerarquías claras.</p>
+            </a>
+
+            <!-- Card: Componentes -->
+            <div class="land-card disabled">
+                <div class="badge badge-soon">PRÓXIMAMENTE</div>
+                <div class="card-icon icon-blue"><i class="fa-solid fa-puzzle-piece"></i></div>
+                <div class="card-title">Componentes</div>
+                <p class="card-desc">Crea componentes reutilizables de forma aislada con hot-reload en tiempo real.</p>
+            </div>
+
+            <!-- Card CTA -->
+            <div class="land-card cta-card" onclick="goToBuilder()">
+                <div class="cta-card-text">
+                    <div class="card-title" style="font-size:16px">Empezar con Sitios Web</div>
+                    <p>El modo más completo ya está disponible</p>
+                </div>
+                <div class="cta-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="contenedor-opciones-footer footer-25-100" style="align-content: center; justify-content: start;">
+            <img src="/src/assets/images/icons/logo.png" alt="XandA" title="XandA" loading="lazy" class="footer-imagen">
+            <p style="width: 100%;">La librería que impulsa tu proyecto</p>
+        </div>
+        <div class="contenedor-opciones-footer">
+            <p style="font-size: 17px;">Implementación</p>
+            <a>Introducción</a>
+            <a>CDN</a>
+            <a>Instalación - npm</a>
+            <a>Instalación - manual</a>
+            <a>Cómo usarlo</a>
+        </div>
+        <div class="contenedor-opciones-footer">
+            <p style="font-size: 17px;">Ejemplos</p>
+            <a>Estructuras</a>
+            <a>Animaciones</a>
+            <a>Carruseles</a>
+            <a>Formularios</a>
+            <a>Ventanas emergentes</a>
+            <a>Alerts</a>
+        </div>
+        <div class="footer-barra">
+            <p>© 2026 XandA</p>
+        </div>
+    </footer>
+
+
+    <script>
+        function goToBuilder() {
+            window.location.href = 'web.html';
+        }
+    </script>
+</body>
+</html>

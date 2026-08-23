@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JSON Studio — Editor visual de archivos JSON</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/src/assets/styles/json-constructor.css">
+    </head>
+    <body>
+
+        <!-- NAVBAR -->
+        <nav>
+        <div class="logo">
+            <div class="brand">
+                <img class="brand-icon" src="/src/assets/images/icons/favicon.ico" alt="XandA" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                <span class="dot" style="display:none;"></span>
+                <div>
+                    <h1>XandA - Json</h1>
+                    <p>CONSTRUCTOR DE ARCHIVOS JSON</p>
+                </div>
+            </div>
+        </div>
+        <div class="nav-actions">
+            <button class="btn btn-ghost" onclick="newJson()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Nuevo JSON
+            </button>
+            <button class="btn btn-ghost" onclick="document.getElementById('fileInput').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            Cargar JSON
+            </button>
+            <div class="toolbar-sep"></div>
+            <button class="btn btn-primary" onclick="exportJson()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Exportar
+            </button>
+        </div>
+        </nav>
+
+        <input type="file" id="fileInput" accept=".json,application/json" onchange="loadFile(event)">
+
+        <!-- MAIN BODY -->
+        <div class="app-body">
+
+            <!-- SIDEBAR -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <span class="sidebar-title">Estructura</span>
+                    <button class="expand-collapse-all" onclick="toggleAllNodes()">Expandir todo</button>
+                </div>
+                <div class="tree-search-wrap">
+                    <input type="search" id="treeSearchInput" class="tree-search" placeholder="Buscar clave o valor..." oninput="onTreeSearch(this.value)">
+                </div>
+                <div class="tree-container" id="treeContainer">
+                    <div class="tree-empty" id="treeEmpty">
+                        <svg style="width:32px;height:32px;margin-bottom:8px;color:var(--xanda-200)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        <div>Carga o crea un JSON para ver su estructura</div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- MAIN -->
+            <main class="main" id="mainArea">
+
+                <!-- WELCOME -->
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="drop-zone" id="dropZone" ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)" onclick="document.getElementById('fileInput').click()">
+                        <div class="drop-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 12v6M9 15l3-3 3 3"/></svg>
+                        </div>
+                        <div class="drop-title">Arrastra tu archivo JSON aquí</div>
+                        <div class="drop-subtitle">Suelta el archivo o haz clic para seleccionarlo desde tu equipo</div>
+                        <button class="btn btn-primary" style="margin:0 auto">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                            </svg>
+                            Seleccionar archivo
+                        </button>
+                    </div>
+                    <div class="divider-row">
+                        <div class="divider-line"></div>
+                        o empieza desde cero
+                        <div class="divider-line"></div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="btn btn-ghost" onclick="newJson('object')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+                            Objeto vacío {}
+                        </button>
+                        <button class="btn btn-ghost" onclick="newJson('array')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+                            Array vacío []
+                        </button>
+                        <button class="btn btn-ghost" onclick="loadExample()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                            Cargar ejemplo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- EDITOR (visible when JSON loaded) -->
+                <div style="display:none;flex-direction:column;flex:1;overflow:hidden" id="editorWrapper">
+
+                    <!-- TOOLBAR -->
+                    <div class="main-toolbar">
+                        <button class="btn btn-ghost" id="undoBtn" onclick="undo()" title="Deshacer (Ctrl+Z)" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 3-7"/></svg>
+                        </button>
+                        <button class="btn btn-ghost" id="redoBtn" onclick="redo()" title="Rehacer (Ctrl+Shift+Z)" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7v6h-6"/><path d="M21 13a9 9 0 1 1-3-7"/></svg>
+                        </button>
+                        <div class="toolbar-sep"></div>
+                        <button class="btn btn-ghost btn-success" onclick="addTopLevelField()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                            Agregar campo
+                        </button>
+                        <button class="btn btn-ghost" onclick="formatJson()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10H7M21 6H3M21 14H3M21 18H7"/></svg>
+                            Formatear
+                        </button>
+                        <button class="btn btn-ghost btn-danger" onclick="confirmClear()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+                            Limpiar
+                        </button>
+                        <div class="toolbar-sep"></div>
+                        <span id="pathBar" class="path-bar">root</span>
+                        <div class="stats-row" id="statsRow"></div>
+                    </div>
+
+                    <!-- TABS -->
+                    <div class="view-tabs">
+                        <div class="view-tab active" onclick="switchView('visual', this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                            Editor visual
+                        </div>
+                        <div class="view-tab" onclick="switchView('raw', this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            JSON raw
+                        </div>
+                    </div>
+
+                    <!-- PANELS -->
+                    <div class="editor-area">
+
+                        <!-- VISUAL PANEL -->
+                        <div class="panel active" id="panelVisual">
+                        <div class="visual-editor" id="visualEditor"></div>
+                        </div>
+
+                        <!-- RAW PANEL -->
+                        <div class="panel" id="panelRaw">
+                        <div class="raw-editor-wrap">
+                            <div id="rawErrorMsg" class="raw-error-msg"></div>
+                            <textarea class="raw-textarea" id="rawTextarea" spellcheck="false" oninput="onRawChange()" placeholder='Pega o escribe tu JSON aquí...'></textarea>
+                            <div style="display:flex;gap:8px">
+                                <button class="btn btn-primary" onclick="applyRaw()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                                    Aplicar cambios
+                                </button>
+                                <button class="btn btn-ghost" onclick="formatRaw()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M21 10H7M21 6H3M21 14H3"/></svg>
+                                    Formatear
+                                </button>
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+
+                    <!-- STATUS BAR -->
+                    <div class="status-bar">
+                        <span class="status-dot ok" id="statusDot"></span>
+                        <span id="statusText">JSON válido</span>
+                        <span>·</span>
+                        <span id="statusSize">0 B</span>
+                        <span>·</span>
+                        <span id="statusFields">0 campos</span>
+                        <span>·</span>
+                        <span class="autosave-badge" id="autosaveBadge">Autoguardado activo</span>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ADD FIELD MODAL -->
+        <div class="modal-bg" id="addFieldModal">
+            <div class="modal">
+                <h2>Agregar campo</h2>
+                <p>Define el nombre y tipo del nuevo campo que quieres añadir.</p>
+                <div id="keyFieldGroup">
+                    <label class="modal-label">Nombre de la clave</label>
+                    <input class="modal-input" id="newFieldKey" placeholder='ej: nombre, edad, activo...' onkeydown="if(event.key==='Enter')confirmAddField()">
+                </div>
+                <p id="modalArrayHint" style="display:none;font-size:12.5px;color:var(--text-muted);background:var(--surface-2);padding:8px 10px;border-radius:8px;margin-bottom:8px">Se agregará como un nuevo elemento al final del array. Puedes elegir cualquier tipo, incluyendo array u objeto, para anidar estructuras.</p>
+                <label class="modal-label" style="margin-top:12px">Tipo de valor</label>
+                <select class="modal-input" id="newFieldType" style="font-family:Inter,sans-serif">
+                    <option value="string">String — texto</option>
+                    <option value="number">Number — número</option>
+                    <option value="boolean">Boolean — verdadero/falso</option>
+                    <option value="null">Null — nulo</option>
+                    <option value="object">Object — objeto {}</option>
+                    <option value="array">Array — lista []</option>
+                </select>
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" onclick="closeModal('addFieldModal')">Cancelar</button>
+                    <button class="btn btn-primary" onclick="confirmAddField()">Agregar campo</button>
+                    </div>
+            </div>
+        </div>
+
+        <!-- CLEAR MODAL -->
+        <div class="modal-bg" id="clearModal">
+            <div class="modal">
+                <h2>¿Limpiar todo el JSON?</h2>
+                <p>Se eliminarán todos los datos actuales. Esta acción no se puede deshacer.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" onclick="closeModal('clearModal')">Cancelar</button>
+                    <button class="btn btn-danger" onclick="clearAll()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+                        Sí, limpiar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMAGE PREVIEW MODAL -->
+        <div class="modal-bg" id="imagePreviewModal">
+            <div class="modal image-preview-modal">
+                <img id="imagePreviewImg" alt="Vista previa de imagen">
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" onclick="closeModal('imagePreviewModal')">Cerrar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast"></div>
+
+        <script src="/src/assets/scripts/json-constructor.js"></script>
+    </body>
+</html>
