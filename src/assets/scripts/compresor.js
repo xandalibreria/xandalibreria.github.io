@@ -424,11 +424,65 @@
 
 
 
-window.addEventListener("scroll", () => {
-  const header = document.getElementById("id-header");
-  if(scrollY > 0){
-    header.style.position = "fixed";
-  }else{
-    header.style.position = "absolute";
+
+
+/* ============================================================
+   XandA · Header — comportamiento
+   - Fondo/sombra del nav al hacer scroll
+   - Menú móvil (burger)
+   - Cerrar barra de anuncio
+   - Hint ⌘K / Ctrl K según plataforma
+   - Botón "Buscar": emite el evento 'xanda:cmdk'
+     (si la página tiene paleta de comandos, la escucha ahí)
+============================================================ */
+(function () {
+  'use strict';
+
+  /* --- Nav con fondo al hacer scroll --- */
+  var nav = document.getElementById('navbar');
+  if (nav) {
+    var onScroll = function () {
+      nav.classList.toggle('scrolled', window.scrollY > 12);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
-})
+
+  /* --- Menú móvil --- */
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  if (burger && mobileMenu) {
+    burger.addEventListener('click', function () {
+      mobileMenu.classList.toggle('open');
+    });
+    // cerrar el menú al navegar
+    mobileMenu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        mobileMenu.classList.remove('open');
+      });
+    });
+  }
+
+  /* --- Barra de anuncio: cerrar --- */
+  var annClose = document.getElementById('annClose');
+  if (annClose) {
+    annClose.addEventListener('click', function () {
+      var ann = document.getElementById('announ');
+      if (ann) ann.remove();
+    });
+  }
+
+  /* --- Atajo según plataforma --- */
+  var kbdHint = document.getElementById('kbdHint');
+  if (kbdHint) {
+    kbdHint.textContent = /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘K' : 'Ctrl K';
+  }
+
+  /* --- Botón Buscar → evento para la paleta de comandos --- */
+  var cmdkBtn = document.getElementById('cmdkBtn');
+  if (cmdkBtn) {
+    cmdkBtn.addEventListener('click', function () {
+      document.dispatchEvent(new CustomEvent('xanda:cmdk'));
+    });
+  }
+})();

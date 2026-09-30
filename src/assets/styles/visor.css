@@ -1,18 +1,18 @@
 :root{
-    --void:#F3F1FB;
-    --panel:#FFFFFF;
-    --panel-2:#F4F2FB;
-    --line:#E4E1F3;
-    --line-soft:#ECEAF7;
-    --text:#15141F;
-    --muted:#6B6E82;
-    --muted-2:#9C9FB2;
-    --purple:#5B4BF5;
-    --purple-deep:#4338CA;
-    --purple-dim:rgba(91,75,245,0.10);
-    --heart:#F5487D;
+    --void:#0E0C1C;                      /* era #F3F1FB → fondo de la propuesta */
+    --panel:#181430;                     /* era #FFFFFF → panel */
+    --panel-2:#1E1940;                   /* era #F4F2FB → panel elevado */
+    --line:#282250;                      /* era #E4E1F3 */
+    --line-soft:#221D4E;                 /* era #ECEAF7 */
+    --text:#F1EFFC;                      /* era #15141F */
+    --muted:#A6A1C9;                     /* era #6B6E82 */
+    --muted-2:#6F6A96;                   /* era #9C9FB2 */
+    --purple:#8B7CF7;                    /* era #5B4BF5 → acc de la propuesta */
+    --purple-deep:#5646C8;               /* era #4338CA → deep de la propuesta */
+    --purple-dim:rgba(139,124,247,0.10);
+    --heart:#F5487D;                     /* funcional (favoritos) — sin cambio */
     --heart-dim:rgba(245,72,125,0.10);
-    --metal-1:#3A3E48;
+    --metal-1:#3A3E48;                   /* hardware físico — sin cambio */
     --metal-2:#232630;
     --metal-3:#16181F;
     --radius-lg:22px;
@@ -20,6 +20,7 @@
 
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{height:100%;}
+  html{ color-scheme:dark; }
   body{
     background:var(--void);
     color:var(--text);
@@ -64,7 +65,7 @@
   .handle-bar{
     width:38px; height:4px;
     border-radius:3px;
-    background:var(--line);
+    background:var(--line2, #342C66);
   }
   .handle-label-row{
     display:flex; align-items:center; gap:6px;
@@ -109,7 +110,7 @@
   .brand .dot{
     width:10px; height:10px; border-radius:50%;
     background:linear-gradient(135deg, var(--purple), var(--purple-deep));
-    box-shadow:0 0 10px 2px var(--purple-dim), 0 0 0 4px rgba(91,75,245,0.07);
+    box-shadow:0 0 10px 2px var(--purple-dim), 0 0 0 4px rgba(139,124,247,0.10);
     flex-shrink:0;
   }
   .brand h1{
@@ -146,7 +147,7 @@
     transition:border-color .15s ease, box-shadow .15s ease;
   }
   .url-row:focus-within{
-    border-color:rgba(91,75,245,0.55);
+    border-color:rgba(139,124,247,0.55);
     box-shadow:0 0 0 3px var(--purple-dim);
   }
   .url-row input{
@@ -201,7 +202,7 @@
     outline:none;
     transition:border-color .15s ease;
   }
-  .custom-row input[type=number]:focus{ border-color:rgba(91,75,245,0.55); }
+  .custom-row input[type=number]:focus{ border-color:rgba(139,124,247,0.55); }
   .custom-row input[type=number]::-webkit-outer-spin-button,
   .custom-row input[type=number]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
   .custom-row .x{ color:var(--muted-2); font-size:12px; flex-shrink:0; }
@@ -219,7 +220,7 @@
     cursor:pointer;
     transition:background .15s ease, border-color .15s ease;
   }
-  .custom-apply:hover{ background:#EAE7F7; border-color:#CFCBE8; }
+  .custom-apply:hover{ background:#241F4A; border-color:#342C66; }
 
   .pinned-custom{
     display:none;
@@ -255,7 +256,7 @@
     outline:none;
     transition:border-color .15s ease, box-shadow .15s ease;
   }
-  .search-row input:focus{ border-color:rgba(91,75,245,0.55); box-shadow:0 0 0 3px var(--purple-dim); }
+  .search-row input:focus{ border-color:rgba(139,124,247,0.55); box-shadow:0 0 0 3px var(--purple-dim); }
   .search-row input::placeholder{ color:var(--muted-2); }
 
   /* ---- carrusel horizontal de categorías ---- */
@@ -289,7 +290,7 @@
     cursor:pointer;
     transition:background .15s ease, color .15s ease, border-color .15s ease;
   }
-  .cat-tab:hover{ color:var(--text); border-color:#CFCBE8; }
+  .cat-tab:hover{ color:var(--text); border-color:#342C66; }
   .cat-tab.active{
     background:linear-gradient(135deg, var(--purple), var(--purple-deep));
     border-color:var(--purple);
@@ -315,7 +316,7 @@
     background:transparent;
     border:none;
     cursor:pointer;
-    color:var(--purple-deep);
+    color:var(--purple);
     z-index:3;
   }
   .cat-nav svg{ width:15px; height:15px; }
@@ -340,7 +341,7 @@
     font-size:10.5px;
     text-transform:uppercase;
     letter-spacing:0.08em;
-    color:var(--purple-deep);
+    color:var(--purple);
     font-weight:700;
     padding:14px 4px 7px;
   }
@@ -382,7 +383,7 @@
   .device-item:hover{ background:var(--panel-2); }
   .device-item.active{
     background:var(--purple-dim);
-    border-color:rgba(91,75,245,0.35);
+    border-color:rgba(139,124,247,0.35);
   }
   .device-item .icon{
     width:34px; height:34px;
@@ -393,7 +394,7 @@
     border-radius:9px;
     color:var(--muted);
   }
-  .device-item.active .icon{ color:var(--purple); border-color:rgba(91,75,245,0.35); }
+  .device-item.active .icon{ color:var(--purple); border-color:rgba(139,124,247,0.35); }
   .device-item svg{ width:18px; height:18px; }
   .device-item .meta{ display:flex; flex-direction:column; min-width:0; flex:1; }
   .device-item .meta strong{ font-size:13px; font-weight:600; }
@@ -409,7 +410,7 @@
     font-size:9.5px;
     font-weight:600;
     letter-spacing:0.02em;
-    color:var(--purple-deep);
+    color:var(--purple);
     background:var(--purple-dim);
     padding:1px 6px;
     border-radius:5px;
@@ -448,13 +449,13 @@
     display:flex;
     flex-direction:column;
     background:
-      radial-gradient(ellipse 900px 600px at 50% 38%, rgba(91,75,245,0.07), transparent 60%),
+      radial-gradient(ellipse 900px 600px at 50% 38%, rgba(108,92,231,0.12), transparent 60%),
       var(--void);
   }
   .stage::before{
     content:'';
     position:absolute; inset:0;
-    background-image:radial-gradient(rgba(60,50,110,0.06) 1px, transparent 1px);
+    background-image:radial-gradient(rgba(139,124,247,0.09) 1px, transparent 1px);
     background-size:26px 26px;
     pointer-events:none;
   }
@@ -468,7 +469,7 @@
     justify-content:space-between;
     padding:18px 26px;
     border-bottom:1px solid var(--line-soft);
-    background:rgba(255,255,255,0.55);
+    background:rgba(14,12,28,0.55);
     backdrop-filter:blur(10px);
   }
   .topbar .info{ display:flex; align-items:baseline; gap:10px; }
@@ -497,7 +498,7 @@
     cursor:pointer;
     transition:background .15s ease, border-color .15s ease;
   }
-  .chip-btn:hover{ background:#EAE7F7; border-color:#CFCBE8; }
+  .chip-btn:hover{ background:#241F4A; border-color:#342C66; }
   .chip-btn svg{ width:14px; height:14px; }
   .zoom-group{
     display:flex; align-items:center;
@@ -511,7 +512,7 @@
     width:30px; height:30px; cursor:pointer; font-size:15px;
     display:flex; align-items:center; justify-content:center;
   }
-  .zoom-group button:hover{ background:#EAE7F7; }
+  .zoom-group button:hover{ background:#241F4A; }
   .zoom-group .val{
     font-family:'JetBrains Mono', monospace;
     font-size:11.5px;
@@ -546,7 +547,7 @@
     left:50%; top:50%;
     transform:translate(-50%,-50%);
     border-radius:50%;
-    background:radial-gradient(circle, rgba(91,75,245,0.20), transparent 70%);
+    background:radial-gradient(circle, rgba(108,92,231,0.25), transparent 70%);
     filter:blur(50px);
     z-index:0;
     animation:pulse 5s ease-in-out infinite;
@@ -575,7 +576,7 @@
     position:absolute; inset:0;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     gap:10px;
-    background:linear-gradient(160deg, #14151b, #0b0c0f);
+    background:linear-gradient(160deg, #1B1742, #0B0918);
     color:var(--muted-2);
     text-align:center;
     padding:24px;
@@ -841,7 +842,7 @@
     border:1px solid var(--line);
     border-radius:12px;
     overflow:hidden;
-    box-shadow:0 30px 70px -20px rgba(30,20,70,0.35);
+    box-shadow:0 30px 70px -20px rgba(0,0,0,0.55);
   }
   .custom .chrome-bar{
     height:34px;
@@ -875,11 +876,6 @@
 
   /* =========================================================
      RESPONSIVO — pantallas angostas (celular/tablet en vertical)
-     El panel lateral pasa de columna fija a una hoja que sube desde
-     abajo (bottom sheet): colapsada solo se ve el asa; al tocarla
-     sube y muestra todo el contenido con scroll propio. El escenario
-     ocupa toda la pantalla detrás. La hoja se cierra sola al elegir
-     un dispositivo, cargar una URL o aplicar un tamaño personalizado.
      ========================================================= */
   @media (max-width: 860px){
     .sidebar-handle{ display:flex; }
@@ -887,7 +883,7 @@
     .sidebar-backdrop{
       display:block;
       position:fixed; inset:0;
-      background:rgba(15,10,40,0.4);
+      background:rgba(8,6,18,0.6);
       opacity:0;
       pointer-events:none;
       transition:opacity .3s ease;
@@ -906,7 +902,7 @@
       height:80vh;
       border-right:none;
       border-radius:20px 20px 0 0;
-      box-shadow:0 -16px 40px rgba(30,20,70,0.28);
+      box-shadow:0 -16px 40px rgba(0,0,0,0.5);
       padding:0 18px 22px;
       transform:translateY(calc(100% - 58px));
       transition:transform .35s cubic-bezier(.22,.8,.24,1);
@@ -981,5 +977,4 @@
 
   ::-webkit-scrollbar{ width:9px; height:9px; }
   ::-webkit-scrollbar-track{ background:transparent; }
-  ::-webkit-scrollbar-thumb{ background:#D9D6EC; border-radius:6px; }
-  
+  ::-webkit-scrollbar-thumb{ background:linear-gradient(#8B7CF7, #5646C8); border-radius:6px; }

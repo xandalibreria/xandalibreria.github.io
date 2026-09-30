@@ -1,369 +1,1581 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZJ3V595Z8"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-HZJ3V595Z8');
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XandA — Diseña. Desarrolla. Publica.</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M10 8 L30 32' stroke='%236C5CE7' stroke-width='9' stroke-linecap='round'/><path d='M30 8 L10 32' stroke='%238B7CF7' stroke-width='9' stroke-linecap='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ================= BASE ================= */
+:root{
+  --bg:#0E0C1C; --bg2:#131024; --panel:#181430; --panel2:#1E1940; --panel3:#241E4A;
+  --line:#282250; --line2:#342C66;
+  --ink:#F1EFFC; --sub:#A6A1C9; --mut:#6F6A96;
+  --acc:#8B7CF7; --acc2:#6C5CE7; --deep:#5646C8; --lav:#E9E6FC;
+  --ok:#3ECF8E;
+  --grad:linear-gradient(135deg,#8B7CF7 0%,#6C5CE7 55%,#5646C8 100%);
+  --f-head:'Space Grotesk',sans-serif; --f-body:'Inter',sans-serif; --f-mono:'JetBrains Mono',monospace;
+  --shadow:0 30px 70px -30px rgba(0,0,0,.7);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:dark}
+body{font-family:var(--f-body);background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--acc2);color:#fff}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:linear-gradient(#8B7CF7,#5646C8);border-radius:8px;border:2px solid var(--bg2)}
+a{text-decoration:none;color:inherit}
+img,svg{display:block}
+.container{max-width:1180px;margin:0 auto;padding:0 28px}
+.icon{width:1.2em;height:1.2em;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+kbd{font-family:var(--f-mono);font-size:11px;background:var(--panel3);border:1px solid var(--line2);border-bottom-width:2px;border-radius:6px;padding:2px 7px;color:var(--sub)}
+[id]{scroll-margin-top:96px}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XandA</title>
-    <meta name="date" content="2024-09-05">
-    <link rel="canonical" href="URL">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="alternate" hreflang="es" href="URL">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--<meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="Referrer-Policy" content="no-referrer-when-downgrade">-->
-    
-    <!-- SEO -->
-    <meta name="description" content="Descripcion">
-    <meta name="keywords" content="Palabras clave">
-    <meta name="author" content="Autor">
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    <meta name="subject" content="Subject">
-    <meta name="rating" content="General">
-    
-    <!-- Open Graph para Redes Sociales -->
-    <meta property="og:title" content="Titulo">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="URL">
-    <meta property="og:description" content="Descripcion">
-    <meta property="og:locale" content="es_MX">
-    <meta property="og:site_name" content="Mundo Ejecutivo Suscripciones">
-    <meta property="og:image" content="/src/assets/images/">
+/* grano sutil sobre todo el sitio */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:3000;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
 
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Titulo">
-    <meta name="twitter:description" content="Descripcion">
-    <meta name="twitter:site" content="@Mundo Ejecutivo Suscripciones">
-    <meta name="twitter:image" content="/src/assets/images/">
-    <meta property="og:image:alt" content="Titulo">
+.skip{position:fixed;top:-60px;left:20px;z-index:4000;background:var(--acc2);color:#fff;padding:10px 18px;border-radius:10px;font-weight:600;transition:.3s}
+.skip:focus{top:14px}
 
-    <!-- Favicon -->
-    <link rel="icon" href="/src/assets/images/icons/favicon.ico">
-    <link rel="icon" href="/src/assets/images/icons/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="/src/assets/images/icons/favicon.ico" type="image/x-icon">
+/* ================= BARRA ANUNCIO ================= */
+.announ{position:relative;z-index:1100;background:linear-gradient(90deg,rgba(108,92,231,.25),rgba(139,124,247,.12),rgba(108,92,231,.25));border-bottom:1px solid var(--line);font-size:13px;text-align:center;padding:9px 44px;color:var(--lav)}
+.announ b{color:#fff}
+.announ a{color:var(--acc);font-weight:600;border-bottom:1px dashed var(--acc)}
+.announ-x{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--mut);cursor:pointer;font-size:16px;padding:4px 8px;border-radius:8px}
+.announ-x:hover{color:#fff;background:var(--panel3)}
 
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/src/assets/images/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/src/assets/images/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/src/assets/images/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/src/assets/images/apple-touch-icon-76x76.png">
+/* ================= NAV ================= */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:.35s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(14,12,28,.8);backdrop-filter:blur(16px);border-bottom-color:var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 28px;height:72px;display:flex;align-items:center;gap:30px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--f-head);font-weight:700;font-size:23px;letter-spacing:-.02em}
+.brand svg{width:33px;height:33px}
+.nav-links{display:flex;align-items:center;gap:28px;margin-left:auto}
+.nav-links a{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:var(--sub);transition:.25s}
+.nav-links a:hover{color:#fff}
+.nav-links .btn-lib{background:var(--grad);color:#fff;font-size:13.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:10px 22px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(108,92,231,.7)}
+.nav-links .btn-lib:hover{transform:translateY(-2px)}
+.cmdk-btn{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);color:var(--mut);border-radius:11px;padding:8px 12px;font-size:13.5px;cursor:pointer;transition:.25s}
+.cmdk-btn:hover{border-color:var(--acc);color:var(--sub)}
+.cmdk-btn kbd{margin-left:4px}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px;margin-left:auto}
+.burger span{width:24px;height:2.5px;border-radius:2px;background:var(--ink);transition:.3s}
+.mobile-menu{display:none}
 
-    <!-- Iconos para Android -->
-    <link rel="icon" sizes="192x192" href="/src/assets/images/android-chrome-192x192.png">
-    <link rel="icon" sizes="512x512" href="/src/assets/images/android-chrome-512x512.png">
+/* ================= RAIL LATERAL ================= */
+.rail{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:900;display:flex;flex-direction:column;gap:16px}
+.rail button{position:relative;width:10px;height:10px;border-radius:50%;border:2px solid var(--line2);background:transparent;cursor:pointer;padding:0;transition:.3s}
+.rail button:hover{border-color:var(--acc)}
+.rail button.on{background:var(--acc);border-color:var(--acc);box-shadow:0 0 12px rgba(139,124,247,.8)}
+.rail button i{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-style:normal;font-size:11.5px;font-weight:600;color:var(--sub);background:var(--panel2);border:1px solid var(--line);padding:4px 10px;border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;transition:.25s}
+.rail button:hover i{opacity:1;right:18px}
+@media(max-width:1180px){.rail{display:none}}
 
-    <!-- Otros formatos -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/src/assets/images/favicon-16x16.png">
+/* ================= HERO ================= */
+.hero{position:relative;padding:150px 0 90px;overflow:hidden}
+#dots{position:absolute;inset:0;width:100%;height:100%}
+.blob{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;animation:blobFloat 12s ease-in-out infinite alternate}
+.blob-1{width:560px;height:560px;background:rgba(108,92,231,.22);top:-220px;left:50%;transform:translateX(-50%)}
+.blob-2{width:420px;height:420px;background:rgba(139,124,247,.10);bottom:-200px;right:-120px;animation-delay:2s}
+@keyframes blobFloat{to{transform:translateX(-46%) translateY(30px)}}
+.hero-inner{position:relative;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border:1px solid var(--line2);background:rgba(139,124,247,.08);border-radius:999px;font-size:13px;font-weight:600;color:var(--lav)}
+.eyebrow .pulse{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(139,124,247,.5);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 9px rgba(139,124,247,0)}100%{box-shadow:0 0 0 0 rgba(139,124,247,0)}}
+.hero h1{font-family:var(--f-head);font-weight:700;font-size:clamp(2.7rem,5.6vw,4.4rem);line-height:1.07;letter-spacing:-.03em;margin:26px auto 22px;max-width:820px}
+.grad-txt{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .lead{font-size:18px;line-height:1.75;color:var(--sub);max-width:620px;margin:0 auto}
+.hero .lead b{color:var(--ink);font-weight:600}
+.hero-ctas{display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-head);font-weight:600;font-size:15px;padding:14px 28px;border-radius:999px;cursor:pointer;border:0;transition:.3s}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 14px 30px -12px rgba(108,92,231,.7)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 20px 42px -12px rgba(108,92,231,.8)}
+.btn-ghost{background:var(--panel);color:var(--ink);border:1px solid var(--line2)}
+.btn-ghost:hover{border-color:var(--acc);transform:translateY(-3px)}
+.hero-meta{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:13.5px;color:var(--mut)}
+.hero-meta span{display:flex;align-items:center;gap:7px}
+.hero-meta i{width:5px;height:5px;border-radius:50%;background:var(--acc);font-style:normal}
 
-    <!-- AWESOME  -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+/* ================= WORKBENCH (consola) ================= */
+.wb-wrap{position:relative;max-width:1000px;margin:70px auto 0}
+.wb-chip{position:absolute;display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line2);border-radius:13px;padding:10px 16px;font-size:13px;font-weight:600;color:var(--sub);box-shadow:var(--shadow);animation:floaty 5.5s ease-in-out infinite;z-index:3}
+.wb-chip b{color:var(--acc)}
+.wb-chip .ci{width:28px;height:28px;border-radius:8px;background:rgba(139,124,247,.15);display:grid;place-items:center;color:var(--acc)}
+.wb-chip-1{top:-24px;left:-14px}
+.wb-chip-2{bottom:-18px;right:-10px;animation-delay:1.6s}
+@keyframes floaty{50%{transform:translateY(-10px)}}
+.console{position:relative;background:var(--panel);border:1px solid var(--line2);border-radius:20px;box-shadow:var(--shadow),0 0 0 1px rgba(139,124,247,.06),0 0 90px -30px rgba(108,92,231,.4);overflow:hidden;z-index:2}
+.con-bar{display:flex;align-items:center;gap:8px;padding:13px 18px;background:var(--panel2);border-bottom:1px solid var(--line)}
+.wdot{width:11px;height:11px;border-radius:50%}
+.wdot.r{background:#FF5F57}.wdot.y{background:#FEBC2E}.wdot.g{background:#28C840}
+.con-title{font-family:var(--f-mono);font-size:11.5px;color:var(--mut);margin-left:10px}
+.con-live{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.09em;color:var(--acc);border:1px solid rgba(139,124,247,.4);background:rgba(139,124,247,.08);padding:4px 11px;border-radius:999px;display:flex;align-items:center;gap:6px}
+.con-live i{width:6px;height:6px;border-radius:50%;background:var(--acc);animation:ping 1.6s infinite}
+.wb-body{display:grid;grid-template-columns:236px 1fr;min-height:440px}
+.wb-side{border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column;gap:6px;background:rgba(14,12,28,.4)}
+.wb-side-t{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:6px 12px 10px}
+.wb-tab{position:relative;display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:12px;cursor:pointer;border:1px solid transparent;background:none;color:var(--sub);text-align:left;font-family:var(--f-body);transition:.25s;overflow:hidden}
+.wb-tab:hover{background:var(--panel2);color:var(--ink)}
+.wb-tab .ti{width:34px;height:34px;border-radius:10px;background:var(--panel3);display:grid;place-items:center;color:var(--sub);transition:.25s;flex:none}
+.wb-tab b{display:block;font-size:13.5px;font-weight:600;color:inherit}
+.wb-tab small{display:block;font-size:11px;color:var(--mut);margin-top:2px}
+.wb-tab.active{background:rgba(139,124,247,.1);border-color:rgba(139,124,247,.3)}
+.wb-tab.active .ti{background:var(--grad);color:#fff;box-shadow:0 8px 18px -8px rgba(108,92,231,.8)}
+.wb-tab.active b{color:#fff}
+.wb-prog{position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--grad);transform-origin:left;animation:wbProg 6s linear infinite;display:none}
+.wb-tab.active .wb-prog{display:block}
+.console:hover .wb-prog,.console.off .wb-prog{animation-play-state:paused}
+@keyframes wbProg{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.wb-stage{position:relative;overflow:hidden}
+.wb-view{display:none}
+.wb-view.active{display:block;position:absolute;inset:0;padding:20px;animation:viewIn .5s cubic-bezier(.2,.8,.3,1)}
+@keyframes viewIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+.vh{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.vh::after{content:'';flex:1;height:1px;background:var(--line)}
 
-    <!-- AOS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+/* --- Vista Constructor --- */
+.cv{display:grid;grid-template-columns:52px 1fr 168px;gap:14px;height:calc(100% - 34px)}
+.cv-tools{background:var(--panel2);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 0}
+.cv-tools span{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--mut);cursor:pointer;transition:.25s}
+.cv-tools span:hover,.cv-tools span.sel{background:var(--grad);color:#fff}
+.cv-canvas{position:relative;background:var(--bg2) radial-gradient(rgba(139,124,247,.12) 1px,transparent 1px);background-size:16px 16px;border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.cv-block{border:1px solid var(--line2);background:var(--panel2);border-radius:10px;animation:fadeUp .5s both}
+.cv-block.b-nav{display:flex;align-items:center;gap:8px;padding:9px 12px;animation-delay:.05s}
+.cv-nav-logo{width:14px;height:14px;border-radius:5px;background:var(--grad)}
+.cv-nav-lk{width:26px;height:4px;border-radius:3px;background:var(--line2)}
+.cv-nav-pill{margin-left:auto;width:44px;height:13px;border-radius:99px;background:var(--grad)}
+.cv-block.b-hero{padding:14px;animation-delay:.15s}
+.cv-l{height:8px;border-radius:4px;background:var(--panel3)}
+.cv-l.big{width:65%;height:12px;background:linear-gradient(90deg,var(--acc),var(--deep))}
+.cv-l.mid{width:85%;margin-top:8px}
+.cv-l.sm{width:45%;margin-top:8px}
+.cv-btn{display:inline-block;margin-top:12px;background:var(--grad);color:#fff;font-size:10.5px;font-weight:700;padding:6px 14px;border-radius:99px;animation:btnPulse 2.4s 1s infinite}
+@keyframes btnPulse{50%{box-shadow:0 0 0 6px rgba(139,124,247,.15)}}
+.cv-drop{flex:1;min-height:56px;border:1.5px dashed rgba(139,124,247,.45);border-radius:12px;display:grid;place-items:center;font-family:var(--f-mono);font-size:11px;color:var(--acc);animation:dropFlash 4.2s infinite}
+@keyframes dropFlash{0%,55%,100%{border-color:rgba(139,124,247,.25)}62%,80%{border-color:var(--acc);background:rgba(139,124,247,.07)}}
+.cv-ghost{position:absolute;left:16px;top:14px;width:74px;height:52px;border-radius:10px;background:var(--panel3);border:1px solid var(--acc);display:grid;place-items:center;color:var(--acc);box-shadow:0 14px 30px -10px rgba(0,0,0,.6);animation:ghostMove 4.2s cubic-bezier(.3,.8,.3,1) infinite}
+@keyframes ghostMove{0%{transform:translate(0,0);opacity:0}12%{opacity:1}45%{transform:translate(120px,84px)}52%{transform:translate(120px,84px) scale(.94)}72%{transform:translate(120px,84px);opacity:1}88%,100%{transform:translate(120px,84px);opacity:0}}
+.cv-layers{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:12px}
+.cv-layers-t{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.layer{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:11px;color:var(--sub);padding:8px 6px;border-bottom:1px solid var(--line)}
+.layer:last-child{border:0}
+.layer .eye{margin-left:auto;color:var(--mut)}
+.layer.sel{color:var(--acc)}
+/* --- Vista Convertidor --- */
+.conv{display:grid;grid-template-columns:1fr 1.35fr;gap:14px;height:calc(100% - 34px)}
+.conv-drop{border:1.5px dashed rgba(139,124,247,.4);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--mut);font-size:12.5px;text-align:center;padding:18px}
+.conv-drop .up{width:52px;height:52px;border-radius:15px;background:rgba(139,124,247,.12);border:1px solid rgba(139,124,247,.35);display:grid;place-items:center;color:var(--acc);animation:floaty 3s ease-in-out infinite}
+.conv-drop .up svg{width:24px;height:24px}
+.conv-drop b{color:var(--sub)}
+.conv-files{display:flex;flex-direction:column;gap:10px}
+.f-row{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:12px 14px;animation:fadeUp .5s both}
+.f-top{display:flex;align-items:center;gap:9px;font-family:var(--f-mono);font-size:11.5px;color:var(--sub)}
+.f-dot{width:8px;height:8px;border-radius:3px;background:var(--grad)}
+.f-fmt{margin-left:auto;display:flex;align-items:center;gap:6px}
+.f-fmt s{text-decoration:none;color:var(--mut)}
+.f-fmt i{font-style:normal;color:var(--acc);font-weight:700}
+.f-ok{width:15px;height:15px;border-radius:50%;background:rgba(62,207,142,.15);color:var(--ok);display:grid;place-items:center;font-size:9px;opacity:0;animation:okPop 6s infinite}
+@keyframes okPop{0%,18%{opacity:0;transform:scale(.4)}24%,100%{opacity:1;transform:scale(1)}}
+.f-bar{height:6px;border-radius:4px;background:var(--panel);margin-top:10px;overflow:hidden}
+.f-bar i{display:block;height:100%;border-radius:4px;background:var(--grad);box-shadow:0 0 12px rgba(139,124,247,.7);animation:convFill 6s infinite}
+@keyframes convFill{0%{width:0}20%{width:100%}100%{width:100%}}
+.f-meta{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;color:var(--mut);margin-top:7px}
+.f-save{color:var(--ok);opacity:0;animation:okPop 6s infinite}
+/* --- Vista Visor --- */
+.visor{display:flex;flex-direction:column;align-items:center;gap:16px;height:calc(100% - 34px)}
+.dev{width:330px;max-width:90%;flex:1;background:var(--panel2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;animation:devW 7s ease-in-out infinite;display:flex;flex-direction:column}
+@keyframes devW{0%,26%{width:330px}34%,58%{width:246px}66%,92%{width:166px}100%{width:330px}}
+.dev-bar{display:flex;gap:5px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.dev-bar i{width:7px;height:7px;border-radius:50%;background:var(--line2)}
+.dev-bar i:first-child{background:var(--acc)}
+.site{flex:1;padding:10px;display:flex;flex-direction:column;gap:8px;min-height:0}
+.site-nav{display:flex;align-items:center;gap:6px}
+.site-nav .lk{width:20px;height:4px;border-radius:3px;background:var(--line2)}
+.site-grid{flex:1;display:flex;flex-wrap:wrap;gap:8px;min-height:0}
+.site-card{background:var(--panel3);border:1px solid var(--line);border-radius:9px;min-width:118px;flex:1;display:flex;flex-direction:column;gap:5px;padding:9px}
+.site-card .im{flex:1;min-height:26px;border-radius:6px;background:linear-gradient(135deg,rgba(139,124,247,.5),rgba(86,70,200,.5))}
+.site-card .ln{height:5px;border-radius:3px;background:var(--line2)}
+.site-card .ln.s{width:60%}
+.dev-labels{display:flex;gap:22px;font-family:var(--f-mono);font-size:11px;color:var(--mut)}
+.dev-labels span{transition:.3s;animation:lblA 7s infinite}
+.dev-labels span:nth-child(2){animation-name:lblB}
+.dev-labels span:nth-child(3){animation-name:lblC}
+@keyframes lblA{0%,26%{color:var(--acc)}34%,58%{color:var(--mut)}66%,92%{color:var(--mut)}100%{color:var(--acc)}}
+@keyframes lblB{0%,26%{color:var(--mut)}34%,58%{color:var(--acc)}66%,92%{color:var(--mut)}100%{color:var(--mut)}}
+@keyframes lblC{0%,26%{color:var(--mut)}34%,58%{color:var(--mut)}66%,92%{color:var(--acc)}100%{color:var(--mut)}}
+/* --- Vista IDE --- */
+.ide{display:grid;grid-template-columns:150px 1fr;gap:12px;height:calc(100% - 34px)}
+.ide-tree{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:12px;font-family:var(--f-mono);font-size:11.5px;color:var(--mut)}
+.ide-tree div{padding:6px 8px;border-radius:7px;display:flex;align-items:center;gap:7px}
+.ide-tree .on{background:rgba(139,124,247,.12);color:var(--acc)}
+.ide-main{display:flex;flex-direction:column;gap:10px;min-height:0}
+.ide-code{flex:1.3;background:var(--bg2);border:1px solid var(--line);border-radius:13px;padding:13px 14px;font-family:var(--f-mono);font-size:11.5px;line-height:1.9;overflow:hidden}
+.cl{display:flex;white-space:pre}
+.cl .ln{width:20px;color:#3D3A63;text-align:right;padding-right:12px;flex:none;user-select:none}
+.tok-t{color:#9F92FF}.tok-a{color:#B9AFF7}.tok-s{color:#7FD8C0}.tok-x{color:#EDEBFB}.tok-p{color:#63608A}
+.ide-term{flex:1;background:#0B0918;border:1px solid var(--line);border-radius:13px;padding:11px 14px;font-family:var(--f-mono);font-size:11px;line-height:1.9;overflow:hidden}
+.tl{opacity:0;animation:tlCycle 7s infinite}
+@keyframes tlCycle{0%{opacity:0}4%,90%{opacity:1}96%,100%{opacity:0}}
+.tl.cmd{color:var(--lav)}.tl.cmd b{color:var(--acc)}
+.tl.ok{color:var(--ok)}
+.tl.out{color:var(--sub)}
+.tcursor{display:inline-block;width:7px;height:12px;background:var(--acc);vertical-align:-2px;animation:blink .9s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+/* --- Vista JSON --- */
+.jsonv{display:grid;grid-template-columns:1.15fr 1fr;gap:12px;height:calc(100% - 34px);position:relative}
+.jt{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:14px;font-family:var(--f-mono);font-size:11.5px;display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.jt-r{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:7px;color:var(--sub);animation:fadeUp .45s both}
+.jt-r .k{color:var(--acc)}.jt-r .v{color:#7FD8C0}.jt-r .b{color:var(--mut)}
+.jt-r .tw{color:var(--mut);margin-right:-2px}
+.jt-r.sel{background:rgba(139,124,247,.12)}
+.jt-badge{margin-top:auto;align-self:flex-start;display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;color:var(--ok);background:rgba(62,207,142,.1);border:1px solid rgba(62,207,142,.35);border-radius:99px;padding:5px 12px;animation:fadeUp .5s .8s both}
+.jt-badge i{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:ping 1.6s infinite}
+.jp{background:var(--bg2);border:1px solid var(--line);border-radius:13px;padding:14px;font-family:var(--f-mono);font-size:11.5px;line-height:2;overflow:hidden;animation:fadeUp .5s .2s both}
+.j-add{position:absolute;right:16px;bottom:16px;width:40px;height:40px;border-radius:13px;border:0;background:var(--grad);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 12px 26px -8px rgba(108,92,231,.8);animation:btnPulse 2.2s infinite}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/src/assets/styles/index.css">
+/* ================= MARQUEE ================= */
+.marquee{border-block:1px solid var(--line);padding:18px 0;overflow:hidden;background:var(--bg2)}
+.marquee-track{display:flex;width:max-content;animation:scrollX 32s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.mq-group{display:flex;gap:14px;padding-right:14px}
+.mq-item{display:flex;align-items:center;gap:9px;font-family:var(--f-head);font-weight:600;font-size:14.5px;color:var(--sub);border:1px solid var(--line2);border-radius:999px;padding:9px 20px;white-space:nowrap;background:var(--panel)}
+.mq-item i{width:6px;height:6px;border-radius:50%;background:var(--grad)}
+@keyframes scrollX{to{transform:translateX(-50%)}}
 
-    <!-- Datos Estructurados JSON-LD -->
-    <script type="application/ld+json">
-        {
-        "@context": "https://schema.org",
-        "@type": "NewsMediaOrganization",
-        "name": "Nombre",
-        "url": "URL",
-        "logo": "/src/assets/images/logo.png",
-        "sameAs": [
-            "URL Redes Sociales",
-            "URL Redes Sociales"
-        ],
-        "description": "Descripcion",
-        "founder": "Nombre del fundador",
-        "foundingDate": "Año",
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "contactType": "Customer Support",
-            "email": "correo electrónico",
-            "url": "URL contacto"
-        }
-        }
-    </script>
+/* ================= SECCIONES ================= */
+section{padding:110px 0;position:relative}
+.sec-head{max-width:640px;margin-bottom:56px}
+.sec-head.center{margin-inline:auto;text-align:center}
+.sec-tag{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:16px}
+.sec-tag::before{content:'';width:24px;height:1.5px;background:var(--acc)}
+.sec-head.center .sec-tag::after{content:'';width:24px;height:1.5px;background:var(--acc)}
+h2{font-family:var(--f-head);font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:700;letter-spacing:-.03em;line-height:1.12}
+.sec-sub{font-size:16.5px;line-height:1.75;color:var(--sub);margin-top:16px}
 
+/* ================= LISTA DE HERRAMIENTAS ================= */
+.tools-list{border-top:1px solid var(--line)}
+.tool-row{position:relative;display:grid;grid-template-columns:70px 58px 1fr auto 44px;align-items:center;gap:24px;padding:26px 18px;border-bottom:1px solid var(--line);cursor:pointer;transition:.3s;border-radius:0}
+.tool-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad);transform:scaleY(0);transition:transform .35s;transform-origin:center}
+.tool-row:hover{background:linear-gradient(90deg,rgba(139,124,247,.07),transparent 65%)}
+.tool-row:hover::before{transform:scaleY(1)}
+.tr-num{font-family:var(--f-mono);font-size:13px;color:var(--mut);transition:.3s}
+.tool-row:hover .tr-num{color:var(--acc)}
+.tr-ic{width:52px;height:52px;border-radius:14px;background:var(--panel2);border:1px solid var(--line2);display:grid;place-items:center;color:var(--sub);transition:.35s}
+.tr-ic svg{width:24px;height:24px}
+.tool-row:hover .tr-ic{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 12px 26px -10px rgba(108,92,231,.7);transform:rotate(-6deg) scale(1.05)}
+.tr-name{font-family:var(--f-head);font-size:19px;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:11px}
+.tr-badge{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:99px}
+.tr-badge.new{background:var(--grad);color:#fff}
+.tr-badge.star{background:rgba(139,124,247,.15);color:var(--acc);border:1px solid rgba(139,124,247,.35)}
+.tr-desc{font-size:14.5px;color:var(--sub);line-height:1.65;margin-top:6px;max-width:560px}
+.tr-more{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s,opacity .4s,margin .4s;font-family:var(--f-mono);font-size:12px;color:var(--acc)}
+.tool-row:hover .tr-more{max-height:40px;opacity:1;margin-top:10px}
+.tr-tags{display:flex;flex-direction:column;gap:7px;align-items:flex-end}
+.tr-tags span{font-size:11px;font-weight:600;color:var(--mut);border:1px solid var(--line2);padding:4px 11px;border-radius:99px;transition:.3s}
+.tool-row:hover .tr-tags span{color:var(--acc);border-color:rgba(139,124,247,.4)}
+.tr-arrow{width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--mut);transition:.35s}
+.tr-arrow svg{width:17px;height:17px;transition:transform .35s}
+.tool-row:hover .tr-arrow{background:var(--grad);border-color:transparent;color:#fff}
+.tool-row:hover .tr-arrow svg{transform:translateX(3px)}
 
-    <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
+/* ================= ECOSISTEMA (grafo) ================= */
+.graph{position:relative;height:440px;max-width:960px;margin:0 auto}
+.g-node{position:absolute;transform:translate(-50%,-50%);z-index:2}
+.g-node-in{display:flex;flex-direction:column;align-items:center;gap:10px;transition:.3s;cursor:default}
+.g-node:hover .g-node-in{transform:translateY(-4px)}
+.g-chip{width:56px;height:56px;border-radius:17px;background:var(--panel2);border:1px solid var(--line2);display:grid;place-items:center;color:var(--sub);box-shadow:var(--shadow);transition:.3s;animation:floaty 5s ease-in-out infinite}
+.g-node:hover .g-chip{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 16px 34px -12px rgba(108,92,231,.8)}
+.g-chip svg{width:24px;height:24px}
+.g-lbl{font-family:var(--f-head);font-size:13px;font-weight:600;color:var(--sub);display:flex;align-items:center;gap:6px}
+.g-lbl i{width:5px;height:5px;border-radius:50%;background:var(--ok);font-style:normal;box-shadow:0 0 8px var(--ok)}
+.g-core{transform:translate(-50%,-50%);position:absolute;left:50%;top:50%;z-index:2;text-align:center}
+.g-core-chip{position:relative;width:88px;height:88px;border-radius:26px;background:var(--grad);display:grid;place-items:center;margin:0 auto;box-shadow:0 20px 50px -14px rgba(108,92,231,.9)}
+.g-core-chip svg{width:44px;height:44px}
+.g-core-chip::before,.g-core-chip::after{content:'';position:absolute;inset:-14px;border-radius:34px;border:1.5px dashed rgba(139,124,247,.4);animation:spin 14s linear infinite}
+.g-core-chip::after{inset:-28px;border-radius:44px;border-color:rgba(139,124,247,.18);animation-duration:26s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.g-core-lbl{margin-top:16px;font-family:var(--f-head);font-weight:700;font-size:16px}
+.g-core-sub{font-family:var(--f-mono);font-size:10.5px;color:var(--mut);margin-top:4px;letter-spacing:.08em}
+.g-link{position:absolute;height:2px;transform-origin:0 50%;background:repeating-linear-gradient(90deg,var(--line2) 0 7px,transparent 7px 14px);animation:gFlow 1.1s linear infinite;z-index:1}
+@keyframes gFlow{to{background-position-x:-14px}}
+.g-link span{position:absolute;top:-2px;left:0;width:6px;height:6px;border-radius:50%;background:#A99DFF;box-shadow:0 0 12px var(--acc);animation:gPulse 2.8s linear infinite}
+@keyframes gPulse{to{left:calc(100% - 6px)}}
+.g-note{display:flex;justify-content:center;gap:9px;align-items:center;margin-top:10px;font-family:var(--f-mono);font-size:12px;color:var(--mut)}
+.g-note i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);font-style:normal}
+.graph.is-mobile{height:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px}
+.graph.is-mobile .g-node{position:static;transform:none}
+.graph.is-mobile .g-link,.graph.is-mobile .g-core-chip::before,.graph.is-mobile .g-core-chip::after{display:none}
+.graph.is-mobile .g-core{position:static;transform:none;grid-column:1/-1}
+
+/* ================= LIBRERÍA: CARRUSEL ================= */
+.lib-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.lib-nav{display:flex;align-items:center;gap:14px}
+.lib-count{font-family:var(--f-mono);font-size:13px;color:var(--mut)}
+.lib-count b{color:var(--ink)}
+.lib-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:var(--panel);color:var(--sub);display:grid;place-items:center;cursor:pointer;transition:.3s}
+.lib-btn:hover{border-color:var(--acc);color:#fff;transform:translateY(-2px)}
+.lib-btn svg{width:18px;height:18px}
+.car-track{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;padding:6px 2px 18px;cursor:grab;user-select:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 36px),transparent)}
+.car-track::-webkit-scrollbar{display:none}
+.car-track.dragging{cursor:grabbing;scroll-behavior:auto}
+.demo-card{flex:0 0 305px;background:var(--panel);border:1px solid var(--line2);border-radius:18px;overflow:hidden;transition:.3s;scroll-snap-align:start}
+.demo-card:hover{border-color:rgba(139,124,247,.5);transform:translateY(-5px);box-shadow:0 24px 50px -20px rgba(0,0,0,.7),0 0 40px -20px rgba(108,92,231,.5)}
+.demo-stage{height:178px;position:relative;display:grid;place-items:center;background:var(--bg2) radial-gradient(rgba(139,124,247,.12) 1px,transparent 1px);background-size:15px 15px;overflow:hidden}
+.demo-foot{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-top:1px solid var(--line)}
+.demo-name{font-family:var(--f-head);font-size:14px;font-weight:600;display:flex;align-items:center;gap:9px}
+.demo-name i{width:7px;height:7px;border-radius:2.5px;background:var(--grad)}
+.demo-tag{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line2);border-radius:6px;padding:3px 8px}
+.copy-btn{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;color:var(--sub);background:none;border:1px solid var(--line2);border-radius:8px;padding:6px 11px;cursor:pointer;transition:.25s}
+.copy-btn:hover{color:#fff;background:var(--acc2);border-color:var(--acc2)}
+.copy-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.lib-bar{height:3px;border-radius:3px;background:var(--panel3);overflow:hidden;max-width:200px}
+.lib-bar i{display:block;height:100%;width:12%;background:var(--grad);border-radius:3px;transition:width .15s}
+/* demos 1-8 */
+.scr{font-family:var(--f-mono);font-size:24px;font-weight:700;color:var(--ink)}
+.scr .scr-c{color:var(--acc)}
+.mag{border:0;cursor:pointer;background:var(--grad);color:#fff;font-family:var(--f-head);font-weight:700;font-size:14px;padding:14px 30px;border-radius:14px;box-shadow:0 16px 34px -12px rgba(108,92,231,.8);will-change:transform}
+.mag span{display:inline-block}
+.rip{position:relative;overflow:hidden;border:0;cursor:pointer;background:var(--panel3);color:var(--ink);font-family:var(--f-head);font-weight:700;font-size:14px;padding:14px 30px;border-radius:14px;border:1px solid var(--line2)}
+.rip-ripple{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(139,124,247,.7),rgba(139,124,247,.15) 70%);transform:scale(0);animation:ripGo .65s ease-out forwards;pointer-events:none}
+@keyframes ripGo{to{transform:scale(3);opacity:0}}
+.ring-wrap{position:relative;width:96px;height:96px}
+.ring-wrap svg{width:96px;height:96px;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--panel3);stroke-width:8}
+.ring-arc{fill:none;stroke:url(#ringGrad);stroke-width:8;stroke-linecap:round}
+.ring-txt{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-mono);font-weight:700;font-size:17px}
+.cfp{position:absolute;border-radius:2px;pointer-events:none;z-index:5}
+.conf-btn{border:0;cursor:pointer;background:var(--panel3);border:1px solid var(--line2);color:var(--ink);font-family:var(--f-head);font-weight:700;font-size:13.5px;padding:12px 24px;border-radius:12px;transition:.25s}
+.conf-btn:hover{border-color:var(--acc)}
+.tipwrap{position:relative}
+.tip-btn{border:0;cursor:pointer;background:var(--panel3);border:1px solid var(--line2);color:var(--sub);font-weight:600;font-size:13px;padding:11px 20px;border-radius:11px;transition:.25s}
+.tip-btn:hover{color:#fff;border-color:var(--acc)}
+.tip{position:absolute;left:50%;background:var(--acc2);color:#fff;font-size:12px;font-weight:600;padding:8px 14px;border-radius:9px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;transform:translate(-50%,6px);z-index:6}
+.tip::after{content:'';position:absolute;left:50%;bottom:-4px;width:9px;height:9px;background:var(--acc2);transform:translateX(-50%) rotate(45deg)}
+.tip.below::after{bottom:auto;top:-4px}
+.tipwrap:hover .tip,.tipwrap:focus-within .tip{opacity:1}
+.tip.above{bottom:calc(100% + 12px);transform:translate(-50%,0)}
+.tip.below{top:calc(100% + 12px);transform:translate(-50%,0)}
+.tw{font-family:var(--f-mono);font-size:14.5px;color:var(--sub)}
+.tw-line{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;border-right:2px solid var(--acc);width:0;animation:tw 6.5s infinite,twCaret 1s step-end infinite}
+@keyframes tw{0%{width:0;animation-timing-function:steps(27,end)}44%{width:27ch}54%{width:27ch;animation-timing-function:steps(27,end)}92%{width:0}100%{width:0}}
+@keyframes twCaret{50%{border-color:transparent}}
+.gtext{font-family:var(--f-head);font-weight:700;font-size:42px;letter-spacing:-.02em;background:linear-gradient(90deg,#E9E6FC,#8B7CF7,#5646C8,#8B7CF7,#E9E6FC);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gFlow2 4s linear infinite}
+@keyframes gFlow2{to{background-position-x:-300%}}
+
+/* ================= TESTIMONIOS ================= */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.t-card{position:relative;background:var(--panel);border:1px solid var(--line2);border-radius:20px;padding:30px 28px;transition:.35s;display:flex;flex-direction:column}
+.t-card:hover{transform:translateY(-6px);border-color:rgba(139,124,247,.5);box-shadow:var(--shadow)}
+.t-quote{position:absolute;top:22px;right:26px;font-family:var(--f-head);font-size:60px;line-height:1;color:rgba(139,124,247,.18)}
+.stars{display:flex;gap:3px;margin-bottom:16px;color:var(--acc)}
+.stars svg{width:15px;height:15px;fill:currentColor}
+.t-card p{font-size:15px;line-height:1.8;color:var(--sub);flex:1}
+.t-foot{display:flex;align-items:center;gap:13px;margin-top:24px}
+.t-av{width:44px;height:44px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-family:var(--f-head);font-weight:700;font-size:14px;color:#fff}
+.t-who b{display:block;font-size:14.5px}
+.t-who span{font-size:12.5px;color:var(--mut)}
+
+/* ================= CTA ================= */
+.cta-panel{position:relative;background:var(--panel);border:1px solid var(--line2);border-radius:28px;padding:64px 56px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;overflow:hidden}
+.cta-panel::before{content:'';position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(108,92,231,.25),transparent 65%);top:-260px;left:-140px;pointer-events:none}
+.cta-kicker{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:16px}
+.cta-panel h2{font-size:clamp(1.8rem,3.2vw,2.6rem)}
+.cta-panel .cta-p{color:var(--sub);line-height:1.75;font-size:16px;margin-top:16px;max-width:420px}
+.cta-actions{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.term{position:relative;background:#0B0918;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;z-index:1}
+.term-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.term-bar .wdot{width:10px;height:10px}
+.term-copy{margin-left:auto;display:flex;align-items:center;gap:6px;background:none;border:1px solid var(--line2);color:var(--mut);font-family:var(--f-mono);font-size:10.5px;border-radius:7px;padding:5px 10px;cursor:pointer;transition:.25s}
+.term-copy:hover{color:#fff;border-color:var(--acc)}
+.term-body{padding:18px 18px 22px;font-family:var(--f-mono);font-size:12.5px;line-height:2.1;min-height:172px}
+.tl-c.cmd{color:var(--lav)}
+.tl-c.cmd b{color:var(--acc)}
+.tl-c.ok{color:var(--ok)}
+.tl-c.out{color:var(--sub)}
+
+/* ================= FOOTER ================= */
+footer{border-top:1px solid var(--line);background:var(--bg2);padding:70px 0 0}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:56px}
+.foot-brand p{font-size:14px;line-height:1.75;color:var(--mut);max-width:300px;margin-top:18px}
+.socials{display:flex;gap:11px;margin-top:22px}
+.socials a{width:38px;height:38px;border-radius:11px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--mut);transition:.3s}
+.socials a:hover{background:var(--acc2);border-color:var(--acc2);color:#fff;transform:translateY(-4px)}
+.socials svg{width:17px;height:17px;fill:currentColor}
+.nl{display:flex;gap:8px;margin-top:22px;max-width:320px}
+.nl input{flex:1;background:var(--panel);border:1px solid var(--line2);border-radius:11px;padding:11px 14px;color:var(--ink);font-family:var(--f-body);font-size:13.5px;outline:none;transition:.25s;min-width:0}
+.nl input:focus{border-color:var(--acc)}
+.nl input::placeholder{color:var(--mut)}
+.nl button{border:0;cursor:pointer;background:var(--grad);color:#fff;font-weight:700;font-size:13px;padding:0 18px;border-radius:11px;transition:.25s}
+.nl button:hover{filter:brightness(1.1)}
+.foot-col h4{font-family:var(--f-head);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:20px}
+.foot-col a{display:block;font-size:14px;color:var(--mut);padding:5.5px 0;transition:.25s}
+.foot-col a:hover{color:var(--acc);transform:translateX(4px)}
+.foot-bottom{border-top:1px solid var(--line);padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mut)}
+.foot-bottom .mono{font-family:var(--f-mono);font-size:12px}
+.foot-bottom .mono b{color:var(--acc)}
+
+/* ================= COMMAND PALETTE ================= */
+.cmdk{position:fixed;inset:0;z-index:2500;background:rgba(8,6,18,.7);backdrop-filter:blur(8px);display:flex;align-items:flex-start;justify-content:center;padding:14vh 20px 20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.cmdk.open{opacity:1;pointer-events:auto}
+.cmdk-box{width:100%;max-width:580px;background:var(--panel);border:1px solid var(--line2);border-radius:20px;box-shadow:0 40px 100px -20px rgba(0,0,0,.8),0 0 80px -30px rgba(108,92,231,.5);overflow:hidden;transform:scale(.96) translateY(-8px);transition:transform .25s cubic-bezier(.2,1,.3,1)}
+.cmdk.open .cmdk-box{transform:none}
+.cmdk-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.cmdk-head svg{width:18px;height:18px;color:var(--mut)}
+.cmdk-head input{flex:1;background:none;border:0;outline:none;color:var(--ink);font-family:var(--f-body);font-size:15.5px}
+.cmdk-head input::placeholder{color:var(--mut)}
+.cmdk-list{max-height:320px;overflow-y:auto;padding:8px}
+.cmdk-group{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);padding:12px 12px 6px}
+.cmdk-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;cursor:pointer;color:var(--sub);font-size:14px;font-weight:500}
+.cmdk-item .ci{width:30px;height:30px;border-radius:8px;background:var(--panel3);display:grid;place-items:center;color:var(--mut);flex:none}
+.cmdk-item .ci svg{width:15px;height:15px}
+.cmdk-item.sel{background:rgba(139,124,247,.12);color:#fff}
+.cmdk-item.sel .ci{background:var(--grad);color:#fff}
+.cmdk-item .enter{margin-left:auto;opacity:0;font-size:11px;color:var(--acc)}
+.cmdk-item.sel .enter{opacity:1}
+.cmdk-empty{padding:36px;text-align:center;color:var(--mut);font-size:14px}
+.cmdk-foot{display:flex;gap:18px;padding:12px 18px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mut)}
+.cmdk-foot span{display:flex;align-items:center;gap:6px}
+
+/* ================= TOAST / REVEAL ================= */
+#toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,90px);background:var(--panel2);color:var(--ink);font-size:14px;font-weight:600;padding:14px 24px;border-radius:14px;display:flex;align-items:center;gap:11px;box-shadow:0 20px 50px -12px rgba(0,0,0,.7);border:1px solid var(--line2);transition:.45s cubic-bezier(.2,1.2,.4,1);z-index:2600}
+#toast.show{transform:translate(-50%,0)}
+#toast.err{border-color:rgba(255,95,87,.5)}
+#toast svg{width:18px;height:18px;stroke:var(--ok);fill:none;stroke-width:2.6;stroke-linecap:round;flex:none}
+#toast.err svg{stroke:#FF5F57}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1024px){
+  .tool-row{grid-template-columns:44px 52px 1fr 44px}
+  .tr-tags{display:none}
+  .testi-grid{grid-template-columns:1fr}
+  .cta-panel{grid-template-columns:1fr;padding:48px 34px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:860px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .mobile-menu{display:block;position:fixed;top:0;left:0;right:0;padding:86px 28px 26px;background:var(--bg2);border-bottom:1px solid var(--line);transform:translateY(-105%);transition:.4s;z-index:990}
+  .mobile-menu.open{transform:none}
+  .mobile-menu a{display:flex;align-items:center;gap:12px;padding:14px 4px;font-weight:600;border-bottom:1px solid var(--line);color:var(--sub)}
+  .mobile-menu .btn-lib{margin-top:18px;justify-content:center;width:100%}
+  .wb-body{grid-template-columns:1fr}
+  .wb-side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
+  .wb-side-t{display:none}
+  .wb-tab{flex:none}
+  .wb-tab small{display:none}
+  .wb-prog{top:auto;height:2px}
+  .wb-stage{min-height:430px}
+  .wb-view.active{position:absolute}
+  .cv{grid-template-columns:44px 1fr}
+  .cv-layers{display:none}
+  .conv{grid-template-columns:1fr}
+  .conv-drop{min-height:120px}
+  .ide{grid-template-columns:1fr}
+  .ide-tree{display:none}
+  .jsonv{grid-template-columns:1fr}
+  .jp{display:none}
+  .tool-row{grid-template-columns:52px 1fr 44px;gap:16px}
+  .tr-num{display:none}
+  .wb-chip{display:none}
+  .hero{padding:130px 0 70px}
+  section{padding:80px 0}
+  .foot-grid{grid-template-columns:1fr}
+  .cmdk{padding-top:10vh}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <a href="index.html">
-            <img src="/src/assets/images/icons/logo.png" alt="XandA" title="XandA" class="imagen-logo">
-        </a>
-        <nav class="navbar">
-            <ul class="nav-links">
-                <li>
-                    <a href="/src/pages/constructor.html">
-                        <i class="fa-regular fa-pen-to-square"></i>Constructor
-                    </a>
-                </li>
-                <li>
-                    <a href="/src/pages/compresor.html">
-                        <i class="fa-regular fa-image"></i>Convertidor
-                    </a>
-                </li>
-                <li>
-                    <a href="/src/pages/visor.html">
-                        <i class="fa-solid fa-mobile-screen-button"></i>Visor
-                    </a>
-                </li>
-                <li>
-                    <a href="#id-ide">
-                        <i class="fa-brands fa-uncharted"></i> IDE
-                    </a>
-                </li>
-                <li>
-                    <a href="/src/pages/libreria.html" class="boton-1">
-                        <i class="fa-solid fa-globe"></i> LIBRERÍA
-                    </a>
-                </li>
-            </ul>
-            <i class="fa-solid fa-bars-staggered" onclick="abrir_menu_celular()"></i>
-        </nav>
-    </header>
 
-    <div class="seccion-menu-celular" id="id-menu-celular">
-        <a href="/src/pages/docs/cdn.html">IDE</a>
-        <a href="/src/pages/docs/cdn.html">Panel</a>
-        <a href="/src/pages/docs/cdn.html">CDN</a>
-        <a href="/src/pages/docs/instalacion.html">Instalación</a>
-        <a href="/src/pages/docs/introduccion.html" class="boton-1">Documentación</a>
+<a class="skip" href="#herramientas">Saltar al contenido</a>
+
+<!-- ===== Barra de anuncio ===== -->
+<div class="announ" id="announ" style="display: none;">
+  ✦ <b>sNuevo:</b> JSON Builder ya está disponible en el ecosistema — <a href="#herramientas">conócelo</a>
+  <button class="announ-x" id="annClose" aria-label="Cerrar">✕</button>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="#hero">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <defs><linearGradient id="xg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B7CF7"/><stop offset="1" stop-color="#5646C8"/></linearGradient></defs>
+        <path d="M10 8 L30 32" stroke="url(#xg)" stroke-width="9" stroke-linecap="round" opacity=".55"/>
+        <path d="M30 8 L10 32" stroke="url(#xg)" stroke-width="9" stroke-linecap="round"/>
+      </svg>
+      XandA
+    </a>
+    <div class="nav-links">
+      <a href="src/pages/constructor.html">Constructor</a>
+      <a href="src/pages/convertidor.html">Convertidor</a>
+      <a href="src/pages/visor.html">Visor</a>
+      <a href="#row-ide">IDE</a>
+      <a href="src/pages/libreria.html" class="btn-lib">Librería</a>
+      <button class="cmdk-btn" id="cmdkBtn"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar</span><kbd id="kbdHint">⌘K</kbd></button>
+    </div>
+    <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="src/pages/constructor.html">Constructor</a>
+  <a href="src/pages/convertidor.html">Convertidor</a>
+  <a href="src/pages/visor.html">Visor</a>
+  <a href="#row-ide">IDE</a>
+  <a href="src/pages/libreria.html" class="btn-lib">Librería</a>
+</div>
+
+<!-- ===== Rail de navegación ===== -->
+<aside class="rail" id="rail" aria-hidden="true"></aside>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="hero">
+  <canvas id="dots"></canvas>
+  <div class="blob blob-1"></div><div class="blob blob-2"></div>
+  <div class="container hero-inner">
+    <span class="eyebrow"><span class="pulse"></span>Librería + 6 herramientas, un solo ecosistema</span>
+    <h1>Crea tu sitio web<br>con <span class="grad-txt">{XandA}</span></h1>
+    <p class="lead">Plantillas, animaciones, efectos y componentes listos para producir — más el <b>Constructor, IDE, Convertidor, Visor y JSON Builder</b> trabajando juntos en tu navegador.</p>
+    <div class="hero-ctas">
+      <a href="#libreria" class="btn btn-primary"><svg class="icon" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg>Explorar la librería</a>
+      <button class="btn btn-ghost" id="cmdkBtn2"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Paleta de comandos <kbd style="margin-left:4px">⌘K</kbd></button>
+    </div>
+    <div class="hero-meta">
+      <span><i></i>100% en tu navegador</span>
+      <span><i></i>Sin instalación</span>
+      <span><i></i>Gratis para empezar</span>
     </div>
 
-    <!-- Main -->
-    <main class="main">
-        <section class="section-principal">
-            <div class="section-principal-parte-1">
-                <h1 class="h1-section-principal">Crea tu sitio <br> web con <span>{XandA}</span></h1>
-                <p class="p-section-principal">Impulsa tu proyecto con XandA, genera estructuras, obten animaciones, carruseles, alerts, ventanas emergentes, formularios, componentes y más</p>
-
-                <div class="contenedor-botones">
-                    <a href="/src/pages/docs/instalacion.html" class="boton-3"><i class="fa-brands fa-uncharted"></i> IDE</a>
-                    <a href="/src/pages/libreria.html" class="boton-2"><i class="fa-solid fa-globe"></i> Librería</a>
-                </div>
-            </div>
-            <div class="section-principal-parte-2">
-                <img src="/src/assets/images/bienvenida2.png" alt="" title="" class="imagen-section-principal">
-            </div>
-        </section>
-        <section class="section-curvas">
-            <div class="curva"></div>
-            <div class="curva-2"></div>
-        </section>
-        <section class="section-universal">
-            <div class="section-universal-parte-1">
-                <div class="contenedor-tarjeta-herramienta">
-                    <div class="ondas-fondo"></div>
-
-                    <div class="tarjeta-herramienta tarjeta1">
-                        <div class="contenedor-universal" style="justify-content: center;">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-                        <div class="contenedor-universal" style="justify-content: center; grid-gap: 7.5px 7.5px;">
-                            <h3>{ S.E.O. }</h3>
-                            <p>Mejora el posicionamiento de tu sitio web</p>
-                        </div>
-                    </div>
-                    <div class="tarjeta-herramienta tarjeta2">
-                        <div class="contenedor-universal" style="justify-content: center;">
-                            <i class="fa-solid fa-laptop"></i>
-                        </div>
-                        <div class="contenedor-universal" style="justify-content: center; grid-gap: 7.5px 7.5px;">
-                            <h3>{ UX/UI }</h3>
-                            <p>Adquiere un sitio web hermoso e intuitivo</p>
-                        </div>
-                    </div>
-                    <div class="tarjeta-herramienta tarjeta3">
-                        <div class="contenedor-universal" style="justify-content: center;">
-                            <i class="fa-solid fa-person-running"></i>
-                        </div>
-                        <div class="contenedor-universal" style="justify-content: center; grid-gap: 7.5px 7.5px;">
-                            <h3>{ OPTIMIZADO }</h3>
-                            <p>Ten un proyecto rápido y fluido</p>
-                        </div>
-                    </div>
-                    <div class="tarjeta-herramienta tarjeta4">
-                        <div class="contenedor-universal" style="justify-content: center;">
-                            <i class="fa-solid fa-mobile-screen-button"></i>
-                        </div>
-                        <div class="contenedor-universal" style="justify-content: center; grid-gap: 7.5px 7.5px;">
-                            <h3>{ RESPONSIVO }</h3>
-                            <p>Interfaz adapatativa y estética</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section-universal-parte-2">
-                <h2>Una herramienta que <span>genera</span> sitios web</h2>
-                <p>Ten estructas hermosas, fáciles de editar, compatibles, con gran experiencia para el usuario y potenciadas en S.E.O.</p>
-
-                <div class="contenedor-universal justify-content-end-center">
-                    <div class="contenedor-botones">
-                        <a href="/src/pages/web.html" class="boton-2"><i class="fa-solid fa-globe"></i> XandA Web</a>
-                        <!--<a href="/src/pages/docs/cdn.html" class="boton-2"><i class="fa-solid fa-globe"></i> CDN</a>-->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <section class="section-universal section-premium" id="id-ide">
-
-            <!-- TEXTO -->
-            <div class="section-universal-parte-3">
-
-                <h2>
-                    Productividad que impulsa <span>tus ideas</span>
-                </h2>
-
-                <p>
-                    Un entorno completo para desarrollar más rápido, con herramientas modernas
-                    y recursos listos para usar desde el primer momento.
-                </p>
-
-                <div class="contenedor-universal justify-content-start-center">
-                    <a href="/src/pages/docs/cdn.html" class="boton-2"><i class="fa-solid fa-download" style="margin-right: 5px;"></i> Descargar IDE</a>
-                </div>
-            </div>
-
-            
-            <div class="section-universal-parte-1">
-                <div class="contenedor-programacion">
-    
-                    <div class="fake-ide">
-
-                        <div class="ide-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="ide-title">index.js</span>
-                        </div>
-
-                        <div class="ide-body">
-                            <pre><code id="code"></code><span class="cursor">|</span></pre>
-                        </div>
-
-                    </div>
-
-                </div>
-                <!--<div class="visual-container">
-
-                    <div class="orbita"></div>
-
-                    <div class="logo-central">
-                        <img src="src/assets/images/icons/favicon.ico" alt="XandA" title="XandA">
-                    </div>
-
-                    <div class="mini-card card1"><i class="fas fa-code"></i></div>
-                    <div class="mini-card card2"><i class="fas fa-palette"></i></div>
-                    <div class="mini-card card3"><i class="fas fa-rocket"></i></div>
-                    <div class="mini-card card4"><i class="fas fa-cube"></i></div>
-
-                </div>-->
-            </div>
-
-            <div class="features-grid">
-                <div class="feature-item">
-                    <i class="fas fa-bolt"></i>
-                    <h4>Desarrollo ágil</h4>
-                    <p>Crea proyectos en minutos, no en horas.</p>
-                </div>
-
-                <div class="feature-item">
-                    <i class="fas fa-puzzle-piece"></i>
-                    <h4>Componentes listos</h4>
-                    <p>Interfaz moderna y reutilizable.</p>
-                </div>
-
-                <div class="feature-item">
-                    <i class="fas fa-code"></i>
-                    <h4>100% compatible</h4>
-                    <p>Funciona con cualquier stack.</p>
-                </div>
-
-                <div class="feature-item">
-                    <i class="fas fa-cloud"></i>
-                    <h4>Optimizado</h4>
-                    <p>Ligero, rápido y pensado para SEO.</p>
-                </div>
-            </div>
-        </section>
-
-
-        <section class="section-universal">
-            <div class="section-universal-parte-3">
-                <h2>Una librería que te <span>facilita</span> el trabajo</h2>
-                <p>Accede a cientos de recursos para embellecer, modernizar y darle vida a tu sitio web</p>
-
-                <div class="contenedor-universal justify-content-start-center">
-                    <div class="contenedor-botones">
-                        <a href="/src/pages/docs/instalacion.html" class="boton-3"><i class="fa-solid fa-brush"></i> Recursos</a>
-                        <a href="/src/pages/libreria.html" class="boton-2"><i class="fa-regular fa-window-restore"></i> Plantillas</a>
-                    </div>
-                </div>
-            </div>
-            <div class="section-universal-parte-1">
-                <div class="contenedor-tarjeta-ejemplos">
-                    
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="contenedor-opciones-footer footer-25-100" style="align-content: center; justify-content: start;">
-            <img src="/src/assets/images/icons/logo.png" alt="XandA" title="XandA" loading="lazy" class="footer-imagen">
-            <p style="width: 100%;">La librería que impulsa tu proyecto</p>
+    <!-- Consola Workbench -->
+    <div class="wb-wrap">
+      <div class="wb-chip wb-chip-1"><span class="ci"><svg class="icon" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg></span><span><b>120+</b> plantillas y componentes</span></div>
+      <div class="wb-chip wb-chip-2"><span class="ci"><svg class="icon" viewBox="0 0 24 24"><path d="M4 17V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="m8 10 2 2-2 2M13 14h3"/></svg></span><span><b>5 UIs</b> en una consola — gírala tú mismo</span></div>
+      <div class="console" id="console">
+        <div class="con-bar">
+          <span class="wdot r"></span><span class="wdot y"></span><span class="wdot g"></span>
+          <span class="con-title">workbench — xanda.studio</span>
+          <span class="con-live"><i></i>En vivo</span>
         </div>
-        <div class="contenedor-opciones-footer">
-            <p style="font-size: 17px;">Implementación</p>
-            <a>Introducción</a>
-            <a>CDN</a>
-            <a>Instalación - npm</a>
-            <a>Instalación - manual</a>
-            <a>Cómo usarlo</a>
-        </div>
-        <div class="contenedor-opciones-footer">
-            <p style="font-size: 17px;">Ejemplos</p>
-            <a>Estructuras</a>
-            <a>Animaciones</a>
-            <a>Carruseles</a>
-            <a>Formularios</a>
-            <a>Ventanas emergentes</a>
-            <a>Alerts</a>
-        </div>
-        <div class="footer-barra">
-            <p>© 2026 XandA</p>
-        </div>
-    </footer>
+        <div class="wb-body">
+          <div class="wb-side">
+            <span class="wb-side-t">Herramientas</span>
+            <button class="wb-tab active" data-i="0"><span class="ti"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.8"/><path d="M17.2 13.8v7.2M13.8 17.4H21"/></svg></span><span><b>Constructor</b><small>Drag &amp; drop visual</small></span><span class="wb-prog"></span></button>
+            <button class="wb-tab" data-i="1"><span class="ti"><svg class="icon" viewBox="0 0 24 24"><path d="M4 15V9a5 5 0 0 1 5-5h6"/><path d="m12.5 1.5 2.8 2.5-2.8 2.5"/><path d="M20 9v6a5 5 0 0 1-5 5H9"/><path d="m11.5 22.5-2.8-2.5 2.8-2.5"/></svg></span><span><b>Convertidor</b><small>PNG · WEBP · SVG</small></span><span class="wb-prog"></span></button>
+            <button class="wb-tab" data-i="2"><span class="ti"><svg class="icon" viewBox="0 0 24 24"><rect x="2.5" y="4" width="14" height="11" rx="2"/><path d="M6 19h6M9.5 15v4"/><rect x="17" y="8" width="5" height="12.5" rx="1.6"/></svg></span><span><b>Visor</b><small>Multi-dispositivo</small></span><span class="wb-prog"></span></button>
+            <button class="wb-tab" data-i="3"><span class="ti"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7.5 9 3.5 3-3.5 3M13 15h4.5"/></svg></span><span><b>Nebula</b><small>Código + terminal</small></span><span class="wb-prog"></span></button>
+            <button class="wb-tab" data-i="4"><span class="ti"><svg class="icon" viewBox="0 0 24 24"><path d="M9 4c-2.4 0-3 1.4-3 2.9 0 2-.5 3.6-3 5.1 2.5 1.5 3 3.1 3 5.1C6 18.6 6.6 20 9 20"/><path d="M15 4c2.4 0 3 1.4 3 2.9 0 2 .5 3.6 3 5.1-2.5 1.5-3 3.1-3 5.1 0 1.5-.6 2.9-3 2.9"/></svg></span><span><b>JSON Builder</b><small>Editor visual</small></span><span class="wb-prog"></span></button>
+          </div>
+          <div class="wb-stage">
 
-    <!-- Scripts -->
-    <script src="/src/assets/scripts/index.js"></script>
-    <script src="/src/assets/scripts/main.js"></script>
-    <script src="/src/assets/scripts/tarjetas-ejemplos.js"></script>
+            <!-- 1 · CONSTRUCTOR -->
+            <div class="wb-view active">
+              <div class="vh">constructor / lienzo</div>
+              <div class="cv">
+                <div class="cv-tools">
+                  <span class="sel"><svg class="icon" viewBox="0 0 24 24"><path d="M5 3l14 8-6.5 1.5L9 19z"/></svg></span>
+                  <span><svg class="icon" viewBox="0 0 24 24"><path d="M4 20 16.5 7.5a2.1 2.1 0 0 1 3 3L7 23l-4 1Z"/></svg></span>
+                  <span><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m5 17.5 5-5 3 3 2.5-2.5 3.5 3.5"/></svg></span>
+                  <span><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4"/></svg></span>
+                </div>
+                <div class="cv-canvas">
+                  <div class="cv-block b-nav"><span class="cv-nav-logo"></span><span class="cv-nav-lk"></span><span class="cv-nav-lk"></span><span class="cv-nav-lk"></span><span class="cv-nav-pill"></span></div>
+                  <div class="cv-block b-hero"><div class="cv-l big"></div><div class="cv-l mid"></div><div class="cv-l sm"></div><span class="cv-btn">Botón</span></div>
+                  <div class="cv-drop">Suelta el bloque aquí</div>
+                  <div class="cv-ghost"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m5 17.5 5-5 3 3 2.5-2.5 3.5 3.5"/></svg></div>
+                </div>
+                <div class="cv-layers">
+                  <span class="cv-layers-t">Capas</span>
+                  <div class="layer sel">header<svg class="icon eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                  <div class="layer">hero<svg class="icon eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                  <div class="layer">gallery<svg class="icon eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                  <div class="layer">footer<svg class="icon eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2 · CONVERTIDOR -->
+            <div class="wb-view">
+              <div class="vh">convertidor / cola de archivos</div>
+              <div class="conv">
+                <div class="conv-drop">
+                  <span class="up"><svg class="icon" viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>
+                  <b>Suelta tus imágenes</b>
+                  <span>o haz clic para explorar<br>PNG · JPG · WEBP · SVG · AVIF</span>
+                </div>
+                <div class="conv-files">
+                  <div class="f-row" style="animation-delay:.05s">
+                    <div class="f-top"><span class="f-dot"></span>foto-playa.png<span class="f-fmt"><s>PNG</s>→<i>WEBP</i></span><span class="f-ok">✓</span></div>
+                    <div class="f-bar"><i></i></div>
+                    <div class="f-meta"><span>2.4 MB → 760 KB</span><span class="f-save">−68% peso</span></div>
+                  </div>
+                  <div class="f-row" style="animation-delay:.15s">
+                    <div class="f-top"><span class="f-dot"></span>logo-xanda.svg<span class="f-fmt"><s>SVG</s>→<i>PNG</i></span><span class="f-ok">✓</span></div>
+                    <div class="f-bar"><i style="animation-delay:1.8s"></i></div>
+                    <div class="f-meta"><span>vector → 512px @2x</span><span class="f-save" style="animation-delay:1.8s">nítido ✓</span></div>
+                  </div>
+                  <div class="f-row" style="animation-delay:.25s">
+                    <div class="f-top"><span class="f-dot"></span>banner-home.jpg<span class="f-fmt"><s>JPG</s>→<i>AVIF</i></span><span class="f-ok" style="animation-delay:3.6s">✓</span></div>
+                    <div class="f-bar"><i style="animation-delay:3.6s"></i></div>
+                    <div class="f-meta"><span>5.1 MB → 980 KB</span><span class="f-save" style="animation-delay:3.6s">−81% peso</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3 · VISOR -->
+            <div class="wb-view">
+              <div class="vh">visor / breakpoints en vivo</div>
+              <div class="visor">
+                <div class="dev">
+                  <div class="dev-bar"><i></i><i></i><i></i></div>
+                  <div class="site">
+                    <div class="site-nav"><span class="cv-nav-logo"></span><span class="lk"></span><span class="lk"></span><span class="cv-nav-pill"></span></div>
+                    <div class="site-grid">
+                      <div class="site-card"><span class="im"></span><span class="ln"></span><span class="ln s"></span></div>
+                      <div class="site-card"><span class="im"></span><span class="ln"></span><span class="ln s"></span></div>
+                      <div class="site-card" style="min-width:100%"><span class="ln" style="width:40%"></span><span class="ln s" style="width:70%"></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dev-labels"><span>Desktop 1440</span><span>Tablet 834</span><span>Móvil 390</span></div>
+              </div>
+            </div>
+
+            <!-- 4 · IDE -->
+            <div class="wb-view">
+              <div class="vh">ide / editor + terminal</div>
+              <div class="ide">
+                <div class="ide-tree">
+                  <div class="on">▸ index.html</div>
+                  <div>▾ assets/</div>
+                  <div style="padding-left:22px">styles.css</div>
+                  <div style="padding-left:22px">app.js</div>
+                  <div>▾ lib/</div>
+                  <div style="padding-left:22px">xanda.ui.js</div>
+                </div>
+                <div class="ide-main">
+                  <div class="ide-code">
+                    <div class="cl"><span class="ln">1</span><span><span class="tok-p">&lt;</span><span class="tok-t">section</span> <span class="tok-a">class</span><span class="tok-p">=</span><span class="tok-s">"hero"</span><span class="tok-p">&gt;</span></span></div>
+                    <div class="cl"><span class="ln">2</span><span><span class="tok-p">  &lt;</span><span class="tok-t">h1</span><span class="tok-p">&gt;</span><span class="tok-x">Hola, mundo</span><span class="tok-p">&lt;/</span><span class="tok-t">h1</span><span class="tok-p">&gt;</span></span></div>
+                    <div class="cl"><span class="ln">3</span><span><span class="tok-p">  &lt;</span><span class="tok-t">button</span> <span class="tok-a">data-xa</span><span class="tok-p">=</span><span class="tok-s">"modal"</span><span class="tok-p">&gt;</span><span class="tok-x">Abrir</span><span class="tok-p">&lt;/</span><span class="tok-t">button</span><span class="tok-p">&gt;</span></span></div>
+                    <div class="cl"><span class="ln">4</span><span><span class="tok-p">&lt;/</span><span class="tok-t">section</span><span class="tok-p">&gt;</span></span></div>
+                    <div class="cl"><span class="ln">5</span><span></span></div>
+                    <div class="cl"><span class="ln">6</span><span><span class="tok-x">XandA.mount</span><span class="tok-p">(</span><span class="tok-s">'modal'</span><span class="tok-p">,</span> <span class="tok-x">{ anim: </span><span class="tok-s">'spring'</span><span class="tok-x"> }</span><span class="tok-p">)</span></span></div>
+                  </div>
+                  <div class="ide-term">
+                    <div class="tl cmd" style="animation-delay:0s"><b>➜</b> xanda dev</div>
+                    <div class="tl ok" style="animation-delay:1.2s">✓ servidor listo en :3000</div>
+                    <div class="tl ok" style="animation-delay:2.3s">✓ 42 componentes compilados</div>
+                    <div class="tl out" style="animation-delay:3.4s">➜ preview en vivo activa <span class="tcursor"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5 · JSON BUILDER -->
+            <div class="wb-view">
+              <div class="vh">json builder / árbol visual</div>
+              <div class="jsonv">
+                <div class="jt">
+                  <div class="jt-r" style="animation-delay:.05s"><span class="tw">└</span><span class="b">{</span></div>
+                  <div class="jt-r sel" style="animation-delay:.15s"><span class="tw">&nbsp;&nbsp;└</span><span class="k">"sitio"</span><span class="b">:</span><span class="b">{</span></div>
+                  <div class="jt-r" style="animation-delay:.25s"><span class="tw">&nbsp;&nbsp;&nbsp;&nbsp;└</span><span class="k">"nombre"</span><span class="b">:</span><span class="v">"Mi Aurora"</span><span class="b">,</span></div>
+                  <div class="jt-r" style="animation-delay:.35s"><span class="tw">&nbsp;&nbsp;&nbsp;&nbsp;└</span><span class="k">"tema"</span><span class="b">:</span><span class="v">"violeta"</span><span class="b">,</span></div>
+                  <div class="jt-r" style="animation-delay:.45s"><span class="tw">&nbsp;&nbsp;&nbsp;&nbsp;└</span><span class="k">"componentes"</span><span class="b">:</span><span class="b">[</span><span class="v">"modal"</span><span class="b">,</span><span class="v">"toast"</span><span class="b">]</span></div>
+                  <div class="jt-r" style="animation-delay:.55s"><span class="tw">&nbsp;&nbsp;└</span><span class="b">}</span></div>
+                  <div class="jt-r" style="animation-delay:.65s"><span class="b">}</span></div>
+                  <div class="jt-badge"><i></i>JSON válido — 0 errores</div>
+                </div>
+                <div class="jp">
+                  <div class="cl"><span class="tok-p">{</span></div>
+                  <div class="cl"><span class="tok-x">&nbsp;&nbsp;</span><span class="tok-a">"sitio"</span><span class="tok-p">: {</span></div>
+                  <div class="cl"><span class="tok-x">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="tok-a">"nombre"</span><span class="tok-p">:</span> <span class="tok-s">"Mi Aurora"</span><span class="tok-p">,</span></div>
+                  <div class="cl"><span class="tok-x">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="tok-a">"tema"</span><span class="tok-p">:</span> <span class="tok-s">"violeta"</span><span class="tok-p">,</span></div>
+                  <div class="cl"><span class="tok-x">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="tok-a">"componentes"</span><span class="tok-p">: [</span><span class="tok-s">"modal"</span><span class="tok-p">,</span> <span class="tok-s">"toast"</span><span class="tok-p">]</span></div>
+                  <div class="cl"><span class="tok-x">&nbsp;&nbsp;</span><span class="tok-p">}</span></div>
+                  <div class="cl"><span class="tok-p">}</span></div>
+                </div>
+                <button class="j-add" aria-label="Añadir nodo">+</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="mq-group">
+      <span class="mq-item"><i></i>Plantillas</span><span class="mq-item"><i></i>Animaciones</span><span class="mq-item"><i></i>Efectos</span><span class="mq-item"><i></i>Transiciones</span><span class="mq-item"><i></i>Carruseles</span><span class="mq-item"><i></i>Formularios</span><span class="mq-item"><i></i>Alerts</span><span class="mq-item"><i></i>Modales</span><span class="mq-item"><i></i>Toasts</span><span class="mq-item"><i></i>Snippets</span>
+    </div>
+    <div class="mq-group">
+      <span class="mq-item"><i></i>Plantillas</span><span class="mq-item"><i></i>Animaciones</span><span class="mq-item"><i></i>Efectos</span><span class="mq-item"><i></i>Transiciones</span><span class="mq-item"><i></i>Carruseles</span><span class="mq-item"><i></i>Formularios</span><span class="mq-item"><i></i>Alerts</span><span class="mq-item"><i></i>Modales</span><span class="mq-item"><i></i>Toasts</span><span class="mq-item"><i></i>Snippets</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERRAMIENTAS ===== -->
+<section id="herramientas">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-tag">Las herramientas</span>
+      <h2>Seis herramientas que<br>se sienten como una sola.</h2>
+      <p class="sec-sub">Pasa el mouse sobre cada fila: cada herramienta comparte el mismo ADN, la misma librería y el mismo motor de vista previa.</p>
+    </div>
+    <div class="tools-list">
+
+      <a class="tool-row reveal" id="row-constructor" href="#">
+        <span class="tr-num">/01</span>
+        <span class="tr-ic"><svg viewBox="0 0 24 24" class="icon"><rect x="3" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.8"/><path d="M17.2 13.8v7.2M13.8 17.4H21"/></svg></span>
+        <span><span class="tr-name">Constructor</span><span class="tr-desc">Diseña sitios completos en un lienzo visual con drag &amp; drop, secciones inteligentes y estilos en vivo.</span><span class="tr-more">→ exporta a HTML limpio o sigue en el IDE</span></span>
+        <span class="tr-tags"><span>Drag &amp; drop</span><span>Temas</span><span>Responsive</span></span>
+        <span class="tr-arrow"><svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="tool-row reveal" id="row-libreria" href="#libreria">
+        <span class="tr-num">/02</span>
+        <span class="tr-ic"><svg viewBox="0 0 24 24" class="icon"><path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5" opacity=".45"/></svg></span>
+        <span><span class="tr-name">Librería <span class="tr-badge star">★ favorita</span></span><span class="tr-desc">Plantillas, animaciones, efectos, transiciones y componentes listos para copiar, pegar y personalizar.</span><span class="tr-more">→ cada pieza tiene demo en vivo y snippet</span></span>
+        <span class="tr-tags"><span>120+ plantillas</span><span>350+ efectos</span></span>
+        <span class="tr-arrow"><svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="tool-row reveal" id="row-ide" href="">
+        <span class="tr-num">/03</span>
+        <span class="tr-ic"><svg viewBox="0 0 24 24" class="icon"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7.5 9 3.5 3-3.5 3M13 15h4.5"/></svg></span>
+        <span><span class="tr-name">IDE - Nebula</span><span class="tr-desc">Entorno de desarrollo completo en el navegador: resaltado de sintaxis, terminal y preview en vivo.</span><span class="tr-more">→ atajos de teclado y exportación instantánea</span></span>
+        <span class="tr-tags"><span>Preview</span><span>Terminal</span><span>Export</span></span>
+        <span class="tr-arrow"><svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="tool-row reveal" id="row-convertidor" href="src/pages/convertidor.html">
+        <span class="tr-num">/04</span>
+        <span class="tr-ic"><svg viewBox="0 0 24 24" class="icon"><path d="M4 15V9a5 5 0 0 1 5-5h6"/><path d="m12.5 1.5 2.8 2.5-2.8 2.5"/><path d="M20 9v6a5 5 0 0 1-5 5H9"/><path d="m11.5 22.5-2.8-2.5 2.8-2.5"/><circle cx="12" cy="12" r="2.4"/></svg></span>
+        <span><span class="tr-name">Convertidor</span><span class="tr-desc">Transforma imágenes entre formatos con compresión inteligente que preserva la calidad al máximo.</span><span class="tr-more">→ conversión por lotes, 100% local y privado</span></span>
+        <span class="tr-tags"><span>PNG</span><span>WEBP</span><span>AVIF</span><span>SVG</span></span>
+        <span class="tr-arrow"><svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="tool-row reveal" id="row-visor" href="#">
+        <span class="tr-num">/05</span>
+        <span class="tr-ic"><svg viewBox="0 0 24 24" class="icon"><rect x="2.5" y="4" width="14" height="11" rx="2"/><path d="M6 19h6M9.5 15v4"/><rect x="17" y="8" width="5" height="12.5" rx="1.6"/><path d="M19.2 18.3h.4"/></svg></span>
+        <span><span class="tr-name">Responsivo - Visor</span><span class="tr-desc">Previsualiza cualquier sitio en móvil, tablet y desktop al instante, sincronizado y en tiempo real.</span><span class="tr-more">→ 12+ dispositivos y scroll sincronizado</span></span>
+        <span class="tr-tags"><span>12+ devices</span><span>Sync</span></span>
+        <span class="tr-arrow"><svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="tool-row reveal" id="row-json" href="#">
+        <span class="tr-num">/06</span>
+        <span class="tr-ic"><svg viewBox="0 0 24 24" class="icon"><path d="M9 4c-2.4 0-3 1.4-3 2.9 0 2-.5 3.6-3 5.1 2.5 1.5 3 3.1 3 5.1C6 18.6 6.6 20 9 20"/><path d="M15 4c2.4 0 3 1.4 3 2.9 0 2 .5 3.6 3 5.1-2.5 1.5-3 3.1-3 5.1 0 1.5-.6 2.9-3 2.9"/></svg></span>
+        <span><span class="tr-name">JSON Builder <span class="tr-badge new">nuevo</span></span><span class="tr-desc">Construye, valida y formatea JSON con un editor visual de árboles. Ideal para configs y APIs.</span><span class="tr-more">→ detecta errores mientras escribes</span></span>
+        <span class="tr-tags"><span>Editor visual</span><span>Validación</span></span>
+        <span class="tr-arrow"><svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ECOSISTEMA ===== -->
+<section id="ecosistema" style="padding-top:40px">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <span class="sec-tag">El ecosistema</span>
+      <h2>Un ecosistema, no una<br>colección de apps.</h2>
+      <p class="sec-sub">Todo lo que creas en una herramienta está disponible al instante en las demás: el nodo central sincroniza componentes, temas y archivos.</p>
+    </div>
+    <div class="graph reveal" id="graph">
+      <div class="g-core" id="gCore">
+        <div class="g-core-chip"><svg viewBox="0 0 40 40"><path d="M10 8 L30 32" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".55"/><path d="M30 8 L10 32" stroke="#fff" stroke-width="8" stroke-linecap="round"/></svg></div>
+        <div class="g-core-lbl">XandA Core</div>
+        <div class="g-core-sub">sync engine</div>
+      </div>
+      <div class="g-node" style="left:15%;top:20%"><div class="g-node-in"><span class="g-chip"><svg class="icon" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg></span><span class="g-lbl"><i></i>Librería</span></div></div>
+      <div class="g-node" style="left:85%;top:18%"><div class="g-node-in"><span class="g-chip"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.8"/><path d="M13.5 6.8H21M6.8 13.5V21"/></svg></span><span class="g-lbl"><i></i>Constructor</span></div></div>
+      <div class="g-node" style="left:93%;top:60%"><div class="g-node-in"><span class="g-chip"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7.5 9 3.5 3-3.5 3M13 15h4.5"/></svg></span><span class="g-lbl"><i></i>IDE</span></div></div>
+      <div class="g-node" style="left:75%;top:87%"><div class="g-node-in"><span class="g-chip"><svg class="icon" viewBox="0 0 24 24"><path d="M9 4c-2.4 0-3 1.4-3 2.9 0 2-.5 3.6-3 5.1 2.5 1.5 3 3.1 3 5.1C6 18.6 6.6 20 9 20"/><path d="M15 4c2.4 0 3 1.4 3 2.9 0 2 .5 3.6 3 5.1-2.5 1.5-3 3.1-3 5.1 0 1.5-.6 2.9-3 2.9"/></svg></span><span class="g-lbl"><i></i>JSON Builder</span></div></div>
+      <div class="g-node" style="left:25%;top:87%"><div class="g-node-in"><span class="g-chip"><svg class="icon" viewBox="0 0 24 24"><path d="M4 15V9a5 5 0 0 1 5-5h6"/><path d="m12.5 1.5 2.8 2.5-2.8 2.5"/><path d="M20 9v6a5 5 0 0 1-5 5H9"/><path d="m11.5 22.5-2.8-2.5 2.8-2.5"/></svg></span><span class="g-lbl"><i></i>Convertidor</span></div></div>
+      <div class="g-node" style="left:7%;top:60%"><div class="g-node-in"><span class="g-chip"><svg class="icon" viewBox="0 0 24 24"><rect x="2.5" y="4" width="14" height="11" rx="2"/><path d="M6 19h6M9.5 15v4"/><rect x="17" y="8" width="5" height="12.5" rx="1.6"/></svg></span><span class="g-lbl"><i></i>Visor</span></div></div>
+    </div>
+    <div class="g-note reveal"><i></i>sync.toast("componente compartido con el IDE")</div>
+  </div>
+</section>
+
+<!-- ===== LIBRERÍA ===== -->
+<section id="libreria" style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="container">
+    <div class="lib-top reveal">
+      <div class="sec-head" style="margin-bottom:0">
+        <span class="sec-tag">La librería, viva</span>
+        <h2>Toca, arrastra, copia.</h2>
+        <p class="sec-sub">Ocho demos reales corriendo ahora mismo. Arrastra el carrusel, interactúa y llévate el snippet con un clic.</p>
+      </div>
+      <div class="lib-nav">
+        <span class="lib-count"><b id="libIdx">01</b> / 08</span>
+        <button class="lib-btn" id="libPrev" aria-label="Anterior"><svg viewBox="0 0 24 24" class="icon"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button class="lib-btn" id="libNext" aria-label="Siguiente"><svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+
+    <div class="car-track reveal" id="carTrack">
+
+      <!-- 1 Scramble -->
+      <div class="demo-card">
+        <div class="demo-stage"><span class="scr" id="scrEl" data-words='["Constructor","Convertidor","Visor","IDE","JSON ✦"]'>Constructor</span></div>
+        <div class="demo-foot"><span class="demo-name"><i></i>Text Scramble</span><span class="demo-tag">js</span><button class="copy-btn" data-snip="scr"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>Copiar</button></div>
+      </div>
+
+      <!-- 2 Magnetic -->
+      <div class="demo-card">
+        <div class="demo-stage" id="magStage"><button class="mag" id="magBtn"><span>Magnetic ✦</span></button></div>
+        <div class="demo-foot"><span class="demo-name"><i></i>Magnetic Button</span><span class="demo-tag">js</span><button class="copy-btn" data-snip="mag"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>Copiar</button></div>
+      </div>
+
+      <!-- 3 Ripple -->
+      <div class="demo-card">
+        <div class="demo-stage"><button class="rip" id="ripBtn">Haz clic</button></div>
+        <div class="demo-foot"><span class="demo-name"><i></i>Ripple Click</span><span class="demo-tag">js</span><button class="copy-btn" data-snip="rip"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>Copiar</button></div>
+      </div>
+
+      <!-- 4 Ring -->
+      <div class="demo-card">
+        <div class="demo-stage">
+          <div class="ring-wrap">
+            <svg viewBox="0 0 96 96">
+              <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B7CF7"/><stop offset="1" stop-color="#5646C8"/></linearGradient></defs>
+              <circle class="ring-bg" cx="48" cy="48" r="34"/>
+              <circle class="ring-arc" id="ringArc" cx="48" cy="48" r="34"/>
+            </svg>
+            <span class="ring-txt" id="ringTxt">0%</span>
+          </div>
+        </div>
+        <div class="demo-foot"><span class="demo-name"><i></i>Progress Ring</span><span class="demo-tag">svg</span><button class="copy-btn" data-snip="ring"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>Copiar</button></div>
+      </div>
+
+      <!-- 5 Confetti -->
+      <div class="demo-card">
+        <div class="demo-stage" id="confStage"><button class="conf-btn" id="confBtn">🎉 Celebration</button></div>
+        <div class="demo-foot"><span class="demo-name"><i></i>Confetti Burst</span><span class="demo-tag">js</span><button class="copy-btn" data-snip="conf"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>Copiar</button></div>
+      </div>
+
+      <!-- 6 Tooltip -->
+      <div class="demo-card">
+        <div class="demo-stage">
+          <span class="tipwrap" id="tipWrap">
+            <button class="tip-btn" id="tipBtn">Pásame el mouse</button>
+            <span class="tip" id="tipEl">¡Hola! Soy un tooltip ✦</span>
+          </span>
+        </div>
+        <div class="demo-foot"><span class="demo-name"><i></i>Smart Tooltip</span><span class="demo-tag">js</span><button class="copy-btn" data-snip="tip"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>Copiar</button></div>
+      </div>
+
+      <!-- 7 Typewriter -->
+      <div class="demo-card">
+        <div class="demo-stage"><span class="tw"><span class="tw-line">Construye. Publica. Itera.</span></span></div>
+        <div class="demo-foot"><span class="demo-name"><i></i>Typewriter</span><span class="demo-tag">css</span><button class="copy-btn" data-snip="tw"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>Copiar</button></div>
+      </div>
+
+      <!-- 8 Gradient text -->
+      <div class="demo-card">
+        <div class="demo-stage"><span class="gtext">XandA ✦</span></div>
+        <div class="demo-foot"><span class="demo-name"><i></i>Gradient Flow</span><span class="demo-tag">css</span><button class="copy-btn" data-snip="gt"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>Copiar</button></div>
+      </div>
+
+    </div>
+    <div class="lib-bar"><i id="libBar"></i></div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIOS ===== -->
+<section id="opiniones">
+  <div class="container">
+    <div class="sec-head center reveal">
+      <span class="sec-tag">Comunidad</span>
+      <h2>Les encanta construir con XandA</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="t-card reveal">
+        <span class="t-quote">”</span>
+        <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg></div>
+        <p>Migré todo mi flujo a XandA. El Constructor para maquetar, el IDE para pulir y la librería para no volver a reinventar una animación.</p>
+        <div class="t-foot"><span class="t-av">CM</span><span class="t-who"><b>Carla Mendoza</b><span>Frontend Lead · Nuvvo</span></span></div>
+      </div>
+      <div class="t-card reveal">
+        <span class="t-quote">”</span>
+        <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg></div>
+        <p>El Visor me ahorra horas de pruebas responsive. Abro el sitio, cambio de dispositivo y ajusto al instante. así de simple.</p>
+        <div class="t-foot"><span class="t-av">DR</span><span class="t-who"><b>Diego Rojas</b><span>Diseñador de producto</span></span></div>
+      </div>
+      <div class="t-card reveal">
+        <span class="t-quote">”</span>
+        <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8L18.3 21 12 17.4 5.7 21l1.5-6.8L2 9.4l7-.8z"/></svg></div>
+        <p>JSON Builder + librería de componentes es una combinación brutal: prototipo APIs y UIs completas en minutos, no en días.</p>
+        <div class="t-foot"><span class="t-av">AP</span><span class="t-who"><b>Ana Pastrana</b><span>Full-stack developer</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section id="empezar" style="padding-top:20px">
+  <div class="container">
+    <div class="cta-panel reveal">
+      <div>
+        <div class="cta-kicker">// empieza hoy</div>
+        <h2>Tu próximo sitio está a un comando de distancia.</h2>
+        <p class="cta-p">Crea un proyecto, elige una plantilla de la librería y ábrelo en el IDE. Sin cuentas complicadas, sin instaladores.</p>
+        <div class="cta-actions">
+          <a href="#libreria" class="btn btn-primary">Abrir la librería</a>
+          <a href="#herramientas" class="btn btn-ghost">Ver herramientas</a>
+        </div>
+      </div>
+      <div class="term">
+        <div class="term-bar">
+          <span class="wdot r"></span><span class="wdot y"></span><span class="wdot g"></span>
+          <span class="con-title">zsh — xanda</span>
+          <button class="term-copy" id="termCopy"><svg class="icon" style="width:12px;height:12px" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>Copiar</button>
+        </div>
+        <div class="term-body" id="termBody"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#hero">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 8 L30 32" stroke="#8B7CF7" stroke-width="9" stroke-linecap="round" opacity=".5"/><path d="M30 8 L10 32" stroke="#8B7CF7" stroke-width="9" stroke-linecap="round"/></svg>
+          XandA
+        </a>
+        <p>La plataforma todo-en-uno para diseñar, desarrollar y publicar proyectos web, con una librería de recursos lista para producción.</p>
+        <form class="nl" id="nlForm">
+          <input type="email" id="nlEmail" placeholder="tu@correo.dev" aria-label="Correo">
+          <button type="submit">Unirme</button>
+        </form>
+        <div class="socials">
+          <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.3 4.9 18.3 5.2 18.3 5.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .4.2.7.8.6a11.5 11.5 0 0 0 7.6-10.9C23.5 5.6 18.4.5 12 .5Z"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.8 7.8L23.3 22h-6.3l-4.9-6.5L6.5 22H3.4l7.3-8.3L1 2h6.4l4.5 5.9L18.9 2Zm-1.1 18h1.7L7.1 3.7H5.3L17.8 20Z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 7.2a3 3 0 0 0-2.1-2.2C19.5 4.5 12 4.5 12 4.5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.2 32 32 0 0 0 0 12a32 32 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.2c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.2A32 32 0 0 0 24 12a32 32 0 0 0-.5-4.8ZM9.5 15.6V8.4L15.8 12l-6.3 3.6Z"/></svg></a>
+          <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.2.4a18 18 0 0 1 4.6 2.3 15 15 0 0 0-13.6 0A18 18 0 0 1 10.8 3.4L10.6 3a19.8 19.8 0 0 0-4.9 1.5A20.4 20.4 0 0 0 2.2 18a20 20 0 0 0 6 3l.5-.7a13 13 0 0 1-2.1-1l.5-.4a14.2 14.2 0 0 0 12 0l.5.4a13 13 0 0 1-2.1 1l.5.8a20 20 0 0 0 6-3.1 20.3 20.3 0 0 0-3.7-13.6ZM8.7 15.3c-1.2 0-2.1-1-2.1-2.3s.9-2.3 2.1-2.3 2.2 1 2.1 2.3c0 1.3-.9 2.3-2.1 2.3Zm6.6 0c-1.2 0-2.1-1-2.1-2.3s.9-2.3 2.1-2.3 2.2 1 2.1 2.3c0 1.3-.9 2.3-2.1 2.3Z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Herramientas</h4>
+        <a href="#row-constructor">Constructor</a><a href="#row-libreria">Librería</a><a href="#row-ide">IDE</a><a href="#row-convertidor">Convertidor</a><a href="#row-visor">Visor</a><a href="#row-json">JSON Builder</a>
+      </div>
+      <div class="foot-col">
+        <h4>Librería</h4>
+        <a href="#libreria">Plantillas</a><a href="#libreria">Animaciones</a><a href="#libreria">Efectos</a><a href="#libreria">Transiciones</a><a href="#libreria">Componentes</a>
+      </div>
+      <div class="foot-col">
+        <h4>Recursos</h4>
+        <a href="#">Documentación</a><a href="#">Guías</a><a href="#">Changelog</a><a href="#">Soporte</a><a href="#">Contacto</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2025 XandA. Todos los derechos reservados.</span>
+      <span class="mono">const vida = <b>construir()</b>; // ✦ v3.0</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== COMMAND PALETTE ===== -->
+<div class="cmdk" id="cmdk" role="dialog" aria-label="Paleta de comandos">
+  <div class="cmdk-box">
+    <div class="cmdk-head">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="cmdkInput" placeholder="Busca secciones, herramientas o acciones…" autocomplete="off">
+      <kbd>esc</kbd>
+    </div>
+    <div class="cmdk-list" id="cmdkList"></div>
+    <div class="cmdk-foot">
+      <span><kbd>↑</kbd><kbd>↓</kbd> navegar</span>
+      <span><kbd>↵</kbd> ejecutar</span>
+      <span><kbd>esc</kbd> cerrar</span>
+    </div>
+  </div>
+</div>
+
+<div id="toast"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span id="toastMsg">Snippet copiado al portapapeles</span></div>
+
+<script>
+/* ============================================================
+   XandA — propuesta 2 · motor de la página
+============================================================ */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Toast ---------- */
+const toast = $('#toast'), toastMsg = $('#toastMsg');
+let toastT;
+function showToast(msg, ok = true){
+  toastMsg.textContent = msg;
+  toast.classList.toggle('err', !ok);
+  toast.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => toast.classList.remove('show'), 2300);
+}
+
+/* ---------- Nav + rail ---------- */
+const nav = $('#navbar');
+const SECTIONS = ['hero','herramientas','ecosistema','libreria','opiniones','empezar'];
+const rail = $('#rail');
+SECTIONS.forEach(id => {
+  const b = document.createElement('button');
+  b.innerHTML = '<i>' + ({hero:'Inicio',herramientas:'Herramientas',ecosistema:'Ecosistema',libreria:'Librería',opiniones:'Opiniones',empezar:'Empezar'})[id] + '</i>';
+  b.addEventListener('click', () => document.getElementById(id).scrollIntoView({behavior:'smooth'}));
+  rail.appendChild(b);
+});
+const railBtns = [...rail.children];
+addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', scrollY > 12);
+  const probe = scrollY + innerHeight * .42;
+  let cur = 0;
+  SECTIONS.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= probe) cur = i;
+  });
+  railBtns.forEach((b, i) => b.classList.toggle('on', i === cur));
+}, {passive:true});
+
+/* ---------- Anuncio + menú móvil ---------- */
+ $('#annClose').addEventListener('click', () => $('#announ').remove());
+const burger = $('#burger'), mm = $('#mobileMenu');
+burger.addEventListener('click', () => mm.classList.toggle('open'));
+mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mm.classList.remove('open')));
+
+/* ---------- Canvas de puntos reactivo (hero) ---------- */
+(() => {
+  const cv = $('#dots'), ctx = cv.getContext('2d');
+  const hero = $('#hero');
+  let pts = [], W, H, mx = -9e3, my = -9e3, t = 0, run = false, raf;
+  const dpr = Math.min(devicePixelRatio || 1, 2), GAP = 27, R = 150;
+  function build(){
+    W = hero.offsetWidth; H = hero.offsetHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    pts = [];
+    for (let y = GAP; y < H; y += GAP)
+      for (let x = GAP; x < W; x += GAP)
+        pts.push({x, y, dx: x, dy: y});
+  }
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    t += .016;
+    for (const p of pts){
+      const wx = p.x + Math.sin(t * .9 + p.y * .018) * 1.4;
+      const wy = p.y + Math.cos(t * .7 + p.x * .015) * 1.4;
+      const ddx = wx - mx, ddy = wy - my;
+      const d = Math.hypot(ddx, ddy);
+      const f = Math.max(0, 1 - d / R);
+      const ox = d > 0 ? (ddx / d) * f * 16 : 0;
+      const oy = d > 0 ? (ddy / d) * f * 16 : 0;
+      p.dx += (wx + ox - p.dx) * .14;
+      p.dy += (wy + oy - p.dy) * .14;
+      ctx.beginPath();
+      ctx.arc(p.dx, p.dy, 1.1 + f * 1.9, 0, 7);
+      ctx.fillStyle = 'rgba(139,124,247,' + (.15 + f * .65) + ')';
+      ctx.fill();
+    }
+    if (run) raf = requestAnimationFrame(draw);
+  }
+  hero.addEventListener('mousemove', e => {
+    const r = hero.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top;
+  });
+  hero.addEventListener('mouseleave', () => { mx = my = -9e3; });
+  new IntersectionObserver(([en]) => {
+    run = en.isIntersecting && !reduceMotion;
+    cancelAnimationFrame(raf);
+    if (run) draw(); else if (reduceMotion){ mx = my = -9e3; draw(); }
+  }).observe(hero);
+  addEventListener('resize', build);
+  build(); draw();
+})();
+
+/* ---------- Workbench: auto-ciclado de vistas ---------- */
+(() => {
+  const con = $('#console');
+  const tabs = $$('.wb-tab'), views = $$('.wb-view');
+  let i = 0, timer = null, visible = true;
+  function go(n){
+    i = n;
+    tabs.forEach((tb, k) => tb.classList.toggle('active', k === n));
+    views.forEach((v, k) => v.classList.toggle('active', k === n));
+    const pr = tabs[n].querySelector('.wb-prog');
+    pr.style.animation = 'none'; void pr.offsetWidth; pr.style.animation = '';
+  }
+  function start(){ stop(); timer = setInterval(() => go((i + 1) % views.length), 6000); }
+  function stop(){ clearInterval(timer); timer = null; }
+  tabs.forEach(tb => tb.addEventListener('click', () => { go(+tb.dataset.i); start(); }));
+  con.addEventListener('mouseenter', stop);
+  con.addEventListener('mouseleave', () => { if (visible){ go(i); start(); } });
+  new IntersectionObserver(([en]) => {
+    visible = en.isIntersecting;
+    con.classList.toggle('off', !visible);
+    visible ? (go(i), start()) : stop();
+  }, {threshold:.2}).observe(con);
+})();
+
+/* ---------- Grafo de ecosistema (conectores calculados) ---------- */
+(() => {
+  const g = $('#graph'), core = $('#gCore');
+  function build(){
+    if (!g) return;
+    const mobile = innerWidth < 860;
+    g.classList.toggle('is-mobile', mobile);
+    $$('.g-link').forEach(e => e.remove());
+    if (mobile) return;
+    const gr = g.getBoundingClientRect(), cr = core.getBoundingClientRect();
+    const cx = cr.left - gr.left + cr.width / 2, cy = cr.top - gr.top + cr.height / 2;
+    g.querySelectorAll('.g-node').forEach((n, idx) => {
+      const r = n.getBoundingClientRect();
+      const nx = r.left - gr.left + r.width / 2, ny = r.top - gr.top + r.height / 2;
+      const dx = nx - cx, dy = ny - cy, d = Math.hypot(dx, dy), ux = dx / d, uy = dy / d;
+      const x1 = cx + ux * 58, y1 = cy + uy * 58;
+      const x2 = nx - ux * 42, y2 = ny - uy * 42;
+      const len = Math.hypot(x2 - x1, y2 - y1);
+      const ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+      const l = document.createElement('div');
+      l.className = 'g-link';
+      l.style.cssText = 'left:' + x1 + 'px;top:' + (y1 - 1) + 'px;width:' + len + 'px;transform:rotate(' + ang + 'deg);--d:' + (idx * .4) + 's';
+      l.innerHTML = '<span></span>';
+      g.appendChild(l);
+    });
+  }
+  let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(build, 150); });
+  addEventListener('load', build);
+  build();
+})();
+
+/* ---------- Carrusel librería: drag + controles ---------- */
+(() => {
+  const track = $('#carTrack');
+  let down = false, sx = 0, sl = 0, moved = false;
+  track.addEventListener('pointerdown', e => {
+    down = true; moved = false; sx = e.clientX; sl = track.scrollLeft;
+    track.classList.add('dragging'); track.setPointerCapture(e.pointerId);
+  });
+  track.addEventListener('pointermove', e => {
+    if (!down) return;
+    const dx = e.clientX - sx;
+    if (Math.abs(dx) > 6) moved = true;
+    track.scrollLeft = sl - dx;
+  });
+  const up = () => { down = false; track.classList.remove('dragging'); };
+  track.addEventListener('pointerup', up);
+  track.addEventListener('pointercancel', up);
+  track.addEventListener('click', e => { if (moved){ e.preventDefault(); e.stopPropagation(); } }, true);
+  const STEP = 323;
+  $('#libNext').addEventListener('click', () => track.scrollBy({left: STEP, behavior:'smooth'}));
+  $('#libPrev').addEventListener('click', () => track.scrollBy({left: -STEP, behavior:'smooth'}));
+  function upd(){
+    const max = track.scrollWidth - track.clientWidth || 1;
+    $('#libBar').style.width = Math.max(8, (track.scrollLeft / max) * 100) + '%';
+    const n = Math.min(8, Math.round(track.scrollLeft / STEP) + 1);
+    $('#libIdx').textContent = String(n).padStart(2, '0');
+  }
+  track.addEventListener('scroll', upd, {passive:true});
+  upd();
+})();
+
+/* ---------- Demo 1 · Text Scramble ---------- */
+(() => {
+  const el = $('#scrEl'); if (!el) return;
+  const CH = '!<>-_[]{}=+*^?#—';
+  const words = JSON.parse(el.dataset.words);
+  let wi = 0, raf;
+  function run(){
+    const to = words[wi = (wi + 1) % words.length];
+    const from = el.textContent, len = Math.max(from.length, to.length), q = [];
+    for (let k = 0; k < len; k++){
+      const s = Math.floor(Math.random() * 20), e = s + 8 + Math.floor(Math.random() * 20);
+      q.push({f: from[k] || '', t: to[k] || '', s, e, ch: ''});
+    }
+    let fr = 0; cancelAnimationFrame(raf);
+    (function step(){
+      let out = '', done = 0;
+      for (const c of q){
+        if (fr >= c.e){ done++; out += c.t; }
+        else if (fr >= c.s){
+          if (!c.ch || Math.random() < .28) c.ch = CH[Math.floor(Math.random() * CH.length)];
+          out += '<span class="scr-c">' + c.ch + '</span>';
+        } else out += c.f;
+      }
+      el.innerHTML = out;
+      if (done < q.length){ fr++; raf = requestAnimationFrame(step); }
+    })();
+  }
+  if (!reduceMotion){ setTimeout(run, 500); setInterval(run, 2800); }
+})();
+
+/* ---------- Demo 2 · Magnetic ---------- */
+(() => {
+  const st = $('#magStage'), btn = $('#magBtn'), txt = btn.querySelector('span');
+  if (!st) return;
+  st.addEventListener('mousemove', e => {
+    const r = st.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
+    btn.style.transition = 'transform .12s ease-out';
+    btn.style.transform = 'translate(' + x * .28 + 'px,' + y * .28 + 'px)';
+    txt.style.transform = 'translate(' + x * .12 + 'px,' + y * .12 + 'px)';
+  });
+  st.addEventListener('mouseleave', () => {
+    btn.style.transition = 'transform .5s cubic-bezier(.2,1.6,.4,1)';
+    btn.style.transform = ''; txt.style.transform = '';
+  });
+})();
+
+/* ---------- Demo 3 · Ripple ---------- */
+ $('#ripBtn').addEventListener('pointerdown', function(e){
+  const r = this.getBoundingClientRect(), d = Math.max(r.width, r.height) * 1.2;
+  const s = document.createElement('span');
+  s.className = 'rip-ripple';
+  s.style.cssText = 'width:' + d + 'px;height:' + d + 'px;left:' + (e.clientX - r.left - d / 2) + 'px;top:' + (e.clientY - r.top - d / 2) + 'px';
+  this.appendChild(s);
+  setTimeout(() => s.remove(), 700);
+});
+
+/* ---------- Demo 4 · Progress Ring ---------- */
+(() => {
+  const arc = $('#ringArc'), txt = $('#ringTxt'); if (!arc) return;
+  const C = 2 * Math.PI * 34;
+  arc.style.strokeDasharray = C; arc.style.strokeDashoffset = C;
+  let on = false;
+  function loop(ts){
+    if (!on) return;
+    const v = Math.round(24 + (Math.sin(ts / 950) * .5 + .5) * 71);
+    arc.style.strokeDashoffset = C * (1 - v / 100);
+    txt.textContent = v + '%';
+    requestAnimationFrame(loop);
+  }
+  new IntersectionObserver(([en]) => {
+    on = en.isIntersecting && !reduceMotion;
+    if (on) requestAnimationFrame(loop);
+    if (reduceMotion){ arc.style.strokeDashoffset = C * .3; txt.textContent = '70%'; }
+  }).observe(arc);
+})();
+
+/* ---------- Demo 5 · Confetti ---------- */
+ $('#confBtn').addEventListener('click', function(){
+  const st = $('#confStage'), r = this.getBoundingClientRect(), sr = st.getBoundingClientRect();
+  const cx = r.left - sr.left + r.width / 2, cy = r.top - sr.top + r.height / 2;
+  const cols = ['#8B7CF7', '#6C5CE7', '#A99DFF', '#E9E6FC', '#3ECF8E'];
+  for (let k = 0; k < 30; k++){
+    const p = document.createElement('span');
+    p.className = 'cfp';
+    const sz = 5 + Math.random() * 5;
+    p.style.cssText = 'left:' + cx + 'px;top:' + cy + 'px;width:' + sz + 'px;height:' + (Math.random() < .4 ? sz : sz * .5) + 'px;background:' + cols[k % cols.length] + ';border-radius:' + (Math.random() < .5 ? '50%' : '2px');
+    st.appendChild(p);
+    const a = -Math.PI * Math.random(), v = 60 + Math.random() * 90;
+    const dx = Math.cos(a) * v, dy = Math.sin(a) * v;
+    p.animate([
+      {transform:'translate(0,0) rotate(0deg) scale(1)', opacity:1},
+      {transform:'translate(' + dx * .7 + 'px,' + (dy * .7 - 20) + 'px) rotate(' + 180 + 'deg) scale(1)', opacity:1, offset:.55},
+      {transform:'translate(' + dx + 'px,' + (dy + 80) + 'px) rotate(' + (320 + Math.random() * 200) + 'deg) scale(.5)', opacity:0}
+    ], {duration: 750 + Math.random() * 550, easing:'cubic-bezier(.15,.6,.4,1)'}).onfinish = () => p.remove();
+  }
+});
+
+/* ---------- Demo 6 · Smart tooltip ---------- */
+(() => {
+  const wrap = $('#tipWrap'), btn = $('#tipBtn'), tip = $('#tipEl');
+  function place(){
+    const wr = wrap.getBoundingClientRect(), sr = wrap.closest('.demo-stage').getBoundingClientRect();
+    const below = wr.top - sr.top < 74;
+    tip.classList.toggle('below', below);
+    tip.classList.toggle('above', !below);
+  }
+  btn.addEventListener('mouseenter', place);
+  btn.addEventListener('focus', place);
+})();
+
+/* ---------- Snippets reales para copiar ---------- */
+const SNIPPETS = {
+scr:`const CH='!<>-_[]{}=+*^?#—';
+function scramble(el, to){
+  const from = el.textContent, q = [];
+  for (let i = 0; i < Math.max(from.length, to.length); i++){
+    const s = Math.random()*20|0, e = s + 8 + (Math.random()*20|0);
+    q.push({f: from[i]||'', t: to[i]||'', s, e, ch:''});
+  }
+  let fr = 0;
+  (function step(){
+    let out = '', done = 0;
+    for (const c of q){
+      if (fr >= c.e){ done++; out += c.t; }
+      else if (fr >= c.s){
+        if (!c.ch || Math.random() < .28)
+          c.ch = CH[Math.random()*CH.length|0];
+        out += c.ch;
+      } else out += c.f;
+    }
+    el.textContent = out;
+    if (done < q.length){ fr++; requestAnimationFrame(step); }
+  })();
+}`,
+mag:`stage.addEventListener('mousemove', e => {
+  const r = stage.getBoundingClientRect();
+  const x = e.clientX - r.left - r.width/2;
+  const y = e.clientY - r.top  - r.height/2;
+  btn.style.transform =
+    'translate(' + x*.28 + 'px,' + y*.28 + 'px)';
+});
+stage.addEventListener('mouseleave', () =>
+  btn.style.transform = '');  // con transition de rebote`,
+rip:`btn.addEventListener('pointerdown', e => {
+  const r = btn.getBoundingClientRect();
+  const d = Math.max(r.width, r.height) * 1.2;
+  const s = document.createElement('span');
+  s.style.cssText =
+    'position:absolute;border-radius:50%;' +
+    'width:'+d+'px;height:'+d+'px;' +
+    'left:'+(e.clientX-r.left-d/2)+'px;' +
+    'top:'+(e.clientY-r.top-d/2)+'px';
+  btn.appendChild(s);
+  s.animate([{transform:'scale(0)'},{transform:'scale(3)',opacity:0}],
+    {duration:650, easing:'ease-out'}).onfinish = () => s.remove();
+});`,
+ring:`<svg viewBox="0 0 96 96" style="transform:rotate(-90deg)">
+  <circle cx="48" cy="48" r="34" fill="none"
+    stroke="#241E4A" stroke-width="8"/>
+  <circle id="arc" cx="48" cy="48" r="34" fill="none"
+    stroke="#8B7CF7" stroke-width="8" stroke-linecap="round"/>
+</svg>
+const C = 2*Math.PI*34;
+arc.style.strokeDasharray = C;
+arc.style.strokeDashoffset = C * (1 - valor/100);`,
+conf:`function burst(x, y, parent){
+  for (let i = 0; i < 30; i++){
+    const p = document.createElement('span');
+    p.style.cssText = 'position:absolute;left:'+x+'px;top:'+y+'px;' +
+      'width:6px;height:6px;border-radius:50%;' +
+      'background:#8B7CF7';
+    parent.appendChild(p);
+    const a = -Math.PI * Math.random(), v = 60 + Math.random()*90;
+    p.animate([
+      {transform:'translate(0,0)', opacity:1},
+      {transform:'translate('+(Math.cos(a)*v)+'px,'+
+        (Math.sin(a)*v+80)+'px) rotate(360deg)', opacity:0}
+    ], {duration: 800 + Math.random()*500,
+        easing:'cubic-bezier(.15,.6,.4,1)'}).onfinish = () => p.remove();
+  }
+}`,
+tip:`btn.addEventListener('mouseenter', () => {
+  const br = btn.getBoundingClientRect();
+  const sr = btn.closest('.stage').getBoundingClientRect();
+  // ¿hay espacio arriba? sino, voltear abajo
+  const below = (br.top - sr.top) < 74;
+  tip.classList.toggle('below', below);
+  tip.classList.toggle('above', !below);
+});`,
+tw:`.tw-line{
+  display:inline-block; overflow:hidden; white-space:nowrap;
+  border-right:2px solid #8B7CF7; width:0;
+  animation: tw 6.5s infinite;
+}
+@keyframes tw{
+  0%  {width:0; animation-timing-function:steps(27,end)}
+  44% {width:27ch}
+  54% {width:27ch; animation-timing-function:steps(27,end)}
+  92% {width:0}
+  100%{width:0}
+}`,
+gt:`.gtext{
+  background:linear-gradient(90deg,
+    #E9E6FC,#8B7CF7,#5646C8,#8B7CF7,#E9E6FC);
+  background-size:300% 100%;
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:gflow 4s linear infinite;
+}
+@keyframes gflow{ to{ background-position-x:-300% } }`
+};
+ $$('.copy-btn').forEach(b => b.addEventListener('click', async () => {
+  const code = SNIPPETS[b.dataset.snip] || '';
+  try { await navigator.clipboard.writeText(code); }
+  catch (e){
+    const ta = document.createElement('textarea');
+    ta.value = code; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); ta.remove();
+  }
+  showToast('Snippet copiado al portapapeles ✦');
+}));
+
+/* ---------- Terminal CTA con typing ---------- */
+(() => {
+  const body = $('#termBody'); if (!body) return;
+  const LINES = [
+    {h:'<b>$</b> npx xanda create <b>mi-sitio</b>', cmd:'npx xanda create mi-sitio', cls:'cmd'},
+    {h:'<span style="color:var(--ok)">✓</span> Plantilla elegida: <b>starter-aurora</b>', cls:'ok', d:650},
+    {h:'<span style="color:var(--ok)">✓</span> 42 componentes de la librería instalados', cls:'ok', d:520},
+    {h:'<b>➜</b> corre "xanda dev" y ábrelo en tu navegador', cls:'out', d:640}
+  ];
+  async function play(){
+    body.innerHTML = '';
+    const first = LINES[0];
+    const row = document.createElement('div');
+    row.className = 'tl-c cmd'; body.appendChild(row);
+    const caret = document.createElement('span');
+    caret.className = 'tcursor'; row.appendChild(caret);
+    if (reduceMotion){
+      row.innerHTML = first.h; 
+    } else {
+      const pre = document.createElement('span'); pre.innerHTML = '<b>$</b> ';
+      row.insertBefore(pre, caret);
+      for (const ch of first.cmd){
+        caret.insertAdjacentText('beforebegin', ch);
+        await new Promise(r => setTimeout(r, 26 + Math.random() * 30));
+      }
+    }
+    for (let k = 1; k < LINES.length; k++){
+      await new Promise(r => setTimeout(r, LINES[k].d));
+      const l = document.createElement('div');
+      l.className = 'tl-c ' + LINES[k].cls; l.innerHTML = LINES[k].h;
+      body.appendChild(l);
+    }
+    const end = document.createElement('div');
+    end.className = 'tl-c out';
+    end.innerHTML = 'Listo en <b style="color:var(--acc)">1.2s</b> <span class="tcursor"></span>';
+    body.appendChild(end);
+  }
+  new IntersectionObserver(([en], obs) => {
+    if (en.isIntersecting){ obs.disconnect(); play(); }
+  }, {threshold:.4}).observe(body);
+  $('#termCopy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText('npx xanda create mi-sitio'); } catch(e){}
+    showToast('Comando copiado ✦');
+  });
+})();
+
+/* ---------- Newsletter ---------- */
+ $('#nlForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = $('#nlEmail').value.trim();
+  if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){
+    showToast('¡Listo! Te avisamos en el próximo drop ✦');
+    $('#nlEmail').value = '';
+  } else showToast('Escribe un correo válido, por favor', false);
+});
+
+/* ---------- Reveal on scroll ---------- */
+const revObs = new IntersectionObserver(es => es.forEach(en => {
+  if (en.isIntersecting){ en.target.classList.add('visible'); revObs.unobserve(en.target); }
+}), {threshold:.12});
+ $$('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i % 3) * .07 + 's';
+  revObs.observe(el);
+});
+
+/* ---------- Command Palette (⌘K) ---------- */
+(() => {
+  const ov = $('#cmdk'), input = $('#cmdkInput'), list = $('#cmdkList');
+  const I = {
+    home:'<svg class="icon" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>',
+    tool:'<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.8"/><path d="M13.5 6.8H21M6.8 13.5V21"/></svg>',
+    lib:'<svg class="icon" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg>',
+    code:'<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7.5 9 3.5 3-3.5 3M13 15h4.5"/></svg>',
+    mail:'<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>',
+    down:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>',
+    star:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 3l2.7 5.8 6.3.8-4.6 4.3 1.2 6.1L12 17l-5.6 3 1.2-6.1L3 9.6l6.3-.8Z"/></svg>'
+  };
+  const go = id => document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  const COMMANDS = [
+    {g:'Navegación', t:'Ir al inicio', ic:I.home, kw:'inicio home hero arriba', run:() => go('hero')},
+    {g:'Navegación', t:'Ir a Herramientas', ic:I.tool, kw:'tools herramientas', run:() => go('herramientas')},
+    {g:'Navegación', t:'Ir al Ecosistema', ic:I.star, kw:'ecosistema core nodos', run:() => go('ecosistema')},
+    {g:'Navegación', t:'Ir a la Librería', ic:I.lib, kw:'libreria library demos', run:() => go('libreria')},
+    {g:'Navegación', t:'Ir a Opiniones', ic:I.star, kw:'testimonios opiniones', run:() => go('opiniones')},
+    {g:'Herramientas', t:'Abrir: Constructor', ic:I.tool, kw:'constructor builder drag', run:() => go('row-constructor')},
+    {g:'Herramientas', t:'Abrir: IDE', ic:I.code, kw:'ide editor codigo', run:() => go('row-ide')},
+    {g:'Herramientas', t:'Abrir: Convertidor', ic:I.lib, kw:'convertidor imagenes webp', run:() => go('row-convertidor')},
+    {g:'Herramientas', t:'Abrir: Visor', ic:I.code, kw:'visor dispositivos responsive', run:() => go('row-visor')},
+    {g:'Herramientas', t:'Abrir: JSON Builder', ic:I.code, kw:'json builder arbol', run:() => go('row-json')},
+    {g:'Acciones', t:'Copiar correo: hola@xanda.dev', ic:I.mail, kw:'email contacto correo copiar', run: async () => {
+      try { await navigator.clipboard.writeText('hola@xanda.dev'); } catch(e){}
+      showToast('Correo copiado ✦');
+    }},
+    {g:'Acciones', t:'Copiar comando: npx xanda create mi-sitio', ic:I.down, kw:'terminal comando crear proyecto', run: async () => {
+      try { await navigator.clipboard.writeText('npx xanda create mi-sitio'); } catch(e){}
+      showToast('Comando copiado ✦');
+    }}
+  ];
+  let items = [], act = 0;
+  function render(){
+    const q = input.value.trim().toLowerCase();
+    items = COMMANDS.filter(c => (c.t + ' ' + c.kw).toLowerCase().includes(q));
+    act = 0;
+    if (!items.length){
+      list.innerHTML = '<div class="cmdk-empty">Sin resultados para “' + q + '”… prueba “librería” o “ide”</div>';
+      return;
+    }
+    let html = '', lastG = '';
+    items.forEach((c, k) => {
+      if (c.g !== lastG){ html += '<div class="cmdk-group">' + c.g + '</div>'; lastG = c.g; }
+      html += '<div class="cmdk-item' + (k === 0 ? ' sel' : '') + '" data-k="' + k + '"><span class="ci">' + c.ic + '</span><span>' + c.t + '</span><span class="enter">↵</span></div>';
+    });
+    list.innerHTML = html;
+    list.querySelectorAll('.cmdk-item').forEach(el => {
+      el.addEventListener('mouseenter', () => setAct(+el.dataset.k));
+      el.addEventListener('click', () => exec(+el.dataset.k));
+    });
+  }
+  function setAct(n){
+    act = n;
+    list.querySelectorAll('.cmdk-item').forEach((el, k) => el.classList.toggle('sel', k === n));
+    const el = list.querySelectorAll('.cmdk-item')[n];
+    if (el) el.scrollIntoView({block:'nearest'});
+  }
+  function exec(n){
+    close();
+    items[n] && items[n].run();
+  }
+  function open(){
+    ov.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    input.value = ''; render();
+    setTimeout(() => input.focus(), 60);
+  }
+  function close(){
+    ov.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  $('#cmdkBtn').addEventListener('click', open);
+  $('#cmdkBtn2').addEventListener('click', open);
+  ov.addEventListener('click', e => { if (e.target === ov) close(); });
+  input.addEventListener('input', render);
+  addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){
+      e.preventDefault();
+      ov.classList.contains('open') ? close() : open();
+      return;
+    }
+    if (!ov.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowDown'){ e.preventDefault(); setAct(Math.min(act + 1, items.length - 1)); }
+    else if (e.key === 'ArrowUp'){ e.preventDefault(); setAct(Math.max(act - 1, 0)); }
+    else if (e.key === 'Enter'){ e.preventDefault(); exec(act); }
+  });
+  $('#kbdHint').textContent = /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘K' : 'Ctrl K';
+})();
+</script>
 </body>
 </html>
