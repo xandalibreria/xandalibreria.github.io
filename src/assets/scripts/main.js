@@ -1,94 +1,85 @@
+/* ============================================================
+   main.js — compartido por todas las páginas XandA
+   Inversión de paleta: persistente + auto-inyección del botón
+============================================================ */
+(function () {
+  'use strict';
 
-const menuItems = document.querySelectorAll('.nav-ul .nav-ul-li a');
-const contenedorMenu = document.querySelector('.contenedor-menu-celular-main');
-const sections = document.querySelectorAll('.section'); // Selecciona todas las secciones
-const menuLinks = document.querySelectorAll('.nav-ul .nav-ul-li a'); // Supongo que los links están en el menú
+  var KEY = 'xanda-inverted';
+  var root = document.documentElement;
 
-contenedorMenu.innerHTML = ''; // Limpia el contenedor antes de agregar los nuevos elementos
-
-menuItems.forEach(item => {
-    // Crea el div contenedor de la opción
-    const div = document.createElement('div');
-    div.classList.add('menu-celular-opciones');
-
-    // Crea el enlace <a> que tendrá el mismo texto y href que el original
-    const a = document.createElement('a');
-    a.textContent = item.textContent;  // Establece el texto del enlace
-    a.href = item.href;  // Asigna el mismo href que el enlace original
-
-    // Añade un evento para cerrar el menú cuando se haga clic en el enlace
-    a.addEventListener('click', () => {
-        cerrar_menu(); // Cierra el menú
-    });
-
-    // Añade el enlace <a> al div
-    div.appendChild(a);
-
-    // Añade el div al contenedor
-    contenedorMenu.appendChild(div);
-});
-
-// Función para abrir el menú del celular
-function abrir_menu() {
-    document.getElementById('menu_celular').style.display = 'flex';
-}
-
-// Función para cerrar el menú del celular
-function cerrar_menu() {
-    document.getElementById('menu_celular').style.display = 'none';
-}
-
-// Función para manejar la visibilidad del menú en función del tamaño de la ventana
-function ajustarMenu() {
-    const menuCelular = document.getElementById('menu_celular');
-    
-    if (window.innerWidth > 800) {
-        // Si la ventana es más grande que 800px, ocultamos el menú
-        menuCelular.style.display = 'none';
-    } else {
-        // Si la ventana es menor o igual a 800px, dejamos el menú según el estado de la variable
-        if (menuCelular.style.display === 'flex') {
-            // Si el menú está visible, lo mantenemos visible
-            menuCelular.style.display = 'flex';
-        } else {
-            // Si no está visible, lo dejamos oculto
-            menuCelular.style.display = 'none';
-        }
+  function apply(on) {
+    root.classList.toggle('inverted', on);
+    var btn = document.getElementById('themeToggle');
+    if (btn) {
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.title = on ? 'Volver al tema oscuro' : 'Invertir paleta';
     }
-}
+  }
 
-ajustarMenu();
-window.addEventListener('resize', ajustarMenu);
+  function toggle() {
+    var on = !root.classList.contains('inverted');
+    apply(on);
+    try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {}
+  }
 
-window.addEventListener("scroll", function() {
-    const header = document.querySelector(".header");
+  /* Aplica la preferencia guardada lo antes posible (evita destello) */
+  var saved = false;
+  try { saved = localStorage.getItem(KEY) === '1'; } catch (e) {}
+  apply(saved);
 
-    if (window.scrollY > 50) {
-        header.classList.add("scrolled");
-    } else {
-        header.classList.remove("scrolled");
-    }
+  /* Botón: usa el del footer o inyecta uno si no existe */
+  function ensureButton() {
+    var btn = document.getElementById('themeToggle');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.className = 'theme-toggle';
+      btn.id = 'themeToggle';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Invertir paleta de colores');
+      btn.setAttribute('aria-pressed', 'false');
+      btn.innerHTML =
+        '<svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true">' +
+          '<circle cx="12" cy="12" r="4.5"/>' +
+          '<path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/>' +
+        '</svg>' +
+        '<svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true">' +
+          '<path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>' +
+        '</svg>';
 
-    // Aquí es donde ya puedes usar "sections"
-    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-
-    sections.forEach((section, index) => {
-        const sectionTop = section.offsetTop - 50;
-        const sectionBottom = sectionTop + section.offsetHeight;
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            if (menuLinks[index]) {
-                menuLinks[index].classList.add("active");
-            }
+      // destino: .foot-bottom > .mono, o el footer a secas
+      var anchor = document.querySelector('footer .foot-bottom .mono') ||
+                   document.querySelector('footer .foot-bottom') ||
+                   document.querySelector('footer .container') ||
+                   document.querySelector('footer');
+      if (anchor) {
+        if (anchor.classList.contains('mono') || anchor.classList.contains('foot-bottom')) {
+          anchor.parentNode.insertBefore(btn, anchor.nextSibling);
+          if (anchor.classList.contains('foot-bottom')) {
+            btn.style.marginLeft = 'auto';
+          }
         } else {
-            if (menuLinks[index]) {
-                menuLinks[index].classList.remove("active");
-            }
+          anchor.appendChild(btn);
         }
-    });
-});
+      } else {
+        return; // no hay footer en esta página
+      }
+    }
+    btn.addEventListener('click', toggle);
+    apply(root.classList.contains('inverted')); // sincroniza icono/título
+  }
 
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ensureButton);
+  } else {
+    ensureButton();
+  }
 
-function abrir_menu_celular(){
-    const menucelular = document.getElementById("id-menu-celular");
-}
+  /* Opcional: atajo de teclado "D" (fuera de inputs) */
+  document.addEventListener('keydown', function (e) {
+    if (e.key.toLowerCase() !== 'd' || e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target.tagName;
+    if (t === 'INPUT' || t === 'TEXTAREA' || t === 'SELECT' || e.target.isContentEditable) return;
+    toggle();
+  });
+})();

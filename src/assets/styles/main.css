@@ -1,50 +1,58 @@
-/*@view-transition{
-  navigation: auto;
-}
-::view-transition-group(*){
-  animation-duration: 0.25s;
-}
-::view-transition-old(root){
-  animation: hola 0.5s forwards;
-}
-::view-transition-new(root){
-  animation: hola-2 0.5s forwards;
-}*/
-@keyframes hola{
-  from{
-    transform: translateX(0px);
-  }
+/* ============================================================
+   main.css — compartido por todas las páginas XandA
+   Botón de inversión de paleta + modo invertido global
+============================================================ */
 
-  to{
-    transform: translateX(-100%);
-  }
-}
-@keyframes hola-2{
-  from{
-    transform: translateX(100%);
-  }
-
-  to{
-    transform: translateX(0px);
-  }
-}
-/* BARRA DE SCROLL */
-::-webkit-scrollbar {
-    width: 10px;
+/* ---------- Botón (colores estables en ambos modos) ---------- */
+.theme-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px; height:40px;
+  border-radius:50%;
+  border: none;
+  background-color: transparent;
+  color:#fff;
+  cursor:pointer;
+  flex:none;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
 }
 
-/* FONDO */
-::-webkit-scrollbar-track {
-    background: #ffffff;
+.theme-toggle:active{ transform:translateY(-1px) scale(.95); }
+.theme-toggle svg{
+  width:18px; height:18px;
+  stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+}
+.theme-toggle .ico-moon{ display:none; }
+
+/* ---------- Modo invertido ---------- */
+html.inverted{
+  filter: invert(1) hue-rotate(180deg);
+  color-scheme: light;              /* inputs/selects nativos acordes */
+}
+/* Los medios vuelven a sus colores naturales (logo, capturas,
+   y los iframes del Visor muestran el sitio real, no invertido) */
+html.inverted img,
+html.inverted video,
+html.inverted iframe,
+html.inverted object,
+html.inverted embed{
+  filter: invert(1) hue-rotate(180deg);
 }
 
-/* BARRA */
-::-webkit-scrollbar-thumb {
-    background: #6C3BFF;
-    border-radius: 10px;
+/* El botón se re-invierte para verse idéntico en ambos modos
+   (el icono indica el modo al que cambiarás) */
+html.inverted .theme-toggle{
+  filter: invert(1) hue-rotate(180deg);
 }
+html.inverted .theme-toggle .ico-sun{ display:none; }
+html.inverted .theme-toggle .ico-moon{ display:block; }
 
-/* HOVER */
-::-webkit-scrollbar-thumb:hover {
-    background: #5728D9;
+/* Transición suave del volteo */
+html{ transition: filter .35s ease; }
+
+@media (prefers-reduced-motion: reduce){
+  html{ transition:none; }
+  .theme-toggle{ transition:none; }
 }
