@@ -1,3 +1,8 @@
+/* ============================================================
+   Lúmina · Conversor & compresor de imágenes
+   Salidas: PNG · JPG · WEBP · AVIF* · ICO
+   (* AVIF solo si el navegador lo soporta)
+============================================================ */
 (function(){
   "use strict";
 
@@ -38,6 +43,16 @@
     }}, 'image/avif');
   })();
 
+  /* asegurar la opción ICO en el select global (no duplica si ya está en el HTML) */
+  (function(){
+    if(!globalFormat.querySelector('option[value="image/x-icon"]')){
+      const opt = document.createElement('option');
+      opt.value = 'image/x-icon';
+      opt.textContent = 'ICO';
+      globalFormat.appendChild(opt);
+    }
+  })();
+
   /* ---------------- helpers ---------------- */
   function fmtBytes(n){
     if(n < 1024) return n + ' B';
@@ -45,21 +60,25 @@
     return (n/(1024*1024)).toFixed(2) + ' MB';
   }
   function extFromMime(m){
-    return { 'image/png':'png','image/jpeg':'jpg','image/webp':'webp','image/avif':'avif','image/bmp':'bmp','image/gif':'gif' }[m] || 'img';
+    return { 'image/png':'png','image/jpeg':'jpg','image/webp':'webp','image/avif':'avif',
+             'image/bmp':'bmp','image/gif':'gif','image/x-icon':'ico','image/vnd.microsoft.icon':'ico' }[m] || 'img';
   }
   function labelFromMime(m){
-    return { 'image/png':'PNG','image/jpeg':'JPG','image/webp':'WEBP','image/avif':'AVIF','image/bmp':'BMP','image/gif':'GIF','image/svg+xml':'SVG' }[m] || (m||'???').split('/').pop().toUpperCase();
+    return { 'image/png':'PNG','image/jpeg':'JPG','image/webp':'WEBP','image/avif':'AVIF',
+             'image/bmp':'BMP','image/gif':'GIF','image/svg+xml':'SVG',
+             'image/x-icon':'ICO','image/vnd.microsoft.icon':'ICO' }[m]
+           || (m||'???').split('/').pop().toUpperCase();
   }
   function detectFormat(file){
     if(file.type) return file.type;
     const ext = file.name.split('.').pop().toLowerCase();
-    const map = {jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',webp:'image/webp',bmp:'image/bmp',gif:'image/gif',svg:'image/svg+xml',avif:'image/avif'};
+    const map = {jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',webp:'image/webp',bmp:'image/bmp',gif:'image/gif',svg:'image/svg+xml',avif:'image/avif',ico:'image/x-icon'};
     return map[ext] || 'application/octet-stream';
   }
   function baseName(name){ return name.replace(/\.[^.]+$/, ''); }
   function defaultTarget(format){
     if(['image/png','image/jpeg','image/webp','image/avif'].includes(format)) return format;
-    return 'image/png'; // bmp / gif / svg fall back to a safe, canvas-friendly target
+    return 'image/png'; // bmp / gif / svg / ico caen a un destino seguro y compatible con canvas
   }
   function uid(){ return 'f' + (++idSeed); }
 
@@ -75,7 +94,7 @@
   function addFiles(fileArr){
     let added = 0;
     [...fileArr].forEach(file=>{
-      if(!file.type.startsWith('image/') && !/\.(png|jpe?g|webp|bmp|gif|svg)$/i.test(file.name)){
+      if(!file.type.startsWith('image/') && !/\.(png|jpe?g|webp|bmp|gif|svg|ico)$/i.test(file.name)){
         toast(file.name + ' no es una imagen compatible', 'bad');
         return;
       }
@@ -192,6 +211,53 @@
     zipBtn.textContent = 'Descargar todo (.zip)';
   });
 
+  /* ---------------- ICO encoder ---------------- */
+  const ICO_SIZES = [16, 24, 32, 48, 64, 128, 256];
+
+  function nearestIcoSize(n){
+    return ICO_SIZES.reduce((best, s) => Math.abs(s - n) < Math.abs(best - n) ? s : best);
+  }
+
+  /* Encaja la imagen completa (contain) en un lienzo cuadrado centrado */
+  function buildIcoCanvas(img, scale){
+    const raw = Math.max(img.naturalWidth, img.naturalHeight) * (scale || 1);
+    const side = nearestIcoSize(Math.max(16, Math.round(raw)));
+    const canvas = document.createElement('canvas');
+    canvas.width = side; canvas.height = side;
+    const ctx = canvas.getContext('2d');
+    const ratio = Math.min(side / img.naturalWidth, side / img.naturalHeight);
+    const w = Math.max(1, Math.round(img.naturalWidth * ratio));
+    const h = Math.max(1, Math.round(img.naturalHeight * ratio));
+    ctx.drawImage(img, Math.round((side - w) / 2), Math.round((side - h) / 2), w, h);
+    return canvas;
+  }
+
+  /* Contenedor ICO (ICONDIR + ICONDIRENTRY) con el PNG de canvas embebido */
+  function canvasToIcoBlob(canvas){
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(async (pngBlob) => {
+        try{
+          if(!pngBlob) throw new Error('no-png');
+          const png = new Uint8Array(await pngBlob.arrayBuffer());
+          const header = new ArrayBuffer(22);
+          const dv = new DataView(header);
+          dv.setUint16(0, 0, true);              // reservado
+          dv.setUint16(2, 1, true);              // tipo: 1 = icono
+          dv.setUint16(4, 1, true);              // 1 imagen
+          dv.setUint8(6,  canvas.width  >= 256 ? 0 : canvas.width);   // 0 = 256
+          dv.setUint8(7,  canvas.height >= 256 ? 0 : canvas.height);
+          dv.setUint8(8,  0);                    // colores en paleta
+          dv.setUint8(9,  0);                    // reservado
+          dv.setUint16(10, 1, true);             // planos
+          dv.setUint16(12, 32, true);            // bpp
+          dv.setUint32(14, png.length, true);    // bytes de la imagen
+          dv.setUint32(18, 22, true);            // offset de los datos
+          resolve(new Blob([header, png], { type: 'image/x-icon' }));
+        }catch(err){ reject(err); }
+      }, 'image/png');
+    });
+  }
+
   /* ---------------- conversion core ---------------- */
   function loadImage(url){
     return new Promise((resolve,reject)=>{
@@ -207,23 +273,30 @@
     render();
     try{
       const img = await loadImage(entry.url);
-      const scale = entry.scale || 1;
-      const w = Math.max(1, Math.round(img.naturalWidth * scale));
-      const h = Math.max(1, Math.round(img.naturalHeight * scale));
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      const ctx = canvas.getContext('2d');
-      if(entry.target === 'image/jpeg'){
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0,0,w,h);
-      }
-      ctx.drawImage(img, 0, 0, w, h);
-
       const mime = entry.target;
-      const quality = (mime === 'image/png') ? undefined : (entry.quality/100);
+      let blob;
 
-      const blob = await new Promise(resolve=> canvas.toBlob(resolve, mime, quality));
-      if(!blob) throw new Error('no-blob');
+      if(mime === 'image/x-icon'){
+        /* ICO: se construye a mano (ningún navegador lo codifica nativamente) */
+        const canvas = buildIcoCanvas(img, entry.scale || 1);
+        blob = await canvasToIcoBlob(canvas);
+      } else {
+        const scale = entry.scale || 1;
+        const w = Math.max(1, Math.round(img.naturalWidth * scale));
+        const h = Math.max(1, Math.round(img.naturalHeight * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        if(mime === 'image/jpeg'){
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0,0,w,h);
+        }
+        ctx.drawImage(img, 0, 0, w, h);
+
+        const quality = (mime === 'image/png') ? undefined : (entry.quality/100);
+        blob = await new Promise(resolve=> canvas.toBlob(resolve, mime, quality));
+        if(!blob) throw new Error('no-blob');
+      }
 
       if(entry.outUrl) URL.revokeObjectURL(entry.outUrl);
       entry.outBlob = blob;
@@ -336,7 +409,7 @@
 
   function targetOptions(current){
     const opts = [
-      ['image/png','PNG'], ['image/jpeg','JPG'], ['image/webp','WEBP']
+      ['image/png','PNG'], ['image/jpeg','JPG'], ['image/webp','WEBP'], ['image/x-icon','ICO']
     ];
     if(avifSupported) opts.push(['image/avif','AVIF']);
     return opts.map(([v,l])=>`<option value="${v}" ${v===current?'selected':''}>${l}</option>`).join('');
@@ -420,69 +493,4 @@
   document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
   render();
-})();
-
-
-
-
-
-/* ============================================================
-   XandA · Header — comportamiento
-   - Fondo/sombra del nav al hacer scroll
-   - Menú móvil (burger)
-   - Cerrar barra de anuncio
-   - Hint ⌘K / Ctrl K según plataforma
-   - Botón "Buscar": emite el evento 'xanda:cmdk'
-     (si la página tiene paleta de comandos, la escucha ahí)
-============================================================ */
-(function () {
-  'use strict';
-
-  /* --- Nav con fondo al hacer scroll --- */
-  var nav = document.getElementById('navbar');
-  if (nav) {
-    var onScroll = function () {
-      nav.classList.toggle('scrolled', window.scrollY > 12);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-
-  /* --- Menú móvil --- */
-  var burger = document.getElementById('burger');
-  var mobileMenu = document.getElementById('mobileMenu');
-  if (burger && mobileMenu) {
-    burger.addEventListener('click', function () {
-      mobileMenu.classList.toggle('open');
-    });
-    // cerrar el menú al navegar
-    mobileMenu.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        mobileMenu.classList.remove('open');
-      });
-    });
-  }
-
-  /* --- Barra de anuncio: cerrar --- */
-  var annClose = document.getElementById('annClose');
-  if (annClose) {
-    annClose.addEventListener('click', function () {
-      var ann = document.getElementById('announ');
-      if (ann) ann.remove();
-    });
-  }
-
-  /* --- Atajo según plataforma --- */
-  var kbdHint = document.getElementById('kbdHint');
-  if (kbdHint) {
-    kbdHint.textContent = /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘K' : 'Ctrl K';
-  }
-
-  /* --- Botón Buscar → evento para la paleta de comandos --- */
-  var cmdkBtn = document.getElementById('cmdkBtn');
-  if (cmdkBtn) {
-    cmdkBtn.addEventListener('click', function () {
-      document.dispatchEvent(new CustomEvent('xanda:cmdk'));
-    });
-  }
 })();
