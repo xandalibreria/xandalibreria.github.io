@@ -1,246 +1,391 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZJ3V595Z8"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Librería de recursos · XandA</title>
+  <meta name="description" content="Explora la librería de recursos de XandA: íconos listos para copiar con una sola clase, guía de uso y lo que viene en las próximas fases.">
+  <meta name="theme-color" content="#0E0C1C">
 
-gtag('config', 'G-HZJ3V595Z8');
-</script>
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Librería — XandA</title>
-<meta name="description" content="Estructuras de proyecto, plantillas, componentes y animaciones listas para descargar y usar en tu sitio web.">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- Favicon -->
-    <link rel="icon" href="/src/assets/images/icons/favicon.ico">
-    <link rel="icon" href="/src/assets/images/icons/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="/src/assets/images/icons/favicon.ico" type="image/x-icon">
-
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/src/assets/images/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/src/assets/images/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/src/assets/images/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/src/assets/images/apple-touch-icon-76x76.png">
-
-    <!-- Iconos para Android -->
-    <link rel="icon" sizes="192x192" href="/src/assets/images/android-chrome-192x192.png">
-    <link rel="icon" sizes="512x512" href="/src/assets/images/android-chrome-512x512.png">
-
-    <!-- Otros formatos -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/src/assets/images/favicon-16x16.png">
-
-<!-- AWESOME  -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-<link rel="stylesheet" href="../assets/styles/inicio.css">
+  <!-- Estilos: main.css SIEMPRE primero -->
+  <link rel="stylesheet" href="/src/assets/styles/main.css">
+  <link rel="stylesheet" href="/src/assets/styles/libreria.css">
 </head>
-<body>
+<body data-footer-theme="dark">
 
-    <!-- Header -->
-    <header class="header" id="id-header">
-        <a href="/index.html">
-            <img src="/src/assets/images/icons/logo.png" alt="XandA" title="XandA" class="imagen-logo">
-        </a>
-        <nav class="navbar">
-            <ul class="nav-links">
-                <li>
-                    <a href="/src/pages/constructor.html">
-                        <i class="fa-regular fa-pen-to-square"></i>Constructor
-                    </a>
-                </li>
-                <li>
-                    <a href="/src/pages/compresor.html">
-                        <i class="fa-regular fa-image"></i>Convertidor
-                    </a>
-                </li>
-                <li>
-                    <a href="/src/pages/visor.html">
-                        <i class="fa-solid fa-mobile-screen-button"></i>Visor
-                    </a>
-                </li>
-                <li>
-                    <a href="#id-ide">
-                        <i class="fa-brands fa-uncharted"></i> IDE
-                    </a>
-                </li>
-                <li>
-                    <a href="/src/pages/libreria.html" class="boton-1">
-                        <i class="fa-solid fa-globe"></i> LIBRERÍA
-                    </a>
-                </li>
-            </ul>
-            <i class="fa-solid fa-bars-staggered" onclick="abrir_menu_celular()"></i>
-        </nav>
-    </header>
+  <a class="skip" href="#explorador">Saltar al explorador de íconos</a>
 
-<section class="hero">
-    <div class="container">
-        <h1>Todo lo que necesitas para <span class="accent">construir</span> tu sitio, en un solo lugar</h1>
-        <p class="lead">Estructuras de proyecto, plantillas con diseño incluido, componentes de interfaz y animaciones — listos para descargar, inspeccionar y usar directamente en tu carpeta de trabajo.</p>
+  <main>
 
-        <div class="search-wrap">
-        <div class="search-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input id="searchInput" type="text" placeholder="Busca “WordPress”, “modal”, “portafolio”, “fade in”…" autocomplete="off">
-            <span class="search-kbd">/</span>
-        </div>
+    <!-- ==================== PORTADA ==================== -->
+    <section class="portada" id="portada">
+      <div class="container portada-grid">
+
+        <div class="portada-copy" data-reveal>
+          <p class="sec-tag">Librería de recursos · Fase 01</p>
+          <h1>Recursos que se copian, se pegan y <span class="grad-txt">enamoran</span>.</h1>
+          <p class="portada-sub">
+            Bienvenido a la librería de XandA. En su primera entrega: una colección
+            de íconos con estilo propio, listos para buscar, probar y llevarse a
+            cualquier proyecto con una sola clase.
+          </p>
+          <div class="portada-acciones">
+            <a class="btn btn-primary" href="#explorador">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              Explorar íconos
+            </a>
+            <a class="btn btn-ghost" href="#guia">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              Cómo se usan
+            </a>
+          </div>
+          <dl class="portada-datos" id="portadaDatos">
+            <div><dt data-conteo="iconos">0</dt><dd>íconos listos</dd></div>
+            <div><dt data-conteo="categorias">0</dt><dd>categorías</dd></div>
+            <div><dt>1</dt><dd>clase por ícono</dd></div>
+            <div><dt>0</dt><dd>dependencias</dd></div>
+          </dl>
         </div>
 
-        <div class="stat-row">
-        <div class="stat"><b>24</b><span>Recursos</span></div>
-        <div class="stat"><b>5</b><span>Categorías</span></div>
-        <div class="stat"><b>$0</b><span>Costo, siempre</span></div>
+        <div class="portada-visual" data-reveal style="--d:.15s">
+          <div class="portada-brillo" aria-hidden="true"></div>
+
+          <div class="especimen">
+            <div class="especimen-barra">
+              <span class="wdot r"></span><span class="wdot y"></span><span class="wdot g"></span>
+              <span class="especimen-tag">vista previa</span>
+              <span class="especimen-num" id="espNum">01 / 10</span>
+            </div>
+            <div class="especimen-escenario">
+              <div class="especimen-icono" id="espIcono" title="Toca para copiar la clase" aria-live="polite"></div>
+            </div>
+            <p class="especimen-nombre" id="espNombre">—</p>
+            <code class="especimen-codigo" id="espCodigo"></code>
+            <span class="especimen-pista">Toca el ícono o la clase para copiarla</span>
+          </div>
+
+          <span class="flotante flotante-1" data-icono="estrella" aria-hidden="true"></span>
+          <span class="flotante flotante-2" data-icono="gota" aria-hidden="true"></span>
+          <span class="flotante flotante-3" data-icono="microfono" aria-hidden="true"></span>
         </div>
-    </div>
-</section>
 
-<div class="tab-bar-outer">
-    <div class="container">
-        <div class="tab-bar" id="tabBar"></div>
-    </div>
-</div>
+      </div>
+    </section>
 
-<div id="sections"></div>
+    <!-- ==================== EXPLORADOR ==================== -->
+    <section class="seccion-explorador" id="explorador">
+      <div class="container">
 
+        <div class="sec-head" data-reveal>
+          <p class="sec-tag">Explorador de íconos</p>
+          <h2>Encuentra el ícono <span class="grad-txt">perfecto</span></h2>
+          <p class="sec-sub">
+            Busca por nombre, filtra por categoría y ajusta el tamaño de vista previa.
+            Un clic en cualquier ícono abre su ficha con el código listo para copiar.
+          </p>
+        </div>
 
+        <!-- Barra de herramientas (fija dentro de la sección) -->
+        <div class="barra" id="barra">
+          <div class="barra-fila">
+            <div class="buscador">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <input id="buscadorInput" type="search" placeholder="Buscar ícono… por ejemplo “luna”, “correo”, “capas”" autocomplete="off" aria-label="Buscar ícono por nombre">
+              <kbd id="buscadorKbd">/</kbd>
+            </div>
+            <div class="segmentos" id="segmentos" role="group" aria-label="Tamaño de vista previa">
+              <button type="button" data-tam="20" aria-pressed="false">20</button>
+              <button type="button" data-tam="28" aria-pressed="true">28</button>
+              <button type="button" data-tam="40" aria-pressed="false">40</button>
+            </div>
+          </div>
+          <div class="chips" id="chips" role="group" aria-label="Filtrar por categoría"></div>
+        </div>
 
+        <p class="resultado-info" id="infoResultado" role="status" aria-live="polite"></p>
 
+        <div class="malla en-espera" id="malla"></div>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="contenedor-opciones-footer footer-25-100" style="align-content: center; justify-content: start;">
-        <img src="/src/assets/images/icons/logo.png" alt="XandA" title="XandA" loading="lazy" class="footer-imagen">
-        <p style="width: 100%;">La librería que impulsa tu proyecto</p>
-    </div>
-    <div class="contenedor-opciones-footer">
-        <p style="font-size: 17px;">Implementación</p>
-        <a>Introducción</a>
-        <a>CDN</a>
-        <a>Instalación - npm</a>
-        <a>Instalación - manual</a>
-        <a>Cómo usarlo</a>
-    </div>
-    <div class="contenedor-opciones-footer">
-        <p style="font-size: 17px;">Ejemplos</p>
-        <a>Estructuras</a>
-        <a>Animaciones</a>
-        <a>Carruseles</a>
-        <a>Formularios</a>
-        <a>Ventanas emergentes</a>
-        <a>Alerts</a>
-    </div>
-    <div class="footer-barra">
-        <p>© 2026 XandA</p>
-    </div>
-</footer>
+        <div class="sin-resultados" id="sinResultados" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <h3>Nada por aquí… todavía</h3>
+          <p>Prueba con otra palabra o explora una categoría distinta.</p>
+          <button class="btn btn-ghost" id="btnLimpiar" type="button">Limpiar búsqueda</button>
+        </div>
 
+        <noscript><p class="aviso-js">Activa JavaScript para explorar la librería de íconos.</p></noscript>
 
+      </div>
+    </section>
 
+    <!-- ==================== GUÍA DE USO ==================== -->
+    <section class="seccion-aguia" id="guia">
+      <div class="container">
 
+        <div class="sec-head center" data-reveal>
+          <p class="sec-tag">Guía de uso</p>
+          <h2>Tres pasos y <span class="grad-txt">listo</span></h2>
+          <p class="sec-sub">
+            Sin paquetes ni instalaciones: una hoja de estilos, una clase y control
+            total desde tu propio CSS.
+          </p>
+        </div>
 
-<!-- ---------------- Modal simple (estructuras / constructor) ---------------- -->
-<div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-        <button class="modal-close" id="modalCloseBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <ol class="pasos">
+
+          <li class="paso" data-reveal>
+            <div class="paso-num">01</div>
+            <h3>Conecta la colección</h3>
+            <p>Una sola hoja de estilos trae todos los íconos a tu sitio. Pégala dentro del <code class="mini-codigo">&lt;head&gt;</code> de tu página y no vuelve a molestar.</p>
+            <!-- Cambia el enlace por tu CDN real cuando publiques la fuente -->
+            <div class="ventana">
+              <div class="ventana-barra">
+                <span class="wdot r"></span><span class="wdot y"></span><span class="wdot g"></span>
+                <span class="ventana-nombre">pagina.html</span>
+                <button class="ventana-copiar" type="button" aria-label="Copiar código">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+              <pre><code><span class="tk-com">&lt;!-- Una sola vez, en el head --&gt;</span>
+<span class="tk-p">&lt;</span><span class="tk-tag">link</span> <span class="tk-attr">rel</span><span class="tk-p">=</span><span class="tk-str">"stylesheet"</span> <span class="tk-attr">href</span><span class="tk-p">=</span><span class="tk-str">"AHORA:  https://xandalibreria.github.io/src/assets/styles/xa-iconos.css"</span><span class="tk-p">&gt;</span></code></pre>
+            </div>
+          </li>
+
+          <li class="paso" data-reveal style="--d:.1s">
+            <div class="paso-num">02</div>
+            <h3>Invoca el ícono</h3>
+            <p>Cada ícono vive en una etiqueta con su propia clase. Escríbela donde quieras verlo: hereda el color del texto y fluye con tu contenido.</p>
+            <div class="ventana">
+              <div class="ventana-barra">
+                <span class="wdot r"></span><span class="wdot y"></span><span class="wdot g"></span>
+                <span class="ventana-nombre">pagina.html</span>
+                <button class="ventana-copiar" type="button" aria-label="Copiar código">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+              <pre><code><span class="tk-p">&lt;</span><span class="tk-tag">i</span> <span class="tk-attr">class</span><span class="tk-p">=</span><span class="tk-str">"xa-computadora"</span><span class="tk-p">&gt;&lt;/</span><span class="tk-tag">i</span><span class="tk-p">&gt;</span></code></pre>
+            </div>
+          </li>
+
+          <li class="paso" data-reveal style="--d:.2s">
+            <div class="paso-num">03</div>
+            <h3>Hazlo tuyo</h3>
+            <p>Tamaño, color, margen… todo se controla desde tu CSS como cualquier otro texto. Sin trucos ni variables raras.</p>
+            <div class="ventana">
+              <div class="ventana-barra">
+                <span class="wdot r"></span><span class="wdot y"></span><span class="wdot g"></span>
+                <span class="ventana-nombre">estilos.css</span>
+                <button class="ventana-copiar" type="button" aria-label="Copiar código">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+              <pre><code><span class="tk-tag">.xa-computadora</span> <span class="tk-p">{</span>
+  <span class="tk-prop">font-size</span><span class="tk-p">:</span> <span class="tk-str">32px</span><span class="tk-p">;</span>   <span class="tk-com">/* tamaño */</span>
+  <span class="tk-prop">color</span><span class="tk-p">:</span> <span class="tk-str">#8B7CF7</span><span class="tk-p">;</span>  <span class="tk-com">/* color  */</span>
+<span class="tk-p">}</span></code></pre>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- ==================== HOJA DE RUTA ==================== -->
+    <section class="seccion-camino" id="camino">
+      <div class="container">
+
+        <div class="sec-head" data-reveal>
+          <p class="sec-tag">Hoja de ruta</p>
+          <h2>Lo que viene en las <span class="grad-txt">próximas fases</span></h2>
+          <p class="sec-sub">
+            La librería crecerá por entregas. Esto es lo que estamos preparando
+            mientras los íconos se quedan cuidando el lugar.
+          </p>
+        </div>
+
+        <ul class="camino">
+          <li class="camino-fila" data-reveal>
+            <span class="camino-num">/02</span>
+            <span class="camino-icono" data-icono="capas" aria-hidden="true"></span>
+            <div>
+              <h3>Plantillas</h3>
+              <p>Secciones y páginas completas listas para copiar, pegar y personalizar.</p>
+            </div>
+            <span class="camino-chip">Fase 2 · en camino</span>
+          </li>
+          <li class="camino-fila" data-reveal style="--d:.06s">
+            <span class="camino-num">/03</span>
+            <span class="camino-icono" data-icono="rayo" aria-hidden="true"></span>
+            <div>
+              <h3>Efectos y animaciones</h3>
+              <p>Transiciones, entradas y micro-interacciones que se activan con una línea.</p>
+            </div>
+            <span class="camino-chip">Fase 2 · en camino</span>
+          </li>
+          <li class="camino-fila" data-reveal style="--d:.12s">
+            <span class="camino-num">/04</span>
+            <span class="camino-icono" data-icono="cuadricula" aria-hidden="true"></span>
+            <div>
+              <h3>Componentes</h3>
+              <p>Botones, tarjetas, formularios y navegación coherentes con tu marca.</p>
+            </div>
+            <span class="camino-chip">Fase 3 · en camino</span>
+          </li>
+          <li class="camino-fila" data-reveal style="--d:.18s">
+            <span class="camino-num">/05</span>
+            <span class="camino-icono" data-icono="gota" aria-hidden="true"></span>
+            <div>
+              <h3>Tipografía y color</h3>
+              <p>Escalas tipográficas y paletas armadas para combinar con los recursos.</p>
+            </div>
+            <span class="camino-chip">Fase 3 · en camino</span>
+          </li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- ==================== CIERRE ==================== -->
+    <section class="seccion-cta">
+      <div class="container">
+        <div class="cta-panel" data-reveal>
+          <h2>¿Falta un ícono que <span class="grad-txt">necesitas</span>?</h2>
+          <p>Cuéntanos qué recurso te haría la vida más fácil y podría llegar en la próxima entrega de la librería.</p>
+          <div class="cta-botones">
+            <button class="btn btn-primary" id="btnSugerir" type="button">
+              <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              Sugerir un ícono
+            </button>
+            <a class="btn btn-ghost" href="#explorador">Seguir explorando</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FICHA DEL ÍCONO (cajón lateral) ==================== -->
+  <div class="cajon-fondo" id="cajonFondo"></div>
+  <aside class="cajon" id="cajon" role="dialog" aria-modal="true" aria-labelledby="cajonNombre">
+    <div class="cajon-cabecera">
+      <span class="cajon-tag">Ficha del ícono</span>
+      <span class="cajon-contador" id="cajonContador"></span>
+      <div class="cajon-nav">
+        <button id="cajonPrev" type="button" aria-label="Ícono anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </button>
-        <div class="modal-visual">
-            <div class="contenedor-encabezado-ventana-emergente">
-                <div class="m-icon" id="modalIcon"></div>
-                <div>
-                    <p style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.75; margin: 0%; padding: 0%;" id="modalCatLabel"></p>
-                    <h3 style="color:#fff;margin-top:6px;" id="modalName"></h3>
-                </div>
-            </div>
-            <div class="code-window">
-                <div class="cw-bar"><span></span><span></span><span></span><span class="cw-title">vista previa</span></div>
-                <pre id="modalCode"></pre>
-            </div>
-        </div>
-        <div class="modal-body">
-            <h3 id="modalNameBody" style="display:none;"></h3>
-            <p class="mdesc" id="modalDesc"></p>
-        <div class="file-list" id="modalFileList"></div>
-            <div class="modal-actions">
-                <button class="btn btn-primary" id="modalDownload">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Descargar
-                </button>
-                <span class="card-meta" id="modalMeta" style="margin-left:auto;align-self:center;"></span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ---------------- Inspector (componentes / animaciones / plantillas) ---------------- -->
-<div class="modal-overlay" id="inspectorOverlay">
-    <div class="modal inspector-modal">
-        <button class="modal-close" id="inspectorCloseBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <button id="cajonNext" type="button" aria-label="Ícono siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
-
-        <div class="inspector-header">
-            <div class="insp-icon" id="inspIcon"></div>
-            <div class="insp-headtext">
-                <p class="insp-cat" id="inspCatLabel"></p>
-                <h3 id="inspName"></h3>
-                <p class="insp-desc" id="inspDesc"></p>
-                <div class="insp-meta-row">
-                    <span class="insp-meta" id="inspFileCount"></span>
-                    <div class="insp-tags" id="inspTags"></div>
-                </div>
-            </div>
-            <div class="insp-actions">
-                <button class="btn btn-ghost btn-sm" id="inspCopyAllBtn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    Copiar todo
-                </button>
-                <button class="btn btn-primary btn-sm" id="inspDownloadBtn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Descargar
-                </button>
-            </div>
-        </div>
-
-        <div class="inspector-tabs" id="inspectorTabs"></div>
-
-        <div class="inspector-body">
-            <div class="inspector-pane" id="inspectorCodePane">
-                <div class="code-toolbar">
-                    <span class="code-toolbar-label" id="inspPaneLabel"></span>
-                    <button class="btn-copy-pane" id="inspCopyPaneBtn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        Copiar
-                    </button>
-                </div>
-                <pre id="inspectorCode"></pre>
-            </div>
-            <div class="inspector-pane" id="inspectorPreviewPane" style="display:none;">
-                <iframe id="inspectorIframe" class="inspector-iframe" title="Vista previa" sandbox="allow-scripts"></iframe>
-            </div>
-        </div>
+        <button id="cajonCerrar" type="button" aria-label="Cerrar ficha">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
     </div>
-</div>
 
-<div class="toast" id="toast">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-    <span>Descargado</span>
-</div>
+    <div class="cajon-preview" id="cajonPreview"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="../assets/scripts/data.js"></script>
-<script src="../assets/scripts/core.js"></script>
-<script src="../assets/scripts/inicio.js"></script>
-<script src="../assets/scripts/main.js"></script>
+    <span class="cajon-etiqueta">Tamaño · <span id="cajonTamVal">64</span> px</span>
+    <input class="cajon-rango" id="cajonTam" type="range" min="24" max="112" step="4" value="64" aria-label="Tamaño de vista previa">
+
+    <span class="cajon-etiqueta">En otros tamaños</span>
+    <div class="cajon-tamanos" id="cajonTamanos"></div>
+
+    <div class="cajon-datos">
+      <h3 id="cajonNombre">—</h3>
+      <span class="cajon-categoria" id="cajonCategoria">—</span>
+      <p class="cajon-clase-hint">Úsalo en tu HTML con la clase:</p>
+      <div class="ventana">
+        <div class="ventana-barra">
+          <span class="wdot r"></span><span class="wdot y"></span><span class="wdot g"></span>
+          <span class="ventana-nombre">clase</span>
+          <button class="ventana-copiar" type="button" aria-label="Copiar clase">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+        <pre><code id="cajonCodigo"></code></pre>
+      </div>
+      <button class="btn btn-primary cajon-copiar" id="cajonCopiar" type="button">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar clase
+      </button>
+      <p class="cajon-nota">El nombre de la clase nunca lleva acentos, espacios ni mayúsculas.</p>
+    </div>
+  </aside>
+
+
+
+
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+        <div class="foot-grid">
+            <div class="foot-brand">
+            <a class="brand" href="#hero">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 8 L30 32" stroke="#8B7CF7" stroke-width="9" stroke-linecap="round" opacity=".5"/><path d="M30 8 L10 32" stroke="#8B7CF7" stroke-width="9" stroke-linecap="round"/></svg>
+                XandA
+            </a>
+            <p>La plataforma todo-en-uno para diseñar, desarrollar y publicar proyectos web, con una librería de recursos lista para producción.</p>
+            <form class="nl" id="nlForm">
+                <input type="email" id="nlEmail" placeholder="tu@correo.dev" aria-label="Correo">
+                <button type="submit">Unirme</button>
+            </form>
+            <div class="socials">
+                <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17.3 4.9 18.3 5.2 18.3 5.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .4.2.7.8.6a11.5 11.5 0 0 0 7.6-10.9C23.5 5.6 18.4.5 12 .5Z"/></svg></a>
+                <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.8 7.8L23.3 22h-6.3l-4.9-6.5L6.5 22H3.4l7.3-8.3L1 2h6.4l4.5 5.9L18.9 2Zm-1.1 18h1.7L7.1 3.7H5.3L17.8 20Z"/></svg></a>
+                <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 7.2a3 3 0 0 0-2.1-2.2C19.5 4.5 12 4.5 12 4.5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.2 32 32 0 0 0 0 12a32 32 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.2c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.2A32 32 0 0 0 24 12a32 32 0 0 0-.5-4.8ZM9.5 15.6V8.4L15.8 12l-6.3 3.6Z"/></svg></a>
+                <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.2.4a18 18 0 0 1 4.6 2.3 15 15 0 0 0-13.6 0A18 18 0 0 1 10.8 3.4L10.6 3a19.8 19.8 0 0 0-4.9 1.5A20.4 20.4 0 0 0 2.2 18a20 20 0 0 0 6 3l.5-.7a13 13 0 0 1-2.1-1l.5-.4a14.2 14.2 0 0 0 12 0l.5.4a13 13 0 0 1-2.1 1l.5.8a20 20 0 0 0 6-3.1 20.3 20.3 0 0 0-3.7-13.6ZM8.7 15.3c-1.2 0-2.1-1-2.1-2.3s.9-2.3 2.1-2.3 2.2 1 2.1 2.3c0 1.3-.9 2.3-2.1 2.3Zm6.6 0c-1.2 0-2.1-1-2.1-2.3s.9-2.3 2.1-2.3 2.2 1 2.1 2.3c0 1.3-.9 2.3-2.1 2.3Z"/></svg></a>
+            </div>
+            </div>
+            <div class="foot-col">
+            <h4>Herramientas</h4>
+            <a href="#row-constructor">Constructor</a>
+            <a href="#row-libreria">Librería</a>
+            <a href="#row-ide">IDE</a>
+            <a href="#row-convertidor">Convertidor</a>
+            <a href="#row-visor">Visor</a>
+            <a href="#row-json">JSON Builder</a>
+            </div>
+            <div class="foot-col">
+            <h4>Librería</h4>
+            <a href="#libreria">Plantillas</a><a href="#libreria">Animaciones</a><a href="#libreria">Efectos</a><a href="#libreria">Transiciones</a><a href="#libreria">Componentes</a>
+            </div>
+            <div class="foot-col">
+            <h4>Recursos</h4>
+            <a href="#">Documentación</a><a href="#">Guías</a><a href="#">Changelog</a><a href="#">Soporte</a><a href="#">Contacto</a>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <span>© 2025 XandA. Todos los derechos reservados.</span>
+            <span class="mono">const vida = <b>construir()</b>; // ✦ v3.0</span>
+            <button class="theme-toggle" id="themeToggle" type="button"
+                    aria-label="Invertir paleta de colores" aria-pressed="false"
+                    title="Invertir paleta">
+            <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="4.5"/>
+                <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/>
+            </svg>
+            <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+            </svg>
+            </button>
+        </div>
+        </div>
+    </footer>
+
+
+
+
+
+  <!-- Scripts: base de datos → main.js compartido → lógica de la página -->
+  <script src="/src/assets/scripts/libreria-iconos.js"></script>
+  <script src="/src/assets/scripts/main.js"></script>
+  <script src="/src/assets/scripts/libreria.js"></script>
 </body>
 </html>
