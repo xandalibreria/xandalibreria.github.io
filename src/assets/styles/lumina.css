@@ -1106,3 +1106,12 @@ input[type=range]::-moz-range-thumb {
         align-items: stretch;
     }
 }
+
+/* Elementos de Lúmina con fondo degradado + texto blanco:
+   contra-filtro para verse nativos en ambos temas */
+html.inverted .browse-btn,
+html.inverted .shifter .sq,
+html.inverted .guide-card .tag,
+html.inverted .stat-card.accent {
+  filter: invert(1) hue-rotate(180deg);
+}

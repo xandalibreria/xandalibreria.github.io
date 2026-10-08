@@ -1012,3 +1012,13 @@ html {
     transition: none
   }
 }
+
+/* ================= ELEMENTOS CON TEXTO BLANCO FIJO =================
+   Fondos de marca + texto blanco: contra-filtro para que se vean
+   IDÉNTICOS en ambos temas (el filtro global los cancela). */
+html.inverted .btn-primary,
+html.inverted .nav-links .btn-lib,
+html.inverted .mobile-menu .btn-lib,
+html.inverted .nl button {
+  filter: invert(1) hue-rotate(180deg);
+}
